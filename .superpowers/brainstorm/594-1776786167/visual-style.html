@@ -1,0 +1,95 @@
+<h2>神泉抽奖弹窗优化方向</h2>
+<p class="subtitle">重点比较弹窗层级、禁用按钮压抑感、底部奖池槽位感，以及玻璃拟态深度</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">A. 保守增强</div>
+        <div class="mockup-body" style="background: radial-gradient(circle at top, rgba(45,212,191,0.12), rgba(2,6,23,0.96)); padding: 16px;">
+          <div style="border:1px solid rgba(255,255,255,0.12); border-radius:28px; background:linear-gradient(180deg, rgba(10,15,28,0.92), rgba(10,15,28,0.82)); padding:18px; box-shadow:0 22px 70px rgba(0,0,0,0.62);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <div>
+                <div class="label">Sacred Spring</div>
+                <div style="font-size:20px; font-weight:800;">神泉商店</div>
+              </div>
+              <div style="width:34px; height:34px; border-radius:999px; border:1px solid rgba(255,255,255,0.12);"></div>
+            </div>
+            <div class="placeholder" style="height:120px; border-radius:22px; background:linear-gradient(180deg, rgba(15,23,42,0.72), rgba(2,6,23,0.92));">奖励展示区</div>
+            <div style="margin:16px 0 10px; border-radius:999px; padding:12px 16px; border:1px solid rgba(255,255,255,0.12); background:linear-gradient(180deg, rgba(20,184,166,0.9), rgba(4,120,87,1)); text-align:center; font-weight:800;">触碰神圣之源</div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <div style="flex:1; border-radius:16px; background:rgba(15,23,42,0.42); border:1px solid rgba(255,255,255,0.1); padding:8px; text-align:center;">槽位感</div>
+              <div style="flex:1; border-radius:16px; background:rgba(15,23,42,0.42); border:1px solid rgba(255,255,255,0.1); padding:8px; text-align:center;">普通卡片</div>
+              <div style="flex:1; border-radius:16px; background:rgba(15,23,42,0.42); border:1px solid rgba(255,255,255,0.1); padding:8px; text-align:center;">普通卡片</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>最小改动</h3>
+      <p>增加细边框和轻发光，标题入场，但整体结构基本不动，改动风险最低。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">B. 平衡推荐</div>
+        <div class="mockup-body" style="background: radial-gradient(circle at top, rgba(103,232,249,0.18), rgba(2,6,23,0.97)); padding: 16px;">
+          <div style="border:1px solid rgba(255,255,255,0.14); border-radius:30px; background:linear-gradient(180deg, rgba(9,14,30,0.95), rgba(11,19,36,0.78)); padding:18px; box-shadow:0 0 20px rgba(100,200,255,0.12), 0 28px 90px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.12); backdrop-filter:blur(18px);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px;">
+              <div>
+                <div class="label">Limited Exchange</div>
+                <div style="font-size:22px; font-weight:900;">神泉商店</div>
+                <div style="opacity:0.72; font-size:12px; margin-top:4px;">献祭金币，换取神泉赐福</div>
+              </div>
+              <div style="width:36px; height:36px; border-radius:999px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.06);"></div>
+            </div>
+            <div class="placeholder" style="height:120px; border-radius:24px; background:linear-gradient(180deg, rgba(15,23,42,0.66), rgba(2,6,23,0.94)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);">奖励展示区</div>
+            <div style="margin:16px 0 10px; border-radius:999px; padding:12px 16px; background:linear-gradient(180deg, rgba(20,184,166,1), rgba(6,95,70,1)); box-shadow:0 12px 28px rgba(20,184,166,0.28), inset 0 1px 0 rgba(255,255,255,0.25); text-align:center; font-weight:900;">触碰神圣之源</div>
+            <div style="margin-top:10px; border-radius:999px; padding:12px 16px; border:1px solid rgba(248,113,113,0.22); background:rgba(15,23,42,0.84); color:#f87171; text-align:center; font-weight:900; opacity:0.78; box-shadow:inset 0 0 14px rgba(248,113,113,0.1);">金币储备不足</div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <div style="flex:1; border-radius:18px; background:rgba(15,23,42,0.58); border:1px solid rgba(255,255,255,0.09); padding:8px; text-align:center; box-shadow:0 10px 26px rgba(0,0,0,0.24), inset 0 1px 0 rgba(255,255,255,0.06);">选中槽位</div>
+              <div style="flex:1; border-radius:18px; background:rgba(15,23,42,0.52); border:1px solid rgba(255,255,255,0.07); padding:8px; text-align:center; opacity:0.86;">未选中</div>
+              <div style="flex:1; border-radius:18px; background:rgba(15,23,42,0.52); border:1px solid rgba(255,255,255,0.07); padding:8px; text-align:center; opacity:0.86;">未选中</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>推荐方向</h3>
+      <p>强化层级和磨砂感，同时保留当前神泉主题。禁用态更克制，列表有明确槽位节奏，适合直接落代码。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">C. 强氛围神殿化</div>
+        <div class="mockup-body" style="background: radial-gradient(circle at top, rgba(34,211,238,0.24), rgba(1,8,20,0.98)); padding: 16px;">
+          <div style="border:1px solid rgba(186,230,253,0.18); border-radius:32px; background:linear-gradient(180deg, rgba(3,10,24,0.96), rgba(8,18,34,0.74)); padding:18px; box-shadow:0 0 28px rgba(56,189,248,0.18), 0 36px 110px rgba(0,0,0,0.76), inset 0 1px 0 rgba(255,255,255,0.14); backdrop-filter:blur(22px);">
+            <div style="text-align:center; margin-bottom:14px;">
+              <div class="label">Divine Offering</div>
+              <div style="font-size:24px; font-weight:900;">限时兑换</div>
+              <div style="opacity:0.72; font-size:12px; margin-top:4px;">更强戏剧性，更重视觉风格</div>
+            </div>
+            <div class="placeholder" style="height:120px; border-radius:24px; background:linear-gradient(180deg, rgba(15,23,42,0.54), rgba(2,6,23,0.96)); box-shadow:0 0 24px rgba(45,212,191,0.16) inset;">奖励展示区</div>
+            <div style="margin:16px 0 10px; border-radius:999px; padding:12px 16px; background:linear-gradient(180deg, rgba(34,211,238,1), rgba(8,145,178,1)); box-shadow:0 14px 34px rgba(34,211,238,0.36), inset 0 1px 0 rgba(255,255,255,0.3); text-align:center; font-weight:900;">触碰神圣之源</div>
+            <div style="margin-top:10px; border-radius:999px; padding:12px 16px; border:1px solid rgba(248,113,113,0.26); background:rgba(20,24,38,0.92); color:#fca5a5; text-align:center; font-weight:900; opacity:0.7; box-shadow:inset 0 0 18px rgba(239,68,68,0.14), 0 0 18px rgba(239,68,68,0.06);">金币储备不足</div>
+            <div style="display:flex; gap:8px; margin-top:12px;">
+              <div style="flex:1; border-radius:18px; background:linear-gradient(180deg, rgba(15,23,42,0.64), rgba(2,6,23,0.9)); border:1px solid rgba(255,255,255,0.1); padding:8px; text-align:center; box-shadow:0 0 18px rgba(45,212,191,0.14);">神殿槽位</div>
+              <div style="flex:1; border-radius:18px; background:linear-gradient(180deg, rgba(15,23,42,0.58), rgba(2,6,23,0.86)); border:1px solid rgba(255,255,255,0.08); padding:8px; text-align:center;">神殿槽位</div>
+              <div style="flex:1; border-radius:18px; background:linear-gradient(180deg, rgba(15,23,42,0.58), rgba(2,6,23,0.86)); border:1px solid rgba(255,255,255,0.08); padding:8px; text-align:center;">神殿槽位</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>氛围最强</h3>
+      <p>视觉张力最大，但会更偏“神殿仪式感”，对当前实现的改动也更重，容易抢奖励卡片风头。</p>
+    </div>
+  </div>
+</div>
