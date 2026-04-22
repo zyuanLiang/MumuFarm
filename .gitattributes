@@ -1,3 +1,0 @@
-# Normalize text files in the repo. Encoding is enforced via editor settings
-# and the UTF-8 check script.
-* text=auto
