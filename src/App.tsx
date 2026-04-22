@@ -5,6 +5,7 @@ import {LotteryModal} from './components/LotteryModal';
 import {HUD} from './components/HUD';
 import {InventoryModal} from './components/InventoryModal';
 import {Plot} from './components/Plot';
+import FarmWeather from './components/FarmWeather';
 import {SeedSelector} from './components/SeedSelector';
 import {CROPS, SKINS} from './constants';
 import {
@@ -498,7 +499,9 @@ export default function App() {
   ]);
 
   return (
-    <div className={`game-world relative min-h-screen overflow-x-hidden px-4 pb-48 pt-20 transition-all duration-1000 ${currentSkin.bgClass}`}>
+    <div className={`game-world relative isolate min-h-screen overflow-x-hidden px-4 pb-48 pt-20 transition-all duration-1000 ${currentSkin.bgClass}`}>
+      <FarmWeather />
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentSkin.id}
@@ -506,7 +509,7 @@ export default function App() {
           animate={{opacity: 1}}
           exit={{opacity: 0}}
           transition={{duration: 0.45, ease: 'easeInOut'}}
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 -z-10"
           style={
             currentSkin.bgImage
               ? {

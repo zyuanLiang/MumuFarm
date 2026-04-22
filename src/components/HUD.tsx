@@ -37,7 +37,7 @@ export const HUD: React.FC<HUDProps> = ({ gold, level, xp, xpToNextLevel, onGold
         >
           <span className="text-xl drop-shadow-sm"><Sprout size={20} className="text-emerald-500 fill-emerald-100" /></span>
           <h1 className="text-sm font-black text-emerald-800 tracking-widest uppercase drop-shadow-[0_2px_0_rgba(255,255,255,0.5)]">
-            青青农场
+            mumu农场
           </h1>
         </motion.div>
 

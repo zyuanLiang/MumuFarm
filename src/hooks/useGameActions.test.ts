@@ -128,13 +128,45 @@ test('commitPlantAll plants only the planned ids using the selected seed', () =>
 });
 
 test('planPlantAll returns insufficient_gold when the selected seed cannot be afforded', () => {
-  const state = withState({ gold: CROPS.watermelon.seedCost - 1 });
+  const state = withState({ gold: CROPS.watermelon.seedCost - 1, level: CROPS.watermelon.unlockLevel });
 
   const result = planPlantAll(state, 'watermelon', 5_000);
 
   assert.equal(result.blockedReason, 'insufficient_gold');
   assert.deepEqual(result.plotIds, []);
   assert.equal(result.affordableCount, 0);
+});
+
+test('crop unlock levels follow the staggered progression curve', () => {
+  assert.deepEqual(
+    Object.fromEntries(
+      Object.entries(CROPS).map(([cropId, crop]) => [cropId, crop.unlockLevel]),
+    ),
+    {
+      wheat: 1,
+      carrot: 4,
+      lavender: 7,
+      corn: 10,
+      sunflower: 14,
+      strawberry: 18,
+      watermelon: 22,
+      pineapple: 27,
+      magic_bean: 32,
+      koi_grass: 37,
+    },
+  );
+});
+
+test('planting is blocked when the selected seed level is higher than the player level', () => {
+  const state = withState({ gold: 5_000, level: 12 });
+
+  const planResult = planPlantAll(state, 'magic_bean', 5_000);
+  const plantResult = plantSeed(state, 'magic_bean', 0, 123456789);
+
+  assert.equal(planResult.blockedReason, 'insufficient_level');
+  assert.deepEqual(planResult.plotIds, []);
+  assert.equal(planResult.totalCost, 0);
+  assert.equal(plantResult, state);
 });
 
 test('drawLottery deducts gold and grants inventory for prop rewards', () => {

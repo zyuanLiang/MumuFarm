@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rimraf dist .vite",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/hooks/useGameState.test.ts src/hooks/useGameActions.test.ts src/components/hudGoldDebug.test.ts src/text-sanity.test.ts",
+    "test": "tsx --test src/hooks/useGameState.test.ts src/hooks/useGameActions.test.ts src/hooks/useLocalWeather.test.ts src/components/hudGoldDebug.test.ts src/components/FarmWeather.test.tsx src/text-sanity.test.ts",
     "check:encoding": "node scripts/check-utf8.mjs",
     "android:sync": "npx cap sync android",
     "android:open": "npx cap open android"

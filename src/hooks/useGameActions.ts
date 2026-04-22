@@ -51,7 +51,7 @@ export interface UseInventoryItemResult {
   status: 'applied' | 'missing_item' | 'no_target';
 }
 
-export type BulkBlockedReason = 'none' | 'no_ready' | 'no_empty' | 'insufficient_gold';
+export type BulkBlockedReason = 'none' | 'no_ready' | 'no_empty' | 'insufficient_gold' | 'insufficient_level';
 
 export interface HarvestAllPlanItem {
   plotId: number;
@@ -128,6 +128,9 @@ export const getReadyPlotIds = (state: GameState, now = Date.now()) =>
 export const getEmptyPlotIds = (state: GameState) =>
   sortPlotIdsForBulk(state.plots.filter((plot) => !plot.cropId).map((plot) => plot.id));
 
+const canPlantCrop = (state: GameState, selectedSeed: CropType) =>
+  state.level >= CROPS[selectedSeed].unlockLevel;
+
 export const planHarvestAll = (state: GameState, now = Date.now()): HarvestAllPlan => {
   const plotIds = getReadyPlotIds(state, now);
   if (plotIds.length === 0) {
@@ -168,6 +171,16 @@ export const planHarvestAll = (state: GameState, now = Date.now()): HarvestAllPl
 };
 
 export const planPlantAll = (state: GameState, selectedSeed: CropType, _now = Date.now()): PlantAllPlan => {
+  if (!canPlantCrop(state, selectedSeed)) {
+    return {
+      blockedReason: 'insufficient_level',
+      plotIds: [],
+      totalCost: 0,
+      affordableCount: 0,
+      seedId: selectedSeed,
+    };
+  }
+
   const plotIds = getEmptyPlotIds(state);
   if (plotIds.length === 0) {
     return {
@@ -235,6 +248,15 @@ export const commitPlantAll = (
   selectedSeed: CropType,
   now = Date.now(),
 ): PlantAllCommitResult => {
+  if (!canPlantCrop(state, selectedSeed)) {
+    return {
+      nextState: state,
+      totalCost: 0,
+      plotIds: [],
+      seedId: selectedSeed,
+    };
+  }
+
   const emptyPlotIds = new Set(getEmptyPlotIds(state));
   const seedCost = CROPS[selectedSeed].seedCost;
   const safePlotIds: number[] = [];
@@ -410,7 +432,7 @@ export const plantSeed = (
 ): GameState => {
   const crop = CROPS[selectedSeed];
   const targetPlot = state.plots.find((plot) => plot.id === plotId);
-  if (state.gold < crop.seedCost || !targetPlot || targetPlot.cropId) {
+  if (state.gold < crop.seedCost || !targetPlot || targetPlot.cropId || !canPlantCrop(state, selectedSeed)) {
     return state;
   }
 
