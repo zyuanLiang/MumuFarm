@@ -17,7 +17,22 @@ test('P1 prototype exposes selectable plots and contextual primary action', () =
   assert.ok(farm.includes('p1-plots'));
   assert.ok(farm.includes('onPrimary'));
   assert.ok(farm.includes('mushroom-house'));
-  assert.ok(farm.includes('girl-raincoat'));
+  assert.ok(farm.includes('GirlFigure'));
+});
+
+test('P2 wires cottage wardrobe and return-to-farm showoff', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('equipAndShowOff'));
+  assert.ok(farm.includes('openCottage'));
+  assert.ok(farm.includes('WardrobeView'));
+  assert.ok(farm.includes('穿上了'));
+
+  const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
+  assert.ok(wardrobe.includes('穿上并回农场'));
+
+  const outfits = readUtf8('src/p1/outfits.ts');
+  assert.ok(outfits.includes('小魔女'));
+  assert.ok(outfits.includes('黄雨衣'));
 });
 
 test('P1 keeps UTF-8 Chinese labels for seeds and actions', () => {
