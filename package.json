@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rimraf dist .vite",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/hooks/useGameState.test.ts src/hooks/useGameActions.test.ts src/hooks/useLocalWeather.test.ts src/components/hudGoldDebug.test.ts src/components/FarmWeather.test.tsx src/text-sanity.test.ts",
+    "test": "tsx --test src/p1/crops.test.ts src/p1/outfits.test.ts src/p1/dayFeel.test.ts src/text-sanity.test.ts",
     "check:encoding": "node scripts/check-utf8.mjs",
     "android:sync": "npx cap sync android",
     "android:open": "npx cap open android"
@@ -30,6 +30,8 @@
     "@capacitor/cli": "^7.6.2",
     "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "autoprefixer": "^10.4.21",
     "rimraf": "^6.1.3",
     "tailwindcss": "^4.1.14",
