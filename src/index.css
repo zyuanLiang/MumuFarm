@@ -805,7 +805,8 @@ button {
   width: 120px;
   height: 36px;
   border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(185, 160, 214, 0.35), transparent 70%);
+  overflow: visible;
+  background: radial-gradient(ellipse, rgba(232, 213, 181, 0.55), rgba(185, 160, 214, 0.22) 70%, transparent 72%);
 }
 
 .cottage-actors {
@@ -1045,9 +1046,16 @@ button {
   z-index: 20;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.55);
-  animation: flash-out 1.4s ease-out forwards;
+  background: transparent;
   pointer-events: none;
+}
+
+.photo-flash::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.62);
+  animation: flash-out 0.55s ease-out forwards;
 }
 
 @keyframes flash-out {
@@ -1260,14 +1268,20 @@ button {
   width: min(78%, 280px);
   aspect-ratio: 4 / 5;
   border-radius: 18px;
-  border: 10px solid #fff8ee;
+  border: 12px solid #fff8ee;
   box-shadow:
-    0 0 0 2px rgba(232, 213, 181, 0.9),
-    0 16px 40px rgba(90, 74, 58, 0.2);
+    0 0 0 3px #e8d5b5,
+    0 18px 44px rgba(90, 74, 58, 0.28);
   background:
-    linear-gradient(180deg, rgba(247, 217, 196, 0.35), rgba(223, 233, 201, 0.45));
+    linear-gradient(180deg, rgba(247, 217, 196, 0.55), rgba(223, 233, 201, 0.62));
   position: relative;
-  animation: banner-in 0.25s ease-out;
+  z-index: 1;
+  animation: banner-in 0.25s ease-out, frame-hold 1.4s ease-out forwards;
+}
+
+@keyframes frame-hold {
+  0%, 72% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.98); }
 }
 
 .photo-caption {
@@ -1275,12 +1289,14 @@ button {
   left: 50%;
   bottom: 12px;
   transform: translateX(-50%);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 999px;
-  background: rgba(255, 248, 238, 0.95);
-  font-size: 12px;
+  background: rgba(255, 248, 238, 0.98);
+  font-size: 13px;
+  font-weight: 600;
   color: #7a4e3a;
   white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(90, 74, 58, 0.12);
 }
 
 .cottage-rug {
@@ -1289,14 +1305,17 @@ button {
 .rug-mushroom-arc {
   position: absolute;
   left: 50%;
-  top: -8px;
-  width: 54px;
-  height: 22px;
+  top: -10px;
+  width: 64px;
+  height: 28px;
   transform: translateX(-50%);
-  border-radius: 40px 40px 8px 8px;
-  background: linear-gradient(180deg, #f5d45c, #e7b93a);
-  opacity: 0.85;
-  box-shadow: 0 2px 0 rgba(180, 130, 40, 0.15);
+  border-radius: 40px 40px 10px 10px;
+  background:
+    radial-gradient(circle at 30% 45%, #fff8ee 0 10%, transparent 11%),
+    radial-gradient(circle at 62% 38%, #fff8ee 0 8%, transparent 9%),
+    linear-gradient(180deg, #f5d45c, #e7b93a);
+  opacity: 0.95;
+  box-shadow: 0 3px 0 rgba(180, 130, 40, 0.18);
 }
 
 
