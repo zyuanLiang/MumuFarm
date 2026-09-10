@@ -7,8 +7,9 @@
 - **P1 六地原型**：[02-p1-six-plots-prototype.md](./02-p1-six-plots-prototype.md)
 - **P2 换装环**：[03-p2-dress-up-loop.md](./03-p2-dress-up-loop.md)
 - **P3 日子感**：[04-p3-day-feel.md](./04-p3-day-feel.md)
-- **P4 内容循环**：[05-p4-content-loop.md](./05-p4-content-loop.md)（远景明信片、牛仔装、向日葵庆祝、小鸟围巾）
+- **P4 内容循环**：[05-p4-content-loop.md](./05-p4-content-loop.md)
+- **P5 手感抛光**：[06-p5-polish.md](./06-p5-polish.md)（音效、花园装、花冠、拍照相框）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 种地 → 收获解锁衣服/远景 → 换装回场 → 轻访客送礼。
+当前实现：`src/p1/` — 种地心跳 → 收获解锁 → 换装回场 → 轻访客 → 音效与手帐拍照。
 

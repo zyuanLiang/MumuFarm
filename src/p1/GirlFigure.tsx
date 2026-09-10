@@ -1,5 +1,6 @@
 import type {AccessoryId} from './dayFeel';
 import type {OutfitId} from './outfits';
+import {OUTFITS} from './outfits';
 
 interface GirlFigureProps {
   outfit: OutfitId;
@@ -15,15 +16,27 @@ export function GirlFigure({
   size = 'farm',
   pose = 'idle',
 }: GirlFigureProps) {
-  const outfitLabel =
-    outfit === 'witch' ? '小魔女' : outfit === 'denim' ? '牛仔日常' : '黄雨衣';
+  const outfitLabel = OUTFITS[outfit]?.name ?? '黄雨衣';
+  const accessoryLabel =
+    accessory === 'cat_ears'
+      ? '猫耳'
+      : accessory === 'scarf'
+        ? '围巾'
+        : accessory === 'flower_crown'
+          ? '花冠'
+          : '';
 
   return (
     <div
       className={`girl-figure size-${size} outfit-${outfit} accessory-${accessory} pose-${pose}`}
-      aria-label={`穿${outfitLabel}的女孩${accessory === 'none' ? '' : `（${accessory}）`}`}
+      aria-label={`穿${outfitLabel}的女孩${accessoryLabel ? `（${accessoryLabel}）` : ''}`}
     >
       <div className="gf-hat" aria-hidden />
+      <div className="gf-crown" aria-hidden>
+        <span className="petal a" />
+        <span className="petal b" />
+        <span className="petal c" />
+      </div>
       <div className="gf-ears" aria-hidden>
         <span className="ear left" />
         <span className="ear right" />

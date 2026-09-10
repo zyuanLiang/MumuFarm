@@ -3,12 +3,13 @@ import {describe, it} from 'node:test';
 import {OUTFIT_ORDER, OUTFITS, outfitsUnlockedBy} from './outfits.ts';
 import {vistasUnlockedBy} from './vistas.ts';
 
-describe('p4 content unlocks', () => {
-  it('starts with raincoat and witch; denim waits for harvests', () => {
-    assert.deepEqual(OUTFIT_ORDER, ['raincoat', 'witch', 'denim']);
+describe('p4/p5 content unlocks', () => {
+  it('unlocks denim then garden by harvest milestones', () => {
+    assert.deepEqual(OUTFIT_ORDER, ['raincoat', 'witch', 'denim', 'garden']);
     assert.deepEqual(outfitsUnlockedBy(0), ['raincoat', 'witch']);
     assert.ok(outfitsUnlockedBy(3).includes('denim'));
-    assert.equal(OUTFITS.denim.name, '牛仔日常');
+    assert.ok(outfitsUnlockedBy(6).includes('garden'));
+    assert.equal(OUTFITS.garden.name, '花园背带');
   });
 
   it('unlocks vistas by harvest milestones', () => {

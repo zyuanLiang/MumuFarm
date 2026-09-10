@@ -1,6 +1,6 @@
 export type AtmosphereId = 'clear' | 'soft_rain' | 'dusk';
 
-export type AccessoryId = 'none' | 'cat_ears' | 'scarf';
+export type AccessoryId = 'none' | 'cat_ears' | 'scarf' | 'flower_crown';
 
 export interface AtmosphereDef {
   id: AtmosphereId;

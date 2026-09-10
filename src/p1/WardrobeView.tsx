@@ -1,6 +1,7 @@
 import type {AccessoryId} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
 import {OUTFITS, type OutfitId} from './outfits';
+import {playSfx} from './sfx';
 
 interface WardrobeViewProps {
   equipped: OutfitId;
@@ -31,6 +32,8 @@ export function WardrobeView({
   const same = preview === equipped && previewAccessory === accessory;
   const hasEars = unlockedAccessories.includes('cat_ears');
   const hasScarf = unlockedAccessories.includes('scarf');
+  const hasCrown = unlockedAccessories.includes('flower_crown');
+  const hasAnyAccessory = hasEars || hasScarf || hasCrown;
 
   return (
     <div className="p2-wardrobe">
@@ -49,7 +52,8 @@ export function WardrobeView({
       <p className="p1-feedback">
         {def.name}
         {previewAccessory === 'cat_ears' ? ' + 猫耳' : ''}
-        {previewAccessory === 'scarf' ? ' + 围巾' : ''} · {def.blurb}
+        {previewAccessory === 'scarf' ? ' + 围巾' : ''}
+        {previewAccessory === 'flower_crown' ? ' + 花冠' : ''} · {def.blurb}
         {same ? '（穿着中）' : ''}
       </p>
 
@@ -61,7 +65,10 @@ export function WardrobeView({
             role="option"
             aria-selected={preview === id}
             className={`outfit-card ${preview === id ? 'is-on' : ''} ${equipped === id ? 'is-equipped' : ''}`}
-            onClick={() => onPreview(id)}
+            onClick={() => {
+              playSfx('tap');
+              onPreview(id);
+            }}
           >
             <span className={`outfit-thumb thumb-${id}`} />
             <span>{OUTFITS[id].name}</span>
@@ -69,7 +76,7 @@ export function WardrobeView({
         ))}
       </div>
 
-      {(hasEars || hasScarf) && (
+      {hasAnyAccessory && (
         <div className="outfit-row" role="listbox" aria-label="饰品">
           <button
             type="button"
@@ -97,6 +104,16 @@ export function WardrobeView({
             >
               <span className="outfit-thumb thumb-scarf" />
               <span>围巾</span>
+            </button>
+          )}
+          {hasCrown && (
+            <button
+              type="button"
+              className={`outfit-card ${previewAccessory === 'flower_crown' ? 'is-on' : ''}`}
+              onClick={() => onPreviewAccessory('flower_crown')}
+            >
+              <span className="outfit-thumb thumb-crown" />
+              <span>花冠</span>
             </button>
           )}
         </div>

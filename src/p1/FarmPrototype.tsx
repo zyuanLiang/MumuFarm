@@ -14,6 +14,7 @@ import {BlackCat, GirlFigure, SongBird, StrayCat} from './GirlFigure';
 import {OUTFITS, outfitsUnlockedBy, type OutfitId} from './outfits';
 import {PlotTile} from './PlotTile';
 import {loadSave, writeSave} from './save';
+import {playSfx, resumeAudio} from './sfx';
 import {useFarmPrototype} from './useFarmPrototype';
 import {VISTA_ORDER, VISTAS, vistasUnlockedBy, type VistaId} from './vistas';
 import {WardrobeView} from './WardrobeView';
@@ -21,7 +22,7 @@ import {WardrobeView} from './WardrobeView';
 type Scene = 'farm' | 'cottage' | 'wardrobe';
 
 const SHOWOFF_MS = 1600;
-const PHOTO_MS = 900;
+const PHOTO_MS = 1400;
 const CELEBRATE_MS = 2200;
 const TOAST_MS = 2400;
 
@@ -44,6 +45,7 @@ function readMeta() {
     catGiftClaimed: Boolean(saved?.catGiftClaimed),
     birdGiftClaimed: Boolean(saved?.birdGiftClaimed),
     sunflowerCelebrated: Boolean(saved?.sunflowerCelebrated),
+    starPumpkinGifted: Boolean(saved?.starPumpkinGifted),
     lastBubble: saved?.lastBubble ?? pickBubble(),
   };
 }
@@ -77,7 +79,14 @@ export function FarmPrototype() {
   const [catGiftClaimed, setCatGiftClaimed] = useState(meta.catGiftClaimed);
   const [birdGiftClaimed, setBirdGiftClaimed] = useState(meta.birdGiftClaimed);
   const [sunflowerCelebrated, setSunflowerCelebrated] = useState(meta.sunflowerCelebrated);
+  const [starPumpkinGifted, setStarPumpkinGifted] = useState(meta.starPumpkinGifted);
   const [visitor, setVisitor] = useState<VisitorKind>(null);
+
+  useEffect(() => {
+    const unlockAudio = () => resumeAudio();
+    window.addEventListener('pointerdown', unlockAudio, {once: true});
+    return () => window.removeEventListener('pointerdown', unlockAudio);
+  }, []);
 
   useEffect(() => {
     setVisitor(rollVisitor(atmosphere, {cat: catGiftClaimed, bird: birdGiftClaimed}));
@@ -117,16 +126,18 @@ export function FarmPrototype() {
       setUnlockedOutfits((prev) => Array.from(new Set([...prev, ...fromHarvestOutfits])));
       setToast(`解锁服装：${OUTFITS[newOutfit].name}`);
       setBubble(`${OUTFITS[newOutfit].name}可以去换上试试～`);
+      playSfx('unlock');
     }
 
     const newVista = fromHarvestVistas.find((id) => !unlockedVistas.includes(id));
     if (newVista) {
       setUnlockedVistas((prev) => Array.from(new Set([...prev, ...fromHarvestVistas])));
       setToast(`收到风景明信片：${VISTAS[newVista].name}`);
+      playSfx('unlock');
     }
   }, [farm.harvestCount, unlockedOutfits, unlockedVistas]);
 
-  // Sunflower first bloom celebration
+  // Special crop celebrations / gifts
   useEffect(() => {
     if (!farm.lastHarvestCrop) return;
     const crop = farm.lastHarvestCrop;
@@ -135,10 +146,23 @@ export function FarmPrototype() {
       setCelebrate(true);
       setBubble('向日葵一开，院子就亮了。');
       farm.setFeedback('向日葵开花啦！');
+      playSfx('unlock');
     }
+    if (crop === 'star_pumpkin' && !starPumpkinGifted) {
+      setStarPumpkinGifted(true);
+      setUnlockedAccessories((prev) =>
+        prev.includes('flower_crown') ? prev : [...prev, 'flower_crown'],
+      );
+      setAccessory('flower_crown');
+      setToast('星星南瓜结出了花冠');
+      setBubble('小小魔法，戴在头发上。');
+      setShowoff(true);
+      playSfx('unlock');
+    }
+    playSfx('harvest');
     farm.clearLastHarvest();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- only react to harvest crop id
-  }, [farm.lastHarvestCrop, sunflowerCelebrated]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- harvest id only
+  }, [farm.lastHarvestCrop, sunflowerCelebrated, starPumpkinGifted]);
 
   useEffect(() => {
     writeSave({
@@ -156,6 +180,7 @@ export function FarmPrototype() {
       catGiftClaimed,
       birdGiftClaimed,
       sunflowerCelebrated,
+      starPumpkinGifted,
       lastBubble: bubble,
     });
   }, [
@@ -172,6 +197,7 @@ export function FarmPrototype() {
     catGiftClaimed,
     birdGiftClaimed,
     sunflowerCelebrated,
+    starPumpkinGifted,
     bubble,
   ]);
 
@@ -191,12 +217,15 @@ export function FarmPrototype() {
     setAccessory(previewAccessory);
     setScene('farm');
     setShowoff(true);
+    playSfx('equip');
     setBubble(
       preview === 'witch'
         ? '魔女裙在菜地里也很好看。'
         : preview === 'denim'
           ? '牛仔日常，适合晒太阳。'
-          : '雨衣适合今天出门。',
+          : preview === 'garden'
+            ? '背带裙沾上一点泥土刚刚好。'
+            : '雨衣适合今天出门。',
     );
   }, [preview, previewAccessory]);
 
@@ -211,6 +240,7 @@ export function FarmPrototype() {
       setBubble('软雨里的访客，不是来踩菜的。');
       setAccessory('cat_ears');
       setShowoff(true);
+      playSfx('unlock');
       return;
     }
     if (visitor === 'bird' && !birdGiftClaimed) {
@@ -221,13 +251,23 @@ export function FarmPrototype() {
       setBubble('晴天的礼物，轻轻的。');
       setAccessory('scarf');
       setShowoff(true);
+      playSfx('unlock');
     }
   }, [visitor, catGiftClaimed, birdGiftClaimed, farm]);
 
   const takePhoto = useCallback(() => {
     setPhotoFlash(true);
+    playSfx('photo');
     farm.setFeedback(`咔嚓，${VISTAS[activeVista].name}风景收进手帐了`);
   }, [farm, activeVista]);
+
+  const onPrimaryWithSfx = useCallback(() => {
+    const kind = farm.primaryKind;
+    farm.onPrimary();
+    if (kind === 'plant') playSfx('plant');
+    if (kind === 'water') playSfx('water');
+    // harvest SFX played when lastHarvestCrop effect runs
+  }, [farm]);
 
   const cycleAtmosphere = useCallback(() => {
     setAtmosphere((prev) => {
@@ -248,8 +288,7 @@ export function FarmPrototype() {
   }, [unlockedVistas, activeVista, farm]);
 
   const atm = ATMOSPHERES[atmosphere];
-  const outfitLabel =
-    outfit === 'witch' ? '小魔女' : outfit === 'denim' ? '牛仔日常' : '黄雨衣';
+  const outfitLabel = OUTFITS[outfit]?.name ?? '黄雨衣';
 
   if (scene === 'cottage') {
     return (
@@ -299,7 +338,13 @@ export function FarmPrototype() {
         {atmosphere === 'soft_rain' && <div className="rain-layer" />}
       </div>
 
-      {photoFlash && <div className="photo-flash" aria-hidden />}
+      {photoFlash && (
+        <div className="photo-flash" aria-hidden>
+          <div className="photo-frame">
+            <span className="photo-caption">{VISTAS[activeVista].name} · 手帐</span>
+          </div>
+        </div>
+      )}
       {celebrate && (
         <div className="bloom-celebrate" role="status">
           <span>向日葵开花啦</span>
@@ -394,7 +439,7 @@ export function FarmPrototype() {
 
         <p className="p1-feedback" role="status">
           {showoff
-            ? `穿上了${outfitLabel}${accessory === 'cat_ears' ? '·猫耳' : ''}${accessory === 'scarf' ? '·围巾' : ''}`
+            ? `穿上了${outfitLabel}${accessory === 'cat_ears' ? '·猫耳' : ''}${accessory === 'scarf' ? '·围巾' : ''}${accessory === 'flower_crown' ? '·花冠' : ''}`
             : farm.lastAction}
         </p>
 
@@ -428,7 +473,7 @@ export function FarmPrototype() {
         <button
           type="button"
           className={`p1-primary kind-${farm.primaryKind}`}
-          onClick={farm.onPrimary}
+          onClick={onPrimaryWithSfx}
         >
           {farm.primaryKind === 'water' && <span className="icon-can" aria-hidden />}
           {farm.primaryKind === 'plant' && <span className="icon-seed" aria-hidden />}

@@ -1043,8 +1043,10 @@ button {
   position: absolute;
   inset: 0;
   z-index: 20;
-  background: rgba(255, 255, 255, 0.75);
-  animation: flash-out 0.9s ease-out forwards;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.55);
+  animation: flash-out 1.4s ease-out forwards;
   pointer-events: none;
 }
 
@@ -1201,6 +1203,100 @@ button {
   font-size: 12px;
   opacity: 0.65;
   text-align: center;
+}
+
+/* P5 garden + flower crown + photo frame + cottage arc */
+.outfit-garden .gf-hat { display: none; }
+.outfit-garden .gf-body {
+  background: linear-gradient(180deg, #fff8ee 0 30%, #f3a989 30%);
+}
+.outfit-garden .gf-apron {
+  display: block;
+  left: 28%;
+  top: 48%;
+  width: 44%;
+  height: 28%;
+  border-radius: 12%;
+  background: #ffe6c8;
+}
+.outfit-garden .gf-boots {
+  background: #c4a07a;
+}
+
+.gf-crown {
+  display: none;
+  position: absolute;
+  left: 18%;
+  top: 6%;
+  width: 64%;
+  height: 16%;
+  z-index: 5;
+}
+.accessory-flower_crown .gf-crown { display: block; }
+.gf-crown .petal {
+  position: absolute;
+  top: 20%;
+  width: 22%;
+  height: 70%;
+  border-radius: 50%;
+  background: #f080a0;
+}
+.gf-crown .petal.a { left: 10%; background: #f080a0; }
+.gf-crown .petal.b { left: 39%; background: #f0c75e; }
+.gf-crown .petal.c { right: 10%; background: #b9a0d6; }
+
+.thumb-garden {
+  background: linear-gradient(180deg, #fff8ee 0 35%, #f3a989 35%);
+}
+.thumb-crown {
+  background:
+    radial-gradient(circle at 30% 50%, #f080a0 0 18%, transparent 19%),
+    radial-gradient(circle at 50% 40%, #f0c75e 0 18%, transparent 19%),
+    radial-gradient(circle at 70% 50%, #b9a0d6 0 18%, transparent 19%),
+    #fff8ee;
+}
+
+.photo-frame {
+  width: min(78%, 280px);
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  border: 10px solid #fff8ee;
+  box-shadow:
+    0 0 0 2px rgba(232, 213, 181, 0.9),
+    0 16px 40px rgba(90, 74, 58, 0.2);
+  background:
+    linear-gradient(180deg, rgba(247, 217, 196, 0.35), rgba(223, 233, 201, 0.45));
+  position: relative;
+  animation: banner-in 0.25s ease-out;
+}
+
+.photo-caption {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 248, 238, 0.95);
+  font-size: 12px;
+  color: #7a4e3a;
+  white-space: nowrap;
+}
+
+.cottage-rug {
+  overflow: visible;
+}
+.rug-mushroom-arc {
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 54px;
+  height: 22px;
+  transform: translateX(-50%);
+  border-radius: 40px 40px 8px 8px;
+  background: linear-gradient(180deg, #f5d45c, #e7b93a);
+  opacity: 0.85;
+  box-shadow: 0 2px 0 rgba(180, 130, 40, 0.15);
 }
 
 

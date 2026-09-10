@@ -28,7 +28,9 @@ export function CottageView({outfit, accessory, onBack, onOpenWardrobe}: Cottage
           <span className="mini-mushroom" />
         </div>
         <div className="cottage-bed" aria-hidden />
-        <div className="cottage-rug" aria-hidden />
+        <div className="cottage-rug" aria-hidden>
+          <span className="rug-mushroom-arc" />
+        </div>
 
         <div className="cottage-actors">
           <GirlFigure outfit={outfit} accessory={accessory} size="room" />

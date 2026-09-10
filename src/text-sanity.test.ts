@@ -57,3 +57,18 @@ test('P4 content loop unlocks vistas and denim by harvest', () => {
   assert.ok(doc.includes('牛仔日常装'));
   assert.ok(doc.includes('向日葵首开'));
 });
+
+test('P5 polish adds sfx wardrobe pieces and photo frame', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('playSfx'));
+  assert.ok(farm.includes('onPrimaryWithSfx'));
+  assert.ok(farm.includes('photo-frame'));
+  assert.ok(farm.includes('starPumpkinGifted'));
+
+  const sfx = readUtf8('src/p1/sfx.ts');
+  assert.ok(sfx.includes("case 'harvest'"));
+
+  const doc = readUtf8('docs/redesign/06-p5-polish.md');
+  assert.ok(doc.includes('花园背带装'));
+  assert.ok(doc.includes('拍照相框'));
+});
