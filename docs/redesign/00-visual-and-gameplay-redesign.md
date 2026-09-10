@@ -118,9 +118,32 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 
 验收一句：不靠黑猫，也能认出是同一个人在换衣服。
 
+### 2.5 背景升级（v5 · 远景可炫，近景仍清楚）
+
+前台锁定不变：黄蘑菇屋、角色、2×3 菜畦、浇水 CTA。  
+**可以换炫的是远景层**——像舞台天幕，不压操作区。
+
+原则：
+
+1. 远景可以有天空之城、桂林山水、西湖、黄山云海等「一眼有故事」的天际线。  
+2. 远景必须虚、远、简化；禁止把花草城堡堆到角色和菜地中间。  
+3. 默认仍建议偏明亮暖色；深暮色可以作主题皮肤，不作唯一开局。  
+4. 首版可先定一个默认远景，其余当可解锁「窗外风景 / 主题背景」。
+
+候选对照：
+
+| 远景主题 | 文件 | 气质 |
+|---|---|---|
+| 天空之城 | [`concepts/concept-v5-farm-skycastle.png`](./concepts/concept-v5-farm-skycastle.png) | 魔法旅行感，承接你喜欢的城堡远景 |
+| 桂林山水 | [`concepts/concept-v5-farm-guilin.png`](./concepts/concept-v5-farm-guilin.png) | 国内名胜，清透青绿 |
+| 西湖暮色 | [`concepts/concept-v5-farm-westlake.png`](./concepts/concept-v5-farm-westlake.png) | 柳堤塔影，柔和浪漫 |
+| 黄山云海 | [`concepts/concept-v5-farm-huangshan.png`](./concepts/concept-v5-farm-huangshan.png) | 云海奇峰，更壮观 |
+
+请你先挑一个默认远景；其余可后做成背景收集。
+
 ---
 
-## 3. 美术方向（Art Bible v4）
+## 3. 美术方向（Art Bible v5）
 
 ### 3.1 风格关键词
 
@@ -137,7 +160,7 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 - 禁止大面积纯黑/虚空背景
 - 禁止把「深紫夜空 / 雨夜小镇」做成唯一默认首屏（可作后期主题）
 - 禁止写实泥土碎石、厚重木纹、复杂织物纹理当主表现
-- 禁止满屏花草/远山/城市天际线抢戏
+- 禁止满屏花草/近景装饰抢戏（**远景天际线可以炫，但必须退后虚化**）
 - 禁止首屏功能墙、开发说明、数值条霸屏
 - 禁止地块做成深色棺形/培养皿
 - 禁止农场小人与换装大人为两套比例/脸型
@@ -170,13 +193,17 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 
 ### 3.5 概念图
 
-#### 采用（v4 · 同一人验证）
+#### 采用（v4 角色 ＋ v5 远景候选）
 
 | 场景 | 文件 | 要传达的 |
 |---|---|---|
-| 雨衣农场 | [`concepts/concept-v4-farm-raincoat.png`](./concepts/concept-v4-farm-raincoat.png) | 黄蘑菇屋识别点；选中空地＋作物状态差 |
-| 魔女农场 | [`concepts/concept-v4-farm-witch.png`](./concepts/concept-v4-farm-witch.png) | 同一女孩换衣服，场景不变 |
-| 魔女换装 | [`concepts/concept-v4-wardrobe-witch.png`](./concepts/concept-v4-wardrobe-witch.png) | 放大同母版；白边只在缩略图 |
+| 雨衣农场 | [`concepts/concept-v4-farm-raincoat.png`](./concepts/concept-v4-farm-raincoat.png) | 角色与菜地状态基准 |
+| 魔女农场 | [`concepts/concept-v4-farm-witch.png`](./concepts/concept-v4-farm-witch.png) | 同一女孩换衣服 |
+| 魔女换装 | [`concepts/concept-v4-wardrobe-witch.png`](./concepts/concept-v4-wardrobe-witch.png) | 放大同母版 |
+| 远景·天空之城 | [`concepts/concept-v5-farm-skycastle.png`](./concepts/concept-v5-farm-skycastle.png) | 炫酷魔法远景候选 |
+| 远景·桂林 | [`concepts/concept-v5-farm-guilin.png`](./concepts/concept-v5-farm-guilin.png) | 国内名胜候选 |
+| 远景·西湖 | [`concepts/concept-v5-farm-westlake.png`](./concepts/concept-v5-farm-westlake.png) | 柔和名胜候选 |
+| 远景·黄山 | [`concepts/concept-v5-farm-huangshan.png`](./concepts/concept-v5-farm-huangshan.png) | 壮观云海候选 |
 
 #### 场景/角色基底（v3，部分保留）
 
@@ -298,8 +325,9 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 
 ## 9. 下一步
 
-1. **请你确认 v4 三张「同一人」是否过关。**  
-2. 过关后：小改小屋结构呼应蘑菇屋；出母版锚点与雨衣/魔女分层件。  
-3. 再开始新建工程（可抛弃旧 `src/`）。
+1. **请你选出默认远景**（天空之城 / 桂林 / 西湖 / 黄山，或组合意见）。  
+2. 确认 v4「同一人」是否过关。  
+3. 过关后：小改小屋呼应蘑菇屋；出母版锚点与雨衣/魔女分层件。  
+4. 再开始新建工程（可抛弃旧 `src/`）。
 
 在此之前：**不写玩法代码。**
