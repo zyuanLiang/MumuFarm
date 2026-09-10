@@ -141,6 +141,9 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 
 请你先挑一个默认远景；其余可后做成背景收集。
 
+**已选定默认远景：西湖暮色**（[`concept-v5-farm-westlake.png`](./concepts/concept-v5-farm-westlake.png)）。  
+天空之城 / 桂林 / 黄山保留为后续可解锁远景主题。
+
 ---
 
 ## 3. 美术方向（Art Bible v5）
@@ -202,7 +205,7 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 | 魔女换装 | [`concepts/concept-v4-wardrobe-witch.png`](./concepts/concept-v4-wardrobe-witch.png) | 放大同母版 |
 | 远景·天空之城 | [`concepts/concept-v5-farm-skycastle.png`](./concepts/concept-v5-farm-skycastle.png) | 炫酷魔法远景候选 |
 | 远景·桂林 | [`concepts/concept-v5-farm-guilin.png`](./concepts/concept-v5-farm-guilin.png) | 国内名胜候选 |
-| 远景·西湖 | [`concepts/concept-v5-farm-westlake.png`](./concepts/concept-v5-farm-westlake.png) | 柔和名胜候选 |
+| 远景·西湖 ✅默认 | [`concepts/concept-v5-farm-westlake.png`](./concepts/concept-v5-farm-westlake.png) | 柔和名胜；**开局默认天幕** |
 | 远景·黄山 | [`concepts/concept-v5-farm-huangshan.png`](./concepts/concept-v5-farm-huangshan.png) | 壮观云海候选 |
 
 #### 场景/角色基底（v3，部分保留）
@@ -325,7 +328,7 @@ v1 概念图（`concept-farm-home.png` 等）温暖可爱，但作为可落地�
 
 ## 9. 下一步
 
-1. **请你选出默认远景**（天空之城 / 桂林 / 西湖 / 黄山，或组合意见）。  
+1. ~~选出默认远景~~ → **已定：西湖暮色**；天空之城 / 桂林 / 黄山作后续收集。  
 2. 确认 v4「同一人」是否过关。  
 3. 过关后：小改小屋呼应蘑菇屋；出母版锚点与雨衣/魔女分层件。  
 4. 再开始新建工程（可抛弃旧 `src/`）。
