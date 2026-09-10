@@ -1,10 +1,15 @@
+import type {AccessoryId} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
 import {OUTFIT_ORDER, OUTFITS, type OutfitId} from './outfits';
 
 interface WardrobeViewProps {
   equipped: OutfitId;
   preview: OutfitId;
+  accessory: AccessoryId;
+  previewAccessory: AccessoryId;
+  unlockedAccessories: AccessoryId[];
   onPreview: (id: OutfitId) => void;
+  onPreviewAccessory: (id: AccessoryId) => void;
   onEquip: () => void;
   onBack: () => void;
 }
@@ -12,12 +17,17 @@ interface WardrobeViewProps {
 export function WardrobeView({
   equipped,
   preview,
+  accessory,
+  previewAccessory,
+  unlockedAccessories,
   onPreview,
+  onPreviewAccessory,
   onEquip,
   onBack,
 }: WardrobeViewProps) {
   const def = OUTFITS[preview];
-  const same = preview === equipped;
+  const same = preview === equipped && previewAccessory === accessory;
+  const hasEars = unlockedAccessories.includes('cat_ears');
 
   return (
     <div className="p2-wardrobe">
@@ -29,12 +39,13 @@ export function WardrobeView({
       </header>
 
       <div className="wardrobe-stage">
-        <GirlFigure outfit={preview} size="wardrobe" />
+        <GirlFigure outfit={preview} accessory={previewAccessory} size="wardrobe" />
         <BlackCat size="wardrobe" />
       </div>
 
       <p className="p1-feedback">
-        {def.name} · {def.blurb}
+        {def.name}
+        {previewAccessory === 'cat_ears' ? ' + 猫耳' : ''} · {def.blurb}
         {same ? '（穿着中）' : ''}
       </p>
 
@@ -53,6 +64,27 @@ export function WardrobeView({
           </button>
         ))}
       </div>
+
+      {hasEars && (
+        <div className="outfit-row" role="listbox" aria-label="饰品">
+          <button
+            type="button"
+            className={`outfit-card ${previewAccessory === 'none' ? 'is-on' : ''}`}
+            onClick={() => onPreviewAccessory('none')}
+          >
+            <span className="outfit-thumb thumb-none" />
+            <span>无饰品</span>
+          </button>
+          <button
+            type="button"
+            className={`outfit-card ${previewAccessory === 'cat_ears' ? 'is-on' : ''}`}
+            onClick={() => onPreviewAccessory('cat_ears')}
+          >
+            <span className="outfit-thumb thumb-ears" />
+            <span>猫耳</span>
+          </button>
+        </div>
+      )}
 
       <footer className="p1-dock">
         <button type="button" className="p1-primary" onClick={onEquip} disabled={same}>

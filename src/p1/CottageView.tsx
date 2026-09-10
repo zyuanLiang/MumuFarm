@@ -1,13 +1,15 @@
+import type {AccessoryId} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
 import type {OutfitId} from './outfits';
 
 interface CottageViewProps {
   outfit: OutfitId;
+  accessory: AccessoryId;
   onBack: () => void;
   onOpenWardrobe: () => void;
 }
 
-export function CottageView({outfit, onBack, onOpenWardrobe}: CottageViewProps) {
+export function CottageView({outfit, accessory, onBack, onOpenWardrobe}: CottageViewProps) {
   return (
     <div className="p2-cottage">
       <header className="p1-topbar">
@@ -29,7 +31,7 @@ export function CottageView({outfit, onBack, onOpenWardrobe}: CottageViewProps) 
         <div className="cottage-rug" aria-hidden />
 
         <div className="cottage-actors">
-          <GirlFigure outfit={outfit} size="room" />
+          <GirlFigure outfit={outfit} accessory={accessory} size="room" />
           <BlackCat size="room" />
         </div>
       </div>

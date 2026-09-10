@@ -8,7 +8,22 @@ import {
   progressOf,
   stageFromProgress,
 } from './crops';
+import {loadSave} from './save';
 import type {CropId, FarmAction, FarmPrototypeState, PlotState} from './types';
+
+function buildInitial(): FarmPrototypeState {
+  const saved = typeof localStorage !== 'undefined' ? loadSave() : null;
+  const now = Date.now();
+  return {
+    gold: saved?.gold ?? 20,
+    selectedPlotId: 0,
+    selectedSeed: saved?.selectedSeed ?? 'wheat',
+    plots: saved?.plots?.length === 6 ? saved.plots : createEmptyPlots(6),
+    lastAction: saved ? '欢迎回来，衣服还在身上哦' : '点一块地，开始种吧',
+    harvestBurstId: 0,
+    lastTickAt: now,
+  };
+}
 
 function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeState {
   const now = action.type === 'tick' ? action.now : Date.now();
@@ -38,6 +53,14 @@ function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeSt
         plots: state.plots.map((plot) => advancePlot(plot, now, dt)),
       };
     }
+    case 'add_gold':
+      return {
+        ...state,
+        gold: state.gold + action.amount,
+        lastAction: action.message ?? `+${action.amount} 金`,
+      };
+    case 'set_feedback':
+      return {...state, lastAction: action.message};
     case 'primary': {
       const plots = state.plots.map((plot) => advancePlot(plot, now, 0));
       const plot = plots[state.selectedPlotId];
@@ -102,18 +125,8 @@ function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeSt
   }
 }
 
-const initialState: FarmPrototypeState = {
-  gold: 20,
-  selectedPlotId: 0,
-  selectedSeed: 'wheat',
-  plots: createEmptyPlots(6),
-  lastAction: '点一块地，开始种吧',
-  harvestBurstId: 0,
-  lastTickAt: Date.now(),
-};
-
 export function useFarmPrototype() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, undefined, buildInitial);
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -144,19 +157,28 @@ export function useFarmPrototype() {
     dispatch({type: 'primary'});
   }, []);
 
+  const addGold = useCallback((amount: number, message: string) => {
+    dispatch({type: 'add_gold', amount, message});
+  }, []);
+
+  const setFeedback = useCallback((message: string) => {
+    dispatch({type: 'set_feedback', message});
+  }, []);
+
   return {
     gold: state.gold,
     selectedPlotId: state.selectedPlotId,
     selectedSeed: state.selectedSeed,
     lastAction: state.lastAction,
     harvestBurstId: state.harvestBurstId,
+    rawPlots: state.plots,
     plots,
     primaryKind: kind,
     primaryLabel: primaryLabel(kind, seedName),
     onSelectPlot,
     onSelectSeed,
     onPrimary,
+    addGold,
+    setFeedback,
   };
 }
-
-export {reducer, initialState};

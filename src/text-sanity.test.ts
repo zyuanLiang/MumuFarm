@@ -35,10 +35,14 @@ test('P2 wires cottage wardrobe and return-to-farm showoff', () => {
   assert.ok(outfits.includes('黄雨衣'));
 });
 
-test('P1 keeps UTF-8 Chinese labels for seeds and actions', () => {
-  const crops = readUtf8('src/p1/crops.ts');
-  assert.ok(crops.includes('小麦'));
-  assert.ok(crops.includes('星星南瓜'));
-  assert.ok(crops.includes('浇水'));
-  assert.ok(crops.includes('收获'));
+test('P3 records light surprises and day-feel hooks', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('claimVisitorGift'));
+  assert.ok(farm.includes('takePhoto'));
+  assert.ok(farm.includes('cycleAtmosphere'));
+  assert.ok(farm.includes('writeSave'));
+
+  const doc = readUtf8('docs/redesign/04-p3-day-feel.md');
+  assert.ok(doc.includes('不做毁田'));
+  assert.ok(doc.includes('猫耳'));
 });

@@ -35,4 +35,6 @@ export type FarmAction =
   | {type: 'select_plot'; plotId: number}
   | {type: 'select_seed'; seed: CropId}
   | {type: 'primary'}
-  | {type: 'tick'; now: number};
+  | {type: 'tick'; now: number}
+  | {type: 'add_gold'; amount: number; message?: string}
+  | {type: 'set_feedback'; message: string};

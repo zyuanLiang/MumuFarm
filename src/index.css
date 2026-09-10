@@ -876,3 +876,178 @@ button {
   box-shadow: none;
 }
 
+/* —— P3 day feel —— */
+.atm-clear {
+  background: linear-gradient(180deg, #f7d9c4 0%, #f3e2cf 28%, #e7f0d8 62%, #dfe9c9 100%);
+}
+
+.atm-soft-rain {
+  background: linear-gradient(180deg, #cfd9e4 0%, #d7e0e6 35%, #dde6d8 70%, #d5e0cc 100%);
+}
+
+.atm-dusk {
+  background: linear-gradient(180deg, #f0b89a 0%, #e8c4b0 30%, #d9cbb0 65%, #c9d4a8 100%);
+}
+
+.atm-soft-rain .p1-sky {
+  background:
+    radial-gradient(ellipse 80% 45% at 70% 18%, rgba(200, 220, 235, 0.7), transparent 60%),
+    linear-gradient(180deg, #b9c8d6 0%, #d2dbe3 55%, transparent 100%);
+}
+
+.atm-dusk .p1-sky {
+  background:
+    radial-gradient(ellipse 80% 45% at 70% 18%, rgba(255, 180, 120, 0.75), transparent 60%),
+    linear-gradient(180deg, #f0a888 0%, #e8c0a8 55%, transparent 100%);
+}
+
+.rain-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    -20deg,
+    transparent 0 12px,
+    rgba(255, 255, 255, 0.18) 12px 13px,
+    transparent 13px 26px
+  );
+  animation: rain-fall 0.9s linear infinite;
+  opacity: 0.45;
+}
+
+@keyframes rain-fall {
+  from { background-position: 0 0; }
+  to { background-position: 0 26px; }
+}
+
+.day-bubble {
+  margin: 6px 0 0;
+  padding: 6px 12px;
+  max-width: 90%;
+  border-radius: 14px;
+  background: rgba(255, 248, 238, 0.9);
+  font-size: 13px;
+  text-align: center;
+}
+
+.visitor-slot {
+  position: absolute;
+  left: 92px;
+  top: 78px;
+  z-index: 3;
+}
+
+.visitor-hit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.visitor-hint {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255, 248, 238, 0.95);
+  color: #7a4e3a;
+}
+
+.stray-cat {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 28px;
+}
+
+.stray-body {
+  position: absolute;
+  left: 4px;
+  bottom: 0;
+  width: 22px;
+  height: 12px;
+  border-radius: 10px;
+  background: #8a7a6a;
+}
+
+.stray-head {
+  position: absolute;
+  left: 16px;
+  top: 2px;
+  width: 14px;
+  height: 12px;
+  border-radius: 7px;
+  background: #8a7a6a;
+}
+
+.stray-tail {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  width: 10px;
+  height: 3px;
+  border-radius: 3px;
+  background: #8a7a6a;
+  transform: rotate(-30deg);
+}
+
+.gf-ears {
+  display: none;
+  position: absolute;
+  left: 18%;
+  top: 8%;
+  width: 64%;
+  height: 18%;
+  z-index: 4;
+}
+
+.accessory-cat_ears .gf-ears {
+  display: block;
+}
+
+.gf-ears .ear {
+  position: absolute;
+  top: 0;
+  width: 28%;
+  height: 90%;
+  background: #2b2b2b;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+.gf-ears .ear.left { left: 8%; }
+.gf-ears .ear.right { right: 8%; }
+.gf-ears .ear::after {
+  content: "";
+  position: absolute;
+  left: 30%;
+  top: 35%;
+  width: 40%;
+  height: 45%;
+  background: #f3a989;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.thumb-none {
+  background: #efe6d8;
+}
+
+.thumb-ears {
+  background:
+    linear-gradient(135deg, transparent 40%, #2b2b2b 40% 60%, transparent 60%),
+    #f3d2b3;
+}
+
+.photo-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.75);
+  animation: flash-out 0.9s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes flash-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
