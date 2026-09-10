@@ -15,19 +15,20 @@ export function GirlFigure({
   size = 'farm',
   pose = 'idle',
 }: GirlFigureProps) {
-  const label =
-    outfit === 'witch' ? '穿小魔女套装的女孩' : '穿黄雨衣的女孩';
+  const outfitLabel =
+    outfit === 'witch' ? '小魔女' : outfit === 'denim' ? '牛仔日常' : '黄雨衣';
 
   return (
     <div
       className={`girl-figure size-${size} outfit-${outfit} accessory-${accessory} pose-${pose}`}
-      aria-label={accessory === 'cat_ears' ? `${label}（猫耳）` : label}
+      aria-label={`穿${outfitLabel}的女孩${accessory === 'none' ? '' : `（${accessory}）`}`}
     >
       <div className="gf-hat" aria-hidden />
       <div className="gf-ears" aria-hidden>
         <span className="ear left" />
         <span className="ear right" />
       </div>
+      <div className="gf-scarf" aria-hidden />
       <div className="gf-head" aria-hidden>
         <span className="gf-eye left" />
         <span className="gf-eye right" />
@@ -57,6 +58,15 @@ export function StrayCat() {
       <span className="stray-body" />
       <span className="stray-head" />
       <span className="stray-tail" />
+    </span>
+  );
+}
+
+export function SongBird() {
+  return (
+    <span className="song-bird" aria-hidden>
+      <span className="bird-body" />
+      <span className="bird-wing" />
     </span>
   );
 }

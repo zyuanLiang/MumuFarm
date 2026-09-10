@@ -113,6 +113,8 @@ button {
   z-index: 3;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   padding: 14px 16px 0;
 }
 
@@ -540,10 +542,11 @@ button {
 }
 
 .crop-seed {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: #7a5a3a;
+  box-shadow: 0 0 0 3px rgba(122, 90, 58, 0.18);
 }
 
 .crop-sprout {
@@ -1049,5 +1052,156 @@ button {
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+/* denim outfit */
+.outfit-denim .gf-hat { display: none; }
+.outfit-denim .gf-body {
+  background: linear-gradient(180deg, #fff8ee 0 42%, var(--denim) 42%);
+}
+.outfit-denim .gf-boots {
+  background: #5a4638;
+}
+
+.gf-scarf {
+  display: none;
+  position: absolute;
+  left: 22%;
+  top: 40%;
+  width: 56%;
+  height: 12%;
+  border-radius: 40%;
+  background: #f08070;
+  z-index: 4;
+}
+.accessory-scarf .gf-scarf { display: block; }
+.accessory-scarf.accessory-cat_ears .gf-scarf { top: 44%; }
+
+.thumb-denim {
+  background: linear-gradient(180deg, #fff8ee 0 45%, var(--denim) 45%);
+}
+.thumb-scarf {
+  background: radial-gradient(circle at 50% 50%, #f08070 0 40%, #fff8ee 42%);
+}
+
+.song-bird {
+  position: relative;
+  display: inline-block;
+  width: 28px;
+  height: 22px;
+}
+.bird-body {
+  position: absolute;
+  left: 4px;
+  bottom: 2px;
+  width: 16px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7fa3c9;
+}
+.bird-wing {
+  position: absolute;
+  right: 2px;
+  top: 4px;
+  width: 12px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b7d8f0;
+  transform: rotate(-20deg);
+}
+
+/* vista layers — only the active vista shows extras */
+.vista-guilin,
+.vista-castle,
+.vista-huangshan {
+  display: none;
+  position: absolute;
+  pointer-events: none;
+}
+
+.vista-guilin .vista-guilin,
+.p1-shell.vista-guilin .vista-guilin {
+  display: block;
+  left: 8%;
+  right: 8%;
+  top: 22%;
+  height: 70px;
+  background:
+    radial-gradient(ellipse 28px 48px at 20% 70%, rgba(90, 140, 110, 0.55) 0 70%, transparent 72%),
+    radial-gradient(ellipse 36px 60px at 48% 60%, rgba(70, 120, 100, 0.5) 0 70%, transparent 72%),
+    radial-gradient(ellipse 30px 52px at 78% 68%, rgba(90, 140, 110, 0.45) 0 70%, transparent 72%);
+  opacity: 0.85;
+}
+.p1-shell.vista-guilin .wl-pagoda,
+.p1-shell.vista-guilin .wl-bridge {
+  opacity: 0.15;
+}
+
+.p1-shell.vista-skycastle .vista-castle {
+  display: block;
+  right: 12%;
+  top: 10%;
+  width: 54px;
+  height: 48px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.75), rgba(200,180,220,0.55));
+  clip-path: polygon(15% 70%, 15% 40%, 5% 40%, 25% 10%, 45% 40%, 35% 40%, 35% 55%, 55% 55%, 55% 40%, 70% 40%, 50% 5%, 90% 40%, 78% 40%, 78% 70%, 95% 70%, 95% 85%, 5% 85%, 5% 70%);
+  opacity: 0.7;
+}
+.p1-shell.vista-skycastle .wl-pagoda { opacity: 0.2; }
+
+.p1-shell.vista-huangshan .vista-huangshan {
+  display: block;
+  left: 5%;
+  right: 5%;
+  top: 8%;
+  height: 90px;
+  background:
+    linear-gradient(180deg, transparent 30%, rgba(255,255,255,0.35) 55%, transparent 70%),
+    radial-gradient(ellipse 40px 70px at 30% 80%, rgba(120, 110, 95, 0.55) 0 60%, transparent 62%),
+    radial-gradient(ellipse 50px 80px at 65% 70%, rgba(100, 95, 85, 0.5) 0 60%, transparent 62%);
+}
+.p1-shell.vista-huangshan .wl-pagoda,
+.p1-shell.vista-huangshan .wl-bridge {
+  opacity: 0.12;
+}
+
+.bloom-celebrate {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  z-index: 15;
+  transform: translateX(-50%);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(255, 248, 238, 0.95);
+  color: #8a5a20;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(240, 199, 94, 0.35);
+  animation: banner-in 0.35s ease-out;
+}
+
+.unlock-toast {
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  z-index: 16;
+  transform: translateX(-50%);
+  max-width: 86%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255, 248, 238, 0.96);
+  border: 1px solid rgba(243, 169, 137, 0.55);
+  font-size: 13px;
+  text-align: center;
+  animation: banner-in 0.3s ease-out;
+}
+
+.harvest-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  opacity: 0.65;
+  text-align: center;
+}
+
 
 

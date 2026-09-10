@@ -74,11 +74,28 @@ export function advancePlot(plot: PlotState, now: number, dtMs: number): PlotSta
     return {...plot, watered: false, wateredAt: null, grownMs: 0, progress: 0};
   }
 
+  let grownMs = plot.grownMs;
+  let remaining = Math.max(0, dtMs);
+  let cursor = now - remaining;
+
+  // Integrate wet/dry in chunks so long ticks don't apply only the end-state rate.
+  while (remaining > 0 && grownMs < CROPS[plot.cropId].growMs) {
+    const wet = plot.wateredAt != null && cursor < plot.wateredAt + DRY_AFTER_MS;
+    const wetEnds =
+      wet && plot.wateredAt != null ? plot.wateredAt + DRY_AFTER_MS - cursor : remaining;
+    const step = Math.min(remaining, Math.max(1, wetEnds));
+    grownMs += step * growthRate(wet);
+    cursor += step;
+    remaining -= step;
+    if (!wet) break; // dry for the rest
+    if (remaining > 0 && cursor >= (plot.wateredAt ?? 0) + DRY_AFTER_MS) {
+      // continue loop as dry
+      continue;
+    }
+  }
+
+  grownMs = Math.min(CROPS[plot.cropId].growMs, grownMs);
   const watered = isEffectivelyWatered(plot, now);
-  const grownMs = Math.min(
-    CROPS[plot.cropId].growMs,
-    plot.grownMs + Math.max(0, dtMs) * growthRate(watered),
-  );
   return {
     ...plot,
     watered,
@@ -87,6 +104,7 @@ export function advancePlot(plot: PlotState, now: number, dtMs: number): PlotSta
     progress: Math.min(1, grownMs / CROPS[plot.cropId].growMs),
   };
 }
+
 
 export type PrimaryKind = 'plant' | 'water' | 'harvest' | 'noop';
 

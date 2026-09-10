@@ -22,6 +22,8 @@ function buildInitial(): FarmPrototypeState {
     lastAction: saved ? '欢迎回来，衣服还在身上哦' : '点一块地，开始种吧',
     harvestBurstId: 0,
     lastTickAt: now,
+    harvestCount: saved?.harvestCount ?? 0,
+    lastHarvestCrop: null,
   };
 }
 
@@ -61,6 +63,8 @@ function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeSt
       };
     case 'set_feedback':
       return {...state, lastAction: action.message};
+    case 'clear_last_harvest':
+      return {...state, lastHarvestCrop: null};
     case 'primary': {
       const plots = state.plots.map((plot) => advancePlot(plot, now, 0));
       const plot = plots[state.selectedPlotId];
@@ -84,23 +88,23 @@ function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeSt
       }
 
       if (kind === 'water') {
-        const wateredPlot: PlotState = {
-          ...plot,
-          watered: true,
-          wateredAt: now,
-        };
         return {
           ...state,
-          plots: plots.map((p) => (p.id === plot.id ? wateredPlot : p)),
+          plots: plots.map((p) =>
+            p.id === plot.id ? {...p, watered: true, wateredAt: now} : p,
+          ),
           lastAction: '浇了一壶水',
         };
       }
 
       if (kind === 'harvest' && plot.cropId) {
-        const reward = CROPS[plot.cropId].gold;
+        const cropId = plot.cropId;
+        const reward = CROPS[cropId].gold;
         return {
           ...state,
           gold: state.gold + reward,
+          harvestCount: state.harvestCount + 1,
+          lastHarvestCrop: cropId,
           plots: plots.map((p) =>
             p.id === plot.id
               ? {
@@ -148,21 +152,20 @@ export function useFarmPrototype() {
   const onSelectPlot = useCallback((plotId: number) => {
     dispatch({type: 'select_plot', plotId});
   }, []);
-
   const onSelectSeed = useCallback((seed: CropId) => {
     dispatch({type: 'select_seed', seed});
   }, []);
-
   const onPrimary = useCallback(() => {
     dispatch({type: 'primary'});
   }, []);
-
   const addGold = useCallback((amount: number, message: string) => {
     dispatch({type: 'add_gold', amount, message});
   }, []);
-
   const setFeedback = useCallback((message: string) => {
     dispatch({type: 'set_feedback', message});
+  }, []);
+  const clearLastHarvest = useCallback(() => {
+    dispatch({type: 'clear_last_harvest'});
   }, []);
 
   return {
@@ -171,6 +174,8 @@ export function useFarmPrototype() {
     selectedSeed: state.selectedSeed,
     lastAction: state.lastAction,
     harvestBurstId: state.harvestBurstId,
+    harvestCount: state.harvestCount,
+    lastHarvestCrop: state.lastHarvestCrop,
     rawPlots: state.plots,
     plots,
     primaryKind: kind,
@@ -180,5 +185,6 @@ export function useFarmPrototype() {
     onPrimary,
     addGold,
     setFeedback,
+    clearLastHarvest,
   };
 }

@@ -46,3 +46,14 @@ test('P3 records light surprises and day-feel hooks', () => {
   assert.ok(doc.includes('不做毁田'));
   assert.ok(doc.includes('猫耳'));
 });
+
+test('P4 content loop unlocks vistas and denim by harvest', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('cycleVista'));
+  assert.ok(farm.includes('sunflowerCelebrated'));
+  assert.ok(farm.includes('SongBird'));
+
+  const doc = readUtf8('docs/redesign/05-p4-content-loop.md');
+  assert.ok(doc.includes('牛仔日常装'));
+  assert.ok(doc.includes('向日葵首开'));
+});

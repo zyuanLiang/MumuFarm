@@ -1,6 +1,6 @@
 export type AtmosphereId = 'clear' | 'soft_rain' | 'dusk';
 
-export type AccessoryId = 'none' | 'cat_ears';
+export type AccessoryId = 'none' | 'cat_ears' | 'scarf';
 
 export interface AtmosphereDef {
   id: AtmosphereId;
@@ -21,13 +21,19 @@ export const BUBBLES = [
   '蘑菇屋里有点香香的木头味。',
   '雨停了就去菜地看看吧。',
   '换好衣服再回来，田还在。',
+  '向日葵一开，院子就亮了。',
 ] as const;
 
-/** Soft rain sessions have a chance to host a friendly stray cat. */
-export function rollVisitor(atmosphere: AtmosphereId, alreadyGifted: boolean): boolean {
-  if (alreadyGifted) return false;
-  if (atmosphere !== 'soft_rain') return false;
-  return Math.random() < 0.72;
+export type VisitorKind = 'cat' | 'bird' | null;
+
+/** Soft rain → stray cat; clear → songbird. Never destroys crops. */
+export function rollVisitor(
+  atmosphere: AtmosphereId,
+  claimed: {cat: boolean; bird: boolean},
+): VisitorKind {
+  if (atmosphere === 'soft_rain' && !claimed.cat && Math.random() < 0.72) return 'cat';
+  if (atmosphere === 'clear' && !claimed.bird && Math.random() < 0.55) return 'bird';
+  return null;
 }
 
 export function pickAtmosphere(seed = Date.now()): AtmosphereId {

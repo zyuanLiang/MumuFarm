@@ -29,6 +29,8 @@ export interface FarmPrototypeState {
   lastAction: string | null;
   harvestBurstId: number;
   lastTickAt: number;
+  harvestCount: number;
+  lastHarvestCrop: CropId | null;
 }
 
 export type FarmAction =
@@ -37,4 +39,5 @@ export type FarmAction =
   | {type: 'primary'}
   | {type: 'tick'; now: number}
   | {type: 'add_gold'; amount: number; message?: string}
-  | {type: 'set_feedback'; message: string};
+  | {type: 'set_feedback'; message: string}
+  | {type: 'clear_last_harvest'};
