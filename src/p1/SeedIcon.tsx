@@ -1,7 +1,18 @@
 import type {CropId} from './types';
+import {cropArtUrl} from './themes';
+import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
-/** Mini paper-cut icons for the seed tray — same silhouette language as CropSprite. */
+/** Mini paper-cut icons for the seed tray — prefers SkinPack mature art. */
 export function SeedIcon({cropId}: {cropId: CropId}) {
+  const {cropSkin} = useThemeRuntime();
+  const art = cropArtUrl(cropSkin, cropId, 'mature');
+  if (art) {
+    return (
+      <span className={`seed-icon seed-icon-${cropId} has-art`} aria-hidden>
+        <img src={art} alt="" draggable={false} />
+      </span>
+    );
+  }
   return (
     <span className={`seed-icon seed-icon-${cropId}`} aria-hidden>
       {cropId === 'wheat' && (

@@ -26,3 +26,26 @@ export const springCropsSkin: SkinPack = {
     // Ready for frequent swaps — drop files under public/skins/spring-crops/
   },
 };
+
+/** Filled sample crop stickers — proves SkinPack URL hot-swap. */
+export const sampleCropsSkin: SkinPack = {
+  id: 'sample_crops',
+  name: '示例作物贴',
+  blurb: 'SVG 成熟剪影；换 PNG 路径即可换季',
+  kind: 'crops',
+  unlockAtHarvests: 0,
+  assets: {
+    'wheat.mature': '/skins/sample-v1/crops/wheat-mature.svg',
+    'carrot.mature': '/skins/sample-v1/crops/carrot-mature.svg',
+    'sunflower.mature': '/skins/sample-v1/crops/sunflower-mature.svg',
+    'star_pumpkin.mature': '/skins/sample-v1/crops/star-pumpkin-mature.svg',
+    'wheat.sprout': '/skins/sample-v1/crops/sprout.svg',
+    'carrot.sprout': '/skins/sample-v1/crops/sprout.svg',
+    'sunflower.sprout': '/skins/sample-v1/crops/sprout.svg',
+    'star_pumpkin.sprout': '/skins/sample-v1/crops/sprout.svg',
+    'wheat.seed': '/skins/sample-v1/crops/seed.svg',
+    'carrot.seed': '/skins/sample-v1/crops/seed.svg',
+    'sunflower.seed': '/skins/sample-v1/crops/seed.svg',
+    'star_pumpkin.seed': '/skins/sample-v1/crops/seed.svg',
+  },
+};

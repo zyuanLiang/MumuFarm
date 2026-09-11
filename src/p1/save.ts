@@ -116,9 +116,9 @@ export function loadSave(): GameSave | null {
           ? parsed.unlockedBoots
           : bootsUnlockedBy(harvestCount),
         activeTheme: parsed.activeTheme ?? DEFAULT_THEME_ID,
-        unlockedThemes: parsed.unlockedThemes?.length
-          ? parsed.unlockedThemes
-          : themesUnlockedBy(harvestCount),
+        unlockedThemes: Array.from(
+          new Set([...(parsed.unlockedThemes ?? []), ...themesUnlockedBy(harvestCount)]),
+        ),
         activeCropSkin: parsed.activeCropSkin ?? DEFAULT_CROP_SKIN_ID,
       };
     }

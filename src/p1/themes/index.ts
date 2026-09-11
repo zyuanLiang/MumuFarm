@@ -1,22 +1,33 @@
 import {cottageCreamTheme} from './packs/cottageCream';
 import {rainyLilacTheme} from './packs/rainyLilac';
-import {paperCropsSkin, springCropsSkin} from './packs/cropSkins';
+import {sampleArtTheme} from './packs/sampleArt';
+import {paperCropsSkin, sampleCropsSkin, springCropsSkin} from './packs/cropSkins';
 import type {SkinId, SkinPack, ThemeId, ThemePack, ThemeTokens} from './types';
+import type {CropId} from '../types';
+import type {GrowthStage} from '../types';
+import type {VistaId} from '../vistas';
+import type {BootsId, DressId, HatId} from '../pieces';
 
 export const THEME_PACKS: Record<string, ThemePack> = {
   [cottageCreamTheme.id]: cottageCreamTheme,
+  [sampleArtTheme.id]: sampleArtTheme,
   [rainyLilacTheme.id]: rainyLilacTheme,
 };
 
-export const THEME_ORDER: ThemeId[] = [cottageCreamTheme.id, rainyLilacTheme.id];
+export const THEME_ORDER: ThemeId[] = [
+  cottageCreamTheme.id,
+  sampleArtTheme.id,
+  rainyLilacTheme.id,
+];
 
 export const SKIN_PACKS: Record<string, SkinPack> = {
   [paperCropsSkin.id]: paperCropsSkin,
+  [sampleCropsSkin.id]: sampleCropsSkin,
   [springCropsSkin.id]: springCropsSkin,
 };
 
-export const DEFAULT_THEME_ID: ThemeId = cottageCreamTheme.id;
-export const DEFAULT_CROP_SKIN_ID: SkinId = paperCropsSkin.id;
+export const DEFAULT_THEME_ID: ThemeId = sampleArtTheme.id;
+export const DEFAULT_CROP_SKIN_ID: SkinId = sampleCropsSkin.id;
 
 export function getTheme(id: ThemeId | undefined | null): ThemePack {
   return THEME_PACKS[id ?? ''] ?? THEME_PACKS[DEFAULT_THEME_ID];
@@ -39,7 +50,6 @@ export function skinsUnlockedBy(harvestCount: number, kind?: SkinPack['kind']): 
     .map((pack) => pack.id);
 }
 
-/** CSS custom properties injected onto `.p1-shell`. */
 export function themeToCssVars(tokens: ThemeTokens): Record<string, string> {
   return {
     '--cream': tokens.cream,
@@ -58,17 +68,37 @@ export function themeToCssVars(tokens: ThemeTokens): Record<string, string> {
   };
 }
 
-export function resolveAsset(
-  theme: ThemePack,
-  skin: SkinPack | undefined,
-  key: string,
+export function cropArtUrl(
+  skin: SkinPack,
+  cropId: CropId,
+  stage: GrowthStage,
 ): string | undefined {
-  const fromSkin = skin?.assets[key];
-  if (fromSkin) return fromSkin;
-  const assets = theme.assets;
-  if (!assets) return undefined;
-  // theme-level dotted keys rarely used; keep for future
-  return undefined;
+  if (stage === 'empty') return undefined;
+  return (
+    skin.assets[`${cropId}.${stage}`] ||
+    (stage === 'growing' ? skin.assets[`${cropId}.sprout`] : undefined) ||
+    undefined
+  );
+}
+
+export function vistaArtUrl(theme: ThemePack, vista: VistaId): string | undefined {
+  return theme.assets?.vistaBg?.[vista];
+}
+
+export function dressArtUrl(theme: ThemePack, dress: DressId): string | undefined {
+  return theme.assets?.dress?.[dress];
+}
+
+export function hatArtUrl(theme: ThemePack, hat: HatId): string | undefined {
+  return theme.assets?.hat?.[hat];
+}
+
+export function bootsArtUrl(theme: ThemePack, boots: BootsId): string | undefined {
+  return theme.assets?.boots?.[boots];
+}
+
+export function houseArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.mushroomHouse;
 }
 
 export type {ThemePack, SkinPack, ThemeId, SkinId, ThemeTokens, ThemeAssets} from './types';

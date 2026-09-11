@@ -48,12 +48,17 @@ import {WardrobeView} from './WardrobeView';
 import {
   DEFAULT_CROP_SKIN_ID,
   DEFAULT_THEME_ID,
+  getSkin,
   getTheme,
+  houseArtUrl,
+  skinsUnlockedBy,
   themesUnlockedBy,
+  vistaArtUrl,
   type ThemeId,
   type SkinId,
 } from './themes';
 import {themeStyle} from './themes/useThemeStyle';
+import {ThemeRuntimeContext} from './themes/ThemeRuntimeContext';
 
 type Scene = 'farm' | 'cottage' | 'wardrobe' | 'journal';
 
@@ -105,9 +110,9 @@ function readMeta() {
     journalEntries: saved?.journalEntries ?? [],
     lastBubble: saved?.lastBubble ?? pickBubble(),
     activeTheme: (saved?.activeTheme as ThemeId) ?? DEFAULT_THEME_ID,
-    unlockedThemes: saved?.unlockedThemes?.length
-      ? saved.unlockedThemes
-      : themesUnlockedBy(harvestCount),
+    unlockedThemes: Array.from(
+      new Set([...(saved?.unlockedThemes ?? []), ...themesUnlockedBy(harvestCount)]),
+    ),
     activeCropSkin: (saved?.activeCropSkin as SkinId) ?? DEFAULT_CROP_SKIN_ID,
   };
 }
@@ -659,17 +664,39 @@ export function FarmPrototype() {
   const atm = ATMOSPHERES[atmosphere];
   const outfitLabel = lookLabel(look);
   const theme = getTheme(activeTheme);
-  const shellStyle = themeStyle(theme);
-  const shellClass = `p1-shell has-paper ${atm.skyClass} vista-${activeVista}`;
+  const cropSkin = getSkin(activeCropSkin);
+  const vistaBg = vistaArtUrl(theme, activeVista);
+  const houseArt = houseArtUrl(theme);
+  const shellStyle = {
+    ...themeStyle(theme),
+    ...(vistaBg ? {['--vista-bg-image' as string]: `url("${vistaBg}")`} : {}),
+  };
+  const shellClass = `p1-shell has-paper ${atm.skyClass} vista-${activeVista}${vistaBg ? ' has-vista-art' : ''}`;
   const shellProps = {
     className: shellClass,
     style: shellStyle,
     'data-theme': theme.id,
     'data-crop-skin': activeCropSkin,
+    'data-vista-bg': vistaBg ? '1' : undefined,
   };
+  const runtimeValue = {theme, cropSkin};
+
+  const cycleCropSkin = useCallback(() => {
+    const unlocked = skinsUnlockedBy(farm.harvestCount, 'crops');
+    if (unlocked.length <= 1) {
+      farm.setFeedback('作物皮肤包以后可以整套替换');
+      return;
+    }
+    const idx = unlocked.indexOf(activeCropSkin);
+    const next = unlocked[(idx + 1) % unlocked.length];
+    setActiveCropSkin(next);
+    farm.setFeedback(`作物皮：${getSkin(next).name}`);
+    playSfx('tap');
+  }, [farm, activeCropSkin]);
 
   if (scene === 'cottage') {
     return (
+      <ThemeRuntimeContext.Provider value={runtimeValue}>
       <div {...shellProps}>
         <CottageView
           entering={cottageEntering}
@@ -679,11 +706,13 @@ export function FarmPrototype() {
           onOpenWardrobe={openWardrobe}
         />
       </div>
+      </ThemeRuntimeContext.Provider>
     );
   }
 
   if (scene === 'wardrobe') {
     return (
+      <ThemeRuntimeContext.Provider value={runtimeValue}>
       <div {...shellProps}>
         <WardrobeView
           equipped={look}
@@ -704,11 +733,13 @@ export function FarmPrototype() {
           onBack={() => setScene('cottage')}
         />
       </div>
+      </ThemeRuntimeContext.Provider>
     );
   }
 
   if (scene === 'journal') {
     return (
+      <ThemeRuntimeContext.Provider value={runtimeValue}>
       <div {...shellProps}>
         <JournalView
           entries={journalEntries}
@@ -719,10 +750,12 @@ export function FarmPrototype() {
           }}
         />
       </div>
+      </ThemeRuntimeContext.Provider>
     );
   }
 
   return (
+    <ThemeRuntimeContext.Provider value={runtimeValue}>
     <div {...shellProps}>
       <div className="p1-sky is-breathing" aria-hidden>
         <div className="p1-westlake">
@@ -785,15 +818,21 @@ export function FarmPrototype() {
           <div className="yard-meadow" aria-hidden />
           <button
             type="button"
-            className="mushroom-house is-button"
+            className={`mushroom-house is-button${houseArt ? ' has-art' : ''}`}
             onClick={openCottage}
             aria-label="进入蘑菇屋"
           >
-            <div className="mh-cap" />
-            <div className="mh-stem" />
-            <div className="mh-door" />
-            <div className="mh-window" />
-            <div className="mh-glow" />
+            {houseArt ? (
+              <img className="mh-art" src={houseArt} alt="" draggable={false} />
+            ) : (
+              <>
+                <div className="mh-cap" />
+                <div className="mh-stem" />
+                <div className="mh-door" />
+                <div className="mh-window" />
+                <div className="mh-glow" />
+              </>
+            )}
           </button>
 
           {visitor && (
@@ -938,7 +977,14 @@ export function FarmPrototype() {
             手帐{journalEntries.length > 0 ? ` ·${journalEntries.length}` : ''}
           </button>
         </div>
-        <p className="harvest-hint">已收获 {farm.harvestCount} 次 · 单品 {unlockedHats.filter((h) => h !== 'bare').length + unlockedDresses.length + unlockedBoots.length} · 手帐 {journalEntries.length}</p>
+        <p className="harvest-hint">
+          已收获 {farm.harvestCount} 次 · 单品{' '}
+          {unlockedHats.filter((h) => h !== 'bare').length + unlockedDresses.length + unlockedBoots.length} · 手帐{' '}
+          {journalEntries.length} ·{' '}
+          <button type="button" className="linkish" onClick={cycleCropSkin}>
+            {cropSkin.name}
+          </button>
+        </p>
       </main>
 
       <footer className="p1-dock">
@@ -962,5 +1008,6 @@ export function FarmPrototype() {
         </div>
       )}
     </div>
+    </ThemeRuntimeContext.Provider>
   );
 }

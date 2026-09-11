@@ -5,6 +5,8 @@ import {
   HATS,
   type Look,
 } from './pieces';
+import {dressArtUrl, hatArtUrl} from './themes';
+import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface GirlFigureProps {
   look: Look;
@@ -13,13 +15,17 @@ interface GirlFigureProps {
   pose?: 'idle' | 'showoff';
 }
 
-/** Same master: brown bob, oval eyes, round body. Mixable clothes + accessory. */
+/** Same master face/body; clothes may be ThemePack sticker images. */
 export function GirlFigure({
   look,
   accessory = 'none',
   size = 'farm',
   pose = 'idle',
 }: GirlFigureProps) {
+  const {theme} = useThemeRuntime();
+  const dressArt = dressArtUrl(theme, look.dress);
+  const hatArt = look.hat === 'bare' ? undefined : hatArtUrl(theme, look.hat);
+
   const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
   const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat].name;
   const bootsLabel = BOOTS[look.boots]?.name ?? '';
@@ -45,10 +51,26 @@ export function GirlFigure({
 
   return (
     <div
-      className={`girl-figure size-${size} dress-${look.dress} hat-${look.hat} boots-${look.boots} accessory-${accessory} pose-${pose}`}
+      className={[
+        'girl-figure',
+        `size-${size}`,
+        `dress-${look.dress}`,
+        `hat-${look.hat}`,
+        `boots-${look.boots}`,
+        `accessory-${accessory}`,
+        `pose-${pose}`,
+        dressArt ? 'has-dress-art' : '',
+        hatArt ? 'has-hat-art' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
       aria-label={aria}
     >
-      <div className="gf-hat" aria-hidden />
+      {hatArt ? (
+        <img className="gf-hat-art" src={hatArt} alt="" draggable={false} aria-hidden />
+      ) : (
+        <div className="gf-hat" aria-hidden />
+      )}
       <div className="gf-crown" aria-hidden>
         <span className="petal a" />
         <span className="petal b" />
@@ -68,8 +90,14 @@ export function GirlFigure({
         <span className="gf-smile" />
       </div>
       <div className="gf-hair" aria-hidden />
-      <div className="gf-body" aria-hidden />
-      <div className="gf-apron" aria-hidden />
+      {dressArt ? (
+        <img className="gf-dress-art" src={dressArt} alt="" draggable={false} aria-hidden />
+      ) : (
+        <>
+          <div className="gf-body" aria-hidden />
+          <div className="gf-apron" aria-hidden />
+        </>
+      )}
       <div className="gf-boots" aria-hidden />
     </div>
   );

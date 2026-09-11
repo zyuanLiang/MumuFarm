@@ -26,9 +26,17 @@
 ## 本轮已做
 
 - ThemePack + SkinPack 类型与注册表  
-- 默认「奶油小院」+ 示例「雨紫庭院」（收获 3 次解锁）  
-- 农场顶栏可切换主题；CSS 变量热更新  
+- 默认「示例美装」（SVG 槽位已挂）+ 「奶油小院」纸片对照 + 「雨紫庭院」（收获 3 次解锁）  
+- CropSprite / GirlFigure / SeedIcon / 蘑菇屋 / 远景：有 URL 用图，无 URL 回退 CSS  
+- 农场顶栏切主题；收获提示旁可切作物皮；CSS 变量热更新  
+- 示例资产：`public/themes/sample-v1/`、`public/skins/sample-v1/`  
 - 存档字段：`activeTheme` / `unlockedThemes` / `activeCropSkin`  
+
+## 换真素材只需
+
+1. 把 PNG/WebP 丢进 `public/themes/<pack>/` 或 `public/skins/<pack>/`  
+2. 改对应 pack 的 `assets` 路径  
+3. 不动种田 / 换装规则  
 
 ## 不做（留给贴图到位时）
 

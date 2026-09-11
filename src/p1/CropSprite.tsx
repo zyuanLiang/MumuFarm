@@ -1,13 +1,25 @@
 import type {CropId, GrowthStage} from './types';
+import {cropArtUrl} from './themes';
+import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface CropSpriteProps {
   cropId: CropId;
   stage: GrowthStage;
 }
 
-/** Flat paper-cut crop shapes — readable stages, no emoji/neon. */
+/** Flat paper-cut crop shapes — uses SkinPack art when URL present. */
 export function CropSprite({cropId, stage}: CropSpriteProps) {
+  const {cropSkin} = useThemeRuntime();
   if (stage === 'empty') return null;
+
+  const art = cropArtUrl(cropSkin, cropId, stage);
+  if (art) {
+    return (
+      <div className={`crop-sprite crop-${cropId} stage-${stage} has-art`} aria-hidden>
+        <img className="crop-art" src={art} alt="" draggable={false} />
+      </div>
+    );
+  }
 
   return (
     <div className={`crop-sprite crop-${cropId} stage-${stage}`} aria-hidden>
