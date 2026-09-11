@@ -12,6 +12,8 @@ import {
   skinsUnlockedBy,
   vistaArtUrl,
   dressArtUrl,
+  bootsArtUrl,
+  hatArtUrl,
   houseArtUrl,
 } from './index.ts';
 
@@ -46,5 +48,20 @@ describe('p14 theme / skin packs', () => {
     assert.ok(cropArtUrl(skin, 'wheat', 'mature')?.includes('wheat-mature'));
     assert.ok(cropArtUrl(skin, 'carrot', 'seed')?.includes('seed.svg'));
     assert.equal(cropArtUrl(getSkin('paper_crops'), 'wheat', 'mature'), undefined);
+  });
+
+  it('p15 fills master sticker slots for all mix pieces and vistas', () => {
+    const theme = getTheme('sample_art');
+    assert.ok(vistaArtUrl(theme, 'guilin')?.includes('vista-guilin'));
+    assert.ok(vistaArtUrl(theme, 'skycastle')?.includes('vista-skycastle'));
+    assert.ok(vistaArtUrl(theme, 'huangshan')?.includes('vista-huangshan'));
+    assert.ok(dressArtUrl(theme, 'denim')?.includes('dress-denim'));
+    assert.ok(dressArtUrl(theme, 'spore')?.includes('dress-spore'));
+    assert.ok(hatArtUrl(theme, 'beret')?.includes('hat-beret'));
+    assert.ok(bootsArtUrl(theme, 'yellow')?.includes('boots-yellow'));
+    assert.ok(bootsArtUrl(theme, 'witch')?.includes('boots-witch'));
+    assert.ok(bootsArtUrl(theme, 'moon')?.includes('boots-moon'));
+    assert.equal(dressArtUrl(getTheme('cottage_cream'), 'witch'), undefined);
+    assert.equal(bootsArtUrl(getTheme('cottage_cream'), 'yellow'), undefined);
   });
 });

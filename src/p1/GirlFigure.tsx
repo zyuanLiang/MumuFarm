@@ -5,7 +5,7 @@ import {
   HATS,
   type Look,
 } from './pieces';
-import {dressArtUrl, hatArtUrl} from './themes';
+import {bootsArtUrl, dressArtUrl, hatArtUrl} from './themes';
 import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface GirlFigureProps {
@@ -15,7 +15,10 @@ interface GirlFigureProps {
   pose?: 'idle' | 'showoff';
 }
 
-/** Same master face/body; clothes may be ThemePack sticker images. */
+/**
+ * Fixed girl master (CSS face/hair) + optional ThemePack stickers.
+ * Anchor slots are shared across farm / room / wardrobe sizes — only scale the figure.
+ */
 export function GirlFigure({
   look,
   accessory = 'none',
@@ -25,9 +28,10 @@ export function GirlFigure({
   const {theme} = useThemeRuntime();
   const dressArt = dressArtUrl(theme, look.dress);
   const hatArt = look.hat === 'bare' ? undefined : hatArtUrl(theme, look.hat);
+  const bootsArt = bootsArtUrl(theme, look.boots);
 
   const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
-  const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat].name;
+  const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat]?.name ?? '';
   const bootsLabel = BOOTS[look.boots]?.name ?? '';
   const accessoryLabel =
     accessory === 'cat_ears'
@@ -53,6 +57,7 @@ export function GirlFigure({
     <div
       className={[
         'girl-figure',
+        'master-v1',
         `size-${size}`,
         `dress-${look.dress}`,
         `hat-${look.hat}`,
@@ -61,6 +66,7 @@ export function GirlFigure({
         `pose-${pose}`,
         dressArt ? 'has-dress-art' : '',
         hatArt ? 'has-hat-art' : '',
+        bootsArt ? 'has-boots-art' : '',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -82,6 +88,7 @@ export function GirlFigure({
       </div>
       <div className="gf-scarf" aria-hidden />
       <div className="gf-mushroom-pin" aria-hidden />
+      <div className="gf-hair" aria-hidden />
       <div className="gf-head" aria-hidden>
         <span className="gf-blush left" />
         <span className="gf-blush right" />
@@ -89,7 +96,6 @@ export function GirlFigure({
         <span className="gf-eye right" />
         <span className="gf-smile" />
       </div>
-      <div className="gf-hair" aria-hidden />
       {dressArt ? (
         <img className="gf-dress-art" src={dressArt} alt="" draggable={false} aria-hidden />
       ) : (
@@ -98,7 +104,11 @@ export function GirlFigure({
           <div className="gf-apron" aria-hidden />
         </>
       )}
-      <div className="gf-boots" aria-hidden />
+      {bootsArt ? (
+        <img className="gf-boots-art" src={bootsArt} alt="" draggable={false} aria-hidden />
+      ) : (
+        <div className="gf-boots" aria-hidden />
+      )}
     </div>
   );
 }

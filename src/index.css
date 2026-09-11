@@ -297,8 +297,9 @@ button {
   width: 56%;
   height: 28%;
   border-radius: 50%;
-  background: #f3d2b3;
+  background: radial-gradient(circle at 35% 30%, #f7dcc0, #f0c8a4 70%);
   z-index: 2;
+  box-shadow: inset 0 -2px 0 rgba(196, 135, 106, 0.12);
 }
 
 .gf-eye {
@@ -2363,12 +2364,20 @@ button {
   pointer-events: none;
 }
 
+/* P15 master sticker slots — shared % frame (docs/redesign/16-…) */
+.girl-figure.master-v1 .gf-hair {
+  z-index: 1;
+}
+.girl-figure.master-v1 .gf-head {
+  z-index: 3;
+}
+
 .gf-dress-art {
   position: absolute;
-  left: 8%;
-  top: 38%;
-  width: 84%;
-  height: 52%;
+  left: 10%;
+  top: 40%;
+  width: 80%;
+  height: 44%;
   object-fit: contain;
   object-position: center top;
   z-index: 2;
@@ -2378,13 +2387,25 @@ button {
 
 .gf-hat-art {
   position: absolute;
-  left: 6%;
+  left: 8%;
   top: 0;
-  width: 88%;
-  height: 28%;
+  width: 84%;
+  height: 26%;
   object-fit: contain;
   object-position: center bottom;
   z-index: 4;
+  pointer-events: none;
+}
+
+.gf-boots-art {
+  position: absolute;
+  left: 18%;
+  bottom: 0;
+  width: 64%;
+  height: 16%;
+  object-fit: contain;
+  object-position: center bottom;
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -2394,6 +2415,10 @@ button {
 }
 
 .girl-figure.has-hat-art .gf-hat {
+  display: none;
+}
+
+.girl-figure.has-boots-art .gf-boots {
   display: none;
 }
 

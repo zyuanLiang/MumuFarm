@@ -238,3 +238,23 @@ test('P14 theme and skin packs support hot-swap', () => {
   assert.match(doc, /频繁换/);
   assert.match(doc, /示例美装/);
 });
+
+test('P15 girl master sticker anchors and full sample wardrobe', () => {
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const sample = readUtf8('src/p1/themes/packs/sampleArt.ts');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/16-p15-girl-master-stickers.md');
+  assert.match(girl, /master-v1/);
+  assert.match(girl, /bootsArtUrl/);
+  assert.match(girl, /gf-boots-art/);
+  assert.match(girl, /has-boots-art/);
+  assert.match(sample, /boots-yellow/);
+  assert.match(sample, /dress-denim/);
+  assert.match(sample, /hat-beret/);
+  assert.match(sample, /vista-guilin/);
+  assert.match(sample, /vista-skycastle/);
+  assert.match(sample, /vista-huangshan/);
+  assert.match(css, /gf-boots-art/);
+  assert.match(css, /master-v1/);
+  assert.match(doc, /母版锚点/);
+});

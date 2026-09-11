@@ -1,13 +1,13 @@
 import type {ThemePack} from '../types';
 
 /**
- * Sample art theme — same gameplay, real SVG slots filled.
- * Swap files under public/themes/sample-v1 without code changes.
+ * Sample art theme — same gameplay, full sticker slots filled.
+ * Swap files under public/themes/sample-v1 and public/skins/sample-v1 without code changes.
  */
 export const sampleArtTheme: ThemePack = {
   id: 'sample_art',
   name: '示例美装',
-  blurb: '挂上 SVG 贴纸后的样子（可整包替换）',
+  blurb: '母版脸固定；帽衣靴远景可整包替换',
   unlockAtHarvests: 0,
   tokens: {
     cream: '#fff8ee',
@@ -28,16 +28,35 @@ export const sampleArtTheme: ThemePack = {
   assets: {
     vistaBg: {
       westlake: '/themes/sample-v1/vista-westlake.svg',
+      guilin: '/themes/sample-v1/vista-guilin.svg',
+      skycastle: '/themes/sample-v1/vista-skycastle.svg',
+      huangshan: '/themes/sample-v1/vista-huangshan.svg',
     },
     mushroomHouse: '/themes/sample-v1/mushroom-house.svg',
     dress: {
       raincoat: '/skins/sample-v1/wardrobe/dress-raincoat.svg',
       witch: '/skins/sample-v1/wardrobe/dress-witch.svg',
+      denim: '/skins/sample-v1/wardrobe/dress-denim.svg',
+      garden: '/skins/sample-v1/wardrobe/dress-garden.svg',
+      picnic: '/skins/sample-v1/wardrobe/dress-picnic.svg',
+      sweater: '/skins/sample-v1/wardrobe/dress-sweater.svg',
+      moonlight: '/skins/sample-v1/wardrobe/dress-moonlight.svg',
+      spore: '/skins/sample-v1/wardrobe/dress-spore.svg',
     },
     hat: {
       rain_hood: '/skins/sample-v1/wardrobe/hat-rain-hood.svg',
       witch_hat: '/skins/sample-v1/wardrobe/hat-witch.svg',
       straw_hat: '/skins/sample-v1/wardrobe/hat-straw.svg',
+      beret: '/skins/sample-v1/wardrobe/hat-beret.svg',
+    },
+    boots: {
+      yellow: '/skins/sample-v1/wardrobe/boots-yellow.svg',
+      witch: '/skins/sample-v1/wardrobe/boots-witch.svg',
+      denim: '/skins/sample-v1/wardrobe/boots-denim.svg',
+      peach: '/skins/sample-v1/wardrobe/boots-peach.svg',
+      moss: '/skins/sample-v1/wardrobe/boots-moss.svg',
+      check: '/skins/sample-v1/wardrobe/boots-check.svg',
+      moon: '/skins/sample-v1/wardrobe/boots-moon.svg',
     },
   },
 };
