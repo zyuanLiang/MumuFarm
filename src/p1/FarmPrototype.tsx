@@ -646,11 +646,13 @@ export function FarmPrototype() {
   }, [farm, flashPlot]);
 
   const cycleAtmosphere = useCallback(() => {
-    setAtmosphere((prev) => {
-      const order: AtmosphereId[] = ['clear', 'soft_rain', 'dusk'];
-      return order[(order.indexOf(prev) + 1) % order.length];
-    });
-  }, []);
+    const order: AtmosphereId[] = ['clear', 'soft_rain', 'dusk'];
+    const next = order[(order.indexOf(atmosphere) + 1) % order.length];
+    setAtmosphere(next);
+    if (next === 'soft_rain') {
+      farm.setFeedback('细雨来了，黑猫躲到蘑菇檐下～');
+    }
+  }, [atmosphere, farm]);
 
   const cycleVista = useCallback(() => {
     if (unlockedVistas.length <= 1) {
@@ -676,6 +678,7 @@ export function FarmPrototype() {
   }, [unlockedThemes, activeTheme, farm]);
 
   const atm = ATMOSPHERES[atmosphere];
+  const rainShelter = atmosphere === 'soft_rain' && !showoff;
   const outfitLabel = lookLabel(look);
   const theme = getTheme(activeTheme);
   const cropSkin = getSkin(activeCropSkin);
@@ -876,6 +879,12 @@ export function FarmPrototype() {
             </div>
           )}
 
+          {rainShelter && (
+            <div className="cat-rain-shelter" aria-label="黑猫躲檐">
+              <BlackCat size="farm" onAssist={catAssist} pose="shelter" />
+            </div>
+          )}
+
           <div className="p1-actors">
             <GirlFigure
               look={look}
@@ -883,11 +892,13 @@ export function FarmPrototype() {
               size="farm"
               pose={showoff ? 'showoff' : 'idle'}
             />
-            <BlackCat
-              size="farm"
-              onAssist={catAssist}
-              pose={showoff ? 'cheer' : catPose}
-            />
+            {!rainShelter && (
+              <BlackCat
+                size="farm"
+                onAssist={catAssist}
+                pose={showoff ? 'cheer' : catPose}
+              />
+            )}
           </div>
         </section>
 

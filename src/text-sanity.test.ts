@@ -329,7 +329,7 @@ test('P20 black cat follows into cottage and looks up on harvest', () => {
   assert.match(cottage, /pose=\{catArrived \? 'idle' : 'follow'\}/);
   assert.match(cottage, /黑猫踮脚/);
   assert.match(cottage, /cat-trailing/);
-  assert.match(girl, /pose\?: 'idle' \| 'follow' \| 'look-up' \| 'cheer'/);
+  assert.match(girl, /pose\?: 'idle' \| 'follow' \| 'look-up' \| 'cheer' \| 'shelter'/);
   assert.match(farm, /setCatPose\('look-up'\)/);
   assert.match(css, /cat-trot-in/);
   assert.match(css, /cat-look-up/);
@@ -345,4 +345,20 @@ test('P21 black cat cheers on wardrobe showoff', () => {
   assert.match(css, /cat-cheer/);
   assert.match(css, /pose-cheer/);
   assert.match(doc, /欢呼/);
+});
+
+test('P22 black cat shelters under mushroom eaves in soft rain', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/23-p22-cat-rain-shelter.md');
+  assert.match(farm, /rainShelter/);
+  assert.match(farm, /cat-rain-shelter/);
+  assert.match(farm, /pose="shelter"/);
+  assert.match(farm, /细雨来了，黑猫躲到蘑菇檐下/);
+  assert.match(girl, /'shelter'/);
+  assert.match(css, /cat-rain-shelter/);
+  assert.match(css, /pose-shelter/);
+  assert.match(css, /cat-shelter-tuck/);
+  assert.match(doc, /躲檐/);
 });

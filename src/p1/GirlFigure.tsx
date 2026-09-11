@@ -120,7 +120,7 @@ export function BlackCat({
 }: {
   size?: 'farm' | 'room' | 'wardrobe';
   onAssist?: () => void;
-  pose?: 'idle' | 'follow' | 'look-up' | 'cheer';
+  pose?: 'idle' | 'follow' | 'look-up' | 'cheer' | 'shelter';
 }) {
   const body = (
     <>

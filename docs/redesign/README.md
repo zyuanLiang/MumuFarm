@@ -25,7 +25,8 @@
 - **P19 拍照相框远景**：[20-p19-photo-frame-vista.md](./20-p19-photo-frame-vista.md)（咔嚓预览挂远景+合影）
 - **P20 黑猫跟进小屋**：[21-p20-cat-cottage-follow.md](./21-p20-cat-cottage-follow.md)（进门跟随 + 收获抬头）
 - **P21 换装黑猫欢呼**：[22-p21-cat-showoff-cheer.md](./22-p21-cat-showoff-cheer.md)（回农场炫耀时猫小跳）
+- **P22 细雨躲檐**：[23-p22-cat-rain-shelter.md](./23-p22-cat-rain-shelter.md)（软雨时猫躲蘑菇檐下）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题热换 + 手帐/拍照 + **黑猫陪伴三拍（跟进/抬头/欢呼）**。
+当前实现：`src/p1/` — 玩法闭环 + 主题热换 + 手帐/拍照 + **黑猫陪伴四拍（跟进/抬头/欢呼/躲雨）**。
 

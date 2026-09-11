@@ -470,6 +470,38 @@ button {
 .black-cat.pose-cheer .cat-crescent {
   animation: cat-bell-ting 0.7s ease-out;
 }
+.black-cat.pose-shelter {
+  animation: cat-shelter-tuck 0.45s ease-out both;
+}
+.black-cat.pose-shelter .cat-head {
+  transform: translateY(12%);
+}
+.black-cat.pose-shelter .cat-crescent {
+  transform: rotate(-12deg);
+}
+
+.cat-rain-shelter {
+  position: absolute;
+  left: 78px;
+  top: 90px;
+  z-index: 4;
+  width: 36px;
+  height: 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.cat-rain-shelter::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: 1px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 248, 230, 0.38);
+  pointer-events: none;
+}
 
 @keyframes cat-trot-in {
   0% { opacity: 0; transform: translate(28px, 8px) scale(0.92); }
@@ -491,6 +523,10 @@ button {
   25% { transform: translateY(-10px) rotate(-8deg); }
   50% { transform: translateY(-4px) rotate(6deg); }
   75% { transform: translateY(-8px) rotate(-4deg); }
+}
+@keyframes cat-shelter-tuck {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(0.9) translateY(3px); }
 }
 
 .p2-cottage.cat-trailing .cottage-actors .black-cat {
