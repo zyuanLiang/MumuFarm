@@ -5,6 +5,7 @@ import type {PlotState} from './types';
 import type {VistaId} from './vistas';
 import {outfitsUnlockedBy} from './outfits';
 import {vistasUnlockedBy} from './vistas';
+import type {JournalEntry} from './journal';
 
 const SAVE_KEY = 'mumufarm.p4.v2';
 const LEGACY_KEY = 'mumufarm.p3.v1';
@@ -26,6 +27,7 @@ export interface GameSave {
   sunflowerCelebrated: boolean;
   starPumpkinGifted?: boolean;
   mushroomPinGifted?: boolean;
+  journalEntries?: JournalEntry[];
   lastBubble: string;
 }
 
@@ -52,6 +54,9 @@ function migrateLegacy(raw: unknown): GameSave | null {
     sunflowerCelebrated: Boolean(data.sunflowerCelebrated),
     starPumpkinGifted: Boolean(data.starPumpkinGifted),
     mushroomPinGifted: Boolean(data.mushroomPinGifted),
+    journalEntries: Array.isArray(data.journalEntries)
+      ? (data.journalEntries as JournalEntry[])
+      : [],
     lastBubble: typeof data.lastBubble === 'string' ? data.lastBubble : '今天也想慢慢种一点～',
   };
 }

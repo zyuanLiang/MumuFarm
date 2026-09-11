@@ -17,9 +17,11 @@ import {loadSave, writeSave} from './save';
 import {playSfx, resumeAudio} from './sfx';
 import {useFarmPrototype} from './useFarmPrototype';
 import {VISTA_ORDER, VISTAS, vistasUnlockedBy, type VistaId} from './vistas';
+import {JournalView} from './JournalView';
+import {createJournalEntry, prependJournalEntry, type JournalEntry} from './journal';
 import {WardrobeView} from './WardrobeView';
 
-type Scene = 'farm' | 'cottage' | 'wardrobe';
+type Scene = 'farm' | 'cottage' | 'wardrobe' | 'journal';
 
 const SHOWOFF_MS = 1600;
 const PHOTO_MS = 1400;
@@ -47,6 +49,7 @@ function readMeta() {
     sunflowerCelebrated: Boolean(saved?.sunflowerCelebrated),
     starPumpkinGifted: Boolean(saved?.starPumpkinGifted),
     mushroomPinGifted: Boolean(saved?.mushroomPinGifted),
+    journalEntries: saved?.journalEntries ?? [],
     lastBubble: saved?.lastBubble ?? pickBubble(),
   };
 }
@@ -84,6 +87,7 @@ export function FarmPrototype() {
   const [mushroomPinGifted, setMushroomPinGifted] = useState(Boolean(meta.mushroomPinGifted));
   const [visitor, setVisitor] = useState<VisitorKind>(null);
   const [cottageEntering, setCottageEntering] = useState(false);
+  const [journalEntries, setJournalEntries] = useState<JournalEntry[]>(meta.journalEntries ?? []);
 
   const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
   const brushedRef = useRef<Set<number>>(new Set());
@@ -285,6 +289,7 @@ export function FarmPrototype() {
       sunflowerCelebrated,
       starPumpkinGifted,
       mushroomPinGifted,
+      journalEntries,
       lastBubble: bubble,
     });
   }, [
@@ -302,7 +307,8 @@ export function FarmPrototype() {
     birdGiftClaimed,
     sunflowerCelebrated,
     starPumpkinGifted,
-      mushroomPinGifted,
+    mushroomPinGifted,
+    journalEntries,
     bubble,
   ]);
 
@@ -330,6 +336,11 @@ export function FarmPrototype() {
     setPreviewAccessory(accessory);
     setScene('wardrobe');
   }, [outfit, accessory]);
+
+  const openJournal = useCallback(() => {
+    setScene('journal');
+    playSfx('tap');
+  }, []);
 
   const equipAndShowOff = useCallback(() => {
     setOutfit(preview);
@@ -375,10 +386,18 @@ export function FarmPrototype() {
   }, [visitor, catGiftClaimed, birdGiftClaimed, farm]);
 
   const takePhoto = useCallback(() => {
+    const entry = createJournalEntry({
+      vista: activeVista,
+      outfit,
+      accessory,
+      atmosphere,
+    });
+    setJournalEntries((prev) => prependJournalEntry(prev, entry));
     setPhotoFlash(true);
     playSfx('photo');
     farm.setFeedback(`咔嚓，${VISTAS[activeVista].name}风景收进手帐了`);
-  }, [farm, activeVista]);
+    setToast('手帐又多了一页');
+  }, [farm, activeVista, outfit, accessory, atmosphere]);
 
   const onPrimaryWithSfx = useCallback(() => {
     const kind = farm.primaryKind;
@@ -437,6 +456,21 @@ export function FarmPrototype() {
           onPreviewAccessory={setPreviewAccessory}
           onEquip={equipAndShowOff}
           onBack={() => setScene('cottage')}
+        />
+      </div>
+    );
+  }
+
+  if (scene === 'journal') {
+    return (
+      <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
+        <JournalView
+          entries={journalEntries}
+          onBack={() => setScene('farm')}
+          onTakePhoto={() => {
+            setScene('farm');
+            window.setTimeout(() => takePhoto(), 80);
+          }}
         />
       </div>
     );
@@ -593,8 +627,11 @@ export function FarmPrototype() {
           <button type="button" className="seed-chip" onClick={takePhoto}>
             拍照
           </button>
+          <button type="button" className="seed-chip journal-chip" onClick={openJournal}>
+            手帐{journalEntries.length > 0 ? ` ·${journalEntries.length}` : ''}
+          </button>
         </div>
-        <p className="harvest-hint">已收获 {farm.harvestCount} 次 · 明信片 {unlockedVistas.length}/{VISTA_ORDER.length}</p>
+        <p className="harvest-hint">已收获 {farm.harvestCount} 次 · 明信片 {unlockedVistas.length}/{VISTA_ORDER.length} · 手帐 {journalEntries.length}</p>
       </main>
 
       <footer className="p1-dock">

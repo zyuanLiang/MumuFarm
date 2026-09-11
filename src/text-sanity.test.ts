@@ -109,3 +109,17 @@ test('P7 wardrobe expansion and mushroom cottage enter', () => {
   assert.match(cottage, /推开蘑菇门/);
   assert.match(cottage, /cottage-enter-veil/);
 });
+
+
+test('P8 scrapbook journal saves photo moments', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const journal = readUtf8('src/p1/journal.ts');
+  const view = readUtf8('src/p1/JournalView.tsx');
+  const save = readUtf8('src/p1/save.ts');
+  assert.match(farm, /openJournal/);
+  assert.match(farm, /createJournalEntry/);
+  assert.match(farm, /手帐/);
+  assert.match(journal, /JOURNAL_MAX/);
+  assert.match(view, /手帐本/);
+  assert.match(save, /journalEntries/);
+});
