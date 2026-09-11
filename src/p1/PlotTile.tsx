@@ -29,7 +29,7 @@ export function PlotTile({
 }: PlotTileProps) {
   const label =
     stage === 'empty'
-      ? '空地'
+      ? '空地，可播种'
       : cropId
         ? `${CROPS[cropId].name} ${Math.round(progress * 100)}%`
         : '地块';
@@ -42,6 +42,7 @@ export function PlotTile({
         'plot-tile',
         watered ? 'is-watered' : 'is-dry',
         selected ? 'is-selected' : '',
+        stage === 'empty' ? 'is-empty' : '',
         stage === 'mature' ? 'is-mature' : '',
         fx ? `fx-${fx}` : '',
       ]
@@ -52,10 +53,15 @@ export function PlotTile({
       onClick={() => onSelect(id)}
     >
       <div className="plot-soil">
+        <span className="plot-furrow" aria-hidden />
         {cropId && stage !== 'empty' ? (
           <CropSprite cropId={cropId} stage={stage} />
         ) : (
-          <span className="plot-empty-hint" />
+          <span className="plot-empty-hint" aria-hidden>
+            <i className="ridge a" />
+            <i className="ridge b" />
+            <i className="ridge c" />
+          </span>
         )}
         {fx && (
           <span key={fxKey} className={`plot-fx plot-fx-${fx}`} aria-hidden>
@@ -78,6 +84,11 @@ export function PlotTile({
         )}
       </div>
       {stage === 'mature' && <span className="plot-ready-dot" />}
+      {stage === 'empty' && selected && (
+        <span className="plot-plantable" aria-hidden>
+          可种
+        </span>
+      )}
     </button>
   );
 }

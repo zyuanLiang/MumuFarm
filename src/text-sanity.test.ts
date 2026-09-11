@@ -172,3 +172,19 @@ test('P11 visual breath and plot micro-feedback', () => {
   assert.match(html, /蘑菇屋里的小魔女/);
   assert.match(html, /Nunito/);
 });
+
+test('P12 paper-cut crops and warmer empty plots', () => {
+  const crop = readUtf8('src/p1/CropSprite.tsx');
+  const plot = readUtf8('src/p1/PlotTile.tsx');
+  const css = readUtf8('src/index.css');
+  assert.match(crop, /crop-mature/);
+  assert.match(crop, /star_pumpkin/);
+  assert.match(crop, /ear a/);
+  assert.match(crop, /petals/);
+  assert.match(plot, /plot-furrow/);
+  assert.match(plot, /plot-plantable/);
+  assert.match(plot, /可种/);
+  assert.match(css, /star-twinkle/);
+  assert.match(css, /crop-wheat \.ear/);
+  assert.match(css, /plot-empty-hint \.ridge/);
+});
