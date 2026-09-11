@@ -188,3 +188,20 @@ test('P12 paper-cut crops and warmer empty plots', () => {
   assert.match(css, /crop-wheat \.ear/);
   assert.match(css, /plot-empty-hint \.ridge/);
 });
+
+test('P13 yard summary and paper seed icons', () => {
+  const summary = readUtf8('src/p1/yardSummary.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const icon = readUtf8('src/p1/SeedIcon.tsx');
+  const css = readUtf8('src/index.css');
+  assert.match(summary, /summarizeYard/);
+  assert.match(summary, /readyIds/);
+  assert.match(summary, /thirstyIds/);
+  assert.match(farm, /actOnYardFocus/);
+  assert.match(farm, /yard-tip/);
+  assert.match(farm, /SeedIcon/);
+  assert.match(icon, /seed-icon-\$\{cropId\}/);
+  assert.match(icon, /seed-icon/);
+  assert.match(css, /yard-tip-go/);
+  assert.match(css, /seed-icon-star_pumpkin/);
+});

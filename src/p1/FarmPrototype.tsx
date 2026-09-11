@@ -1,6 +1,8 @@
 import {useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent} from 'react';
 import {CottageView} from './CottageView';
 import {CROPS, SEED_ORDER, type PrimaryKind} from './crops';
+import {SeedIcon} from './SeedIcon';
+import {summarizeYard} from './yardSummary';
 import {
   ATMOSPHERES,
   pickAtmosphere,
@@ -138,6 +140,8 @@ export function FarmPrototype() {
   const [plotFx, setPlotFx] = useState<{id: number; kind: PlotFxKind; key: number} | null>(
     null,
   );
+  const [yardTipDismissed, setYardTipDismissed] = useState(false);
+  const yardBootstrapped = useRef(false);
 
   const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
   const brushedRef = useRef<Set<number>>(new Set());
@@ -259,6 +263,17 @@ export function FarmPrototype() {
   useEffect(() => {
     setVisitor(rollVisitor(atmosphere, {cat: catGiftClaimed, bird: birdGiftClaimed}));
   }, [atmosphere, catGiftClaimed, birdGiftClaimed]);
+
+  const yardSummary = useMemo(() => summarizeYard(farm.rawPlots), [farm.rawPlots]);
+
+  useEffect(() => {
+    if (yardBootstrapped.current) return;
+    yardBootstrapped.current = true;
+    if (yardSummary.message) {
+      farm.setFeedback(yardSummary.message);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once on mount
+  }, []);
 
   useEffect(() => {
     const tip = suggestTodayLook({
@@ -474,6 +489,25 @@ export function FarmPrototype() {
     setScene('journal');
     playSfx('tap');
   }, []);
+
+  const actOnYardFocus = useCallback(() => {
+    const id = yardSummary.focusPlotId;
+    if (id == null) return;
+    resumeAudio();
+    if (yardSummary.readyIds.includes(id)) {
+      flashPlot(id, 'harvest');
+      farm.onApplyPlot(id, 'harvest');
+      playSfx('harvest');
+    } else if (yardSummary.thirstyIds.includes(id)) {
+      flashPlot(id, 'water');
+      farm.onApplyPlot(id, 'water');
+      playSfx('water');
+    } else {
+      farm.onSelectPlot(id);
+      playSfx('tap');
+    }
+    setYardTipDismissed(true);
+  }, [yardSummary, farm, flashPlot]);
 
   const applyDailyTip = useCallback(() => {
     if (!dailyTip) return;
@@ -789,6 +823,29 @@ export function FarmPrototype() {
             : farm.lastAction}
         </p>
 
+        {!yardTipDismissed &&
+          yardSummary.message &&
+          (yardSummary.readyIds.length > 0 || yardSummary.thirstyIds.length > 0) && (
+            <div className="yard-tip" role="status">
+              <span className="yard-tip-copy">{yardSummary.message}</span>
+              <button type="button" className="yard-tip-go" onClick={actOnYardFocus}>
+                {yardSummary.readyIds.length > 0
+                  ? '去收'
+                  : yardSummary.thirstyIds.length > 0
+                    ? '去浇'
+                    : '看看'}
+              </button>
+              <button
+                type="button"
+                className="yard-tip-skip"
+                aria-label="知道了"
+                onClick={() => setYardTipDismissed(true)}
+              >
+                ×
+              </button>
+            </div>
+          )}
+
         <div className="p1-seeds" role="listbox" aria-label="选择种子">
           {SEED_ORDER.map((seed) => (
             <button
@@ -796,10 +853,11 @@ export function FarmPrototype() {
               type="button"
               role="option"
               aria-selected={farm.selectedSeed === seed}
-              className={`seed-chip ${farm.selectedSeed === seed ? 'is-on' : ''}`}
+              className={`seed-chip seed-${seed} ${farm.selectedSeed === seed ? 'is-on' : ''}`}
               onClick={() => farm.onSelectSeed(seed)}
             >
-              {CROPS[seed].name}
+              <SeedIcon cropId={seed} />
+              <span>{CROPS[seed].name}</span>
             </button>
           ))}
         </div>
