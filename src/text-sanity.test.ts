@@ -72,3 +72,22 @@ test('P5 polish adds sfx wardrobe pieces and photo frame', () => {
   assert.ok(doc.includes('花园背带装'));
   assert.ok(doc.includes('拍照相框'));
 });
+
+
+
+test('P6 sticky seed swipe helpers and soft rain/cat assist', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const crops = readUtf8('src/p1/crops.ts');
+  const hook = readUtf8('src/p1/useFarmPrototype.ts');
+  assert.match(farm, /touch-hint/);
+  assert.match(farm, /onPlotsPointerDown/);
+  assert.match(farm, /onAssist=\{catAssist\}/);
+  assert.match(farm, /软雨替你润了一块地/);
+  assert.match(farm, /黑猫踮脚浇了一格/);
+  assert.match(crops, /applyPlotAction/);
+  assert.match(crops, /helpWaterPlots/);
+  assert.match(hook, /apply_plot/);
+  assert.match(hook, /help_water/);
+  assert.match(hook, /onApplyPlot/);
+  assert.match(hook, /onHelpWater/);
+});

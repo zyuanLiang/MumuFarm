@@ -2,14 +2,17 @@ import {useCallback, useEffect, useReducer} from 'react';
 import {
   CROPS,
   advancePlot,
+  applyPlotAction,
   createEmptyPlots,
+  helpWaterPlots,
   primaryKind,
   primaryLabel,
   progressOf,
   stageFromProgress,
+  type PrimaryKind,
 } from './crops';
 import {loadSave} from './save';
-import type {CropId, FarmAction, FarmPrototypeState, PlotState} from './types';
+import type {CropId, FarmAction, FarmPrototypeState} from './types';
 
 function buildInitial(): FarmPrototypeState {
   const saved = typeof localStorage !== 'undefined' ? loadSave() : null;
@@ -19,11 +22,50 @@ function buildInitial(): FarmPrototypeState {
     selectedPlotId: 0,
     selectedSeed: saved?.selectedSeed ?? 'wheat',
     plots: saved?.plots?.length === 6 ? saved.plots : createEmptyPlots(6),
-    lastAction: saved ? '欢迎回来，衣服还在身上哦' : '点一块地，开始种吧',
+    lastAction: saved
+      ? '欢迎回来，衣服还在身上哦'
+      : '选好种子，点空地就能种；手指滑过可浇水/收获',
     harvestBurstId: 0,
     lastTickAt: now,
     harvestCount: saved?.harvestCount ?? 0,
     lastHarvestCrop: null,
+  };
+}
+
+function applyToState(
+  state: FarmPrototypeState,
+  plotId: number,
+  now: number,
+  mode: PrimaryKind | 'auto',
+): FarmPrototypeState {
+  const plots = state.plots.map((plot) => advancePlot(plot, now, 0));
+  const plot = plots[plotId];
+  if (!plot) return state;
+  const result = applyPlotAction(plot, state.selectedSeed, now, mode);
+  if (!result.changed) {
+    // Still select the plot so the dock button stays useful.
+    const kind = primaryKind(plot);
+    const hint =
+      kind === 'plant'
+        ? `种子粘在手上：点空地播${CROPS[state.selectedSeed].name}`
+        : kind === 'water'
+          ? '土有点干，点一下或滑过去浇水'
+          : kind === 'harvest'
+            ? '成熟了，点一下或滑过去收获'
+            : '还在长，看看别的地';
+    return {...state, plots, selectedPlotId: plotId, lastAction: hint};
+  }
+
+  const nextPlots = plots.map((p) => (p.id === plotId ? result.plot : p));
+  return {
+    ...state,
+    selectedPlotId: plotId,
+    plots: nextPlots,
+    gold: state.gold + result.goldGained,
+    harvestCount: result.harvestCrop ? state.harvestCount + 1 : state.harvestCount,
+    lastHarvestCrop: result.harvestCrop ?? state.lastHarvestCrop,
+    harvestBurstId: result.harvestCrop ? state.harvestBurstId + 1 : state.harvestBurstId,
+    lastAction: result.message,
   };
 }
 
@@ -32,21 +74,15 @@ function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeSt
 
   switch (action.type) {
     case 'select_plot': {
-      const plot = state.plots[action.plotId];
-      if (!plot) return state;
-      const kind = primaryKind(plot);
-      const hint =
-        kind === 'plant'
-          ? '选好地了，可以播种'
-          : kind === 'water'
-            ? '土有点干，浇一下吧'
-            : kind === 'harvest'
-              ? '成熟了，可以收获'
-              : '还在长，看看别的地';
-      return {...state, selectedPlotId: action.plotId, lastAction: hint};
+      // Sticky seed: tapping an actionable plot applies immediately.
+      return applyToState(state, action.plotId, now, 'auto');
     }
     case 'select_seed':
-      return {...state, selectedSeed: action.seed, lastAction: `选中${CROPS[action.seed].name}`};
+      return {
+        ...state,
+        selectedSeed: action.seed,
+        lastAction: `${CROPS[action.seed].name}粘在手上了，点空地就能种`,
+      };
     case 'tick': {
       const dt = Math.min(500, Math.max(0, now - state.lastTickAt));
       return {
@@ -65,64 +101,21 @@ function reducer(state: FarmPrototypeState, action: FarmAction): FarmPrototypeSt
       return {...state, lastAction: action.message};
     case 'clear_last_harvest':
       return {...state, lastHarvestCrop: null};
-    case 'primary': {
+    case 'primary':
+      return applyToState(state, state.selectedPlotId, now, 'auto');
+    case 'apply_plot':
+      return applyToState(state, action.plotId, now, action.mode ?? 'auto');
+    case 'help_water': {
       const plots = state.plots.map((plot) => advancePlot(plot, now, 0));
-      const plot = plots[state.selectedPlotId];
-      if (!plot) return state;
-      const kind = primaryKind(plot);
-
-      if (kind === 'plant') {
-        const next: PlotState = {
-          ...plot,
-          cropId: state.selectedSeed,
-          grownMs: 0,
-          watered: true,
-          wateredAt: now,
-          progress: 0,
-        };
-        return {
-          ...state,
-          plots: plots.map((p) => (p.id === plot.id ? next : p)),
-          lastAction: `播下${CROPS[state.selectedSeed].name}`,
-        };
+      const helped = helpWaterPlots(plots, now, action.limit ?? 1);
+      if (helped.wateredIds.length === 0) {
+        return {...state, plots, lastAction: action.message};
       }
-
-      if (kind === 'water') {
-        return {
-          ...state,
-          plots: plots.map((p) =>
-            p.id === plot.id ? {...p, watered: true, wateredAt: now} : p,
-          ),
-          lastAction: '浇了一壶水',
-        };
-      }
-
-      if (kind === 'harvest' && plot.cropId) {
-        const cropId = plot.cropId;
-        const reward = CROPS[cropId].gold;
-        return {
-          ...state,
-          gold: state.gold + reward,
-          harvestCount: state.harvestCount + 1,
-          lastHarvestCrop: cropId,
-          plots: plots.map((p) =>
-            p.id === plot.id
-              ? {
-                  id: p.id,
-                  cropId: null,
-                  grownMs: 0,
-                  watered: false,
-                  wateredAt: null,
-                  progress: 0,
-                }
-              : p,
-          ),
-          lastAction: `收获 +${reward} 金`,
-          harvestBurstId: state.harvestBurstId + 1,
-        };
-      }
-
-      return {...state, plots, lastAction: '还在长，稍等一下'};
+      return {
+        ...state,
+        plots: helped.plots,
+        lastAction: action.message,
+      };
     }
     default:
       return state;
@@ -158,6 +151,12 @@ export function useFarmPrototype() {
   const onPrimary = useCallback(() => {
     dispatch({type: 'primary'});
   }, []);
+  const onApplyPlot = useCallback((plotId: number, mode: Exclude<PrimaryKind, 'noop'> | 'auto' = 'auto') => {
+    dispatch({type: 'apply_plot', plotId, mode});
+  }, []);
+  const onHelpWater = useCallback((message: string, limit = 1) => {
+    dispatch({type: 'help_water', limit, message});
+  }, []);
   const addGold = useCallback((amount: number, message: string) => {
     dispatch({type: 'add_gold', amount, message});
   }, []);
@@ -183,6 +182,8 @@ export function useFarmPrototype() {
     onSelectPlot,
     onSelectSeed,
     onPrimary,
+    onApplyPlot,
+    onHelpWater,
     addGold,
     setFeedback,
     clearLastHarvest,

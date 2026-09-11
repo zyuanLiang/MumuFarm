@@ -128,3 +128,95 @@ export function primaryLabel(kind: PrimaryKind, seedName: string): string {
       return '生长中…';
   }
 }
+
+export interface PlotActionResult {
+  plot: PlotState;
+  kind: PrimaryKind;
+  changed: boolean;
+  goldGained: number;
+  harvestCrop: CropId | null;
+  message: string;
+}
+
+/** Apply plant / water / harvest to one plot. mode locks swipe brush; auto follows plot state. */
+export function applyPlotAction(
+  plot: PlotState,
+  seed: CropId,
+  now: number,
+  mode: PrimaryKind | 'auto' = 'auto',
+): PlotActionResult {
+  const kind = primaryKind(plot);
+  if (kind === 'noop') {
+    return {plot, kind, changed: false, goldGained: 0, harvestCrop: null, message: ''};
+  }
+  if (mode !== 'auto' && mode !== kind) {
+    return {plot, kind, changed: false, goldGained: 0, harvestCrop: null, message: ''};
+  }
+
+  if (kind === 'plant') {
+    return {
+      plot: {
+        ...plot,
+        cropId: seed,
+        grownMs: 0,
+        watered: true,
+        wateredAt: now,
+        progress: 0,
+      },
+      kind,
+      changed: true,
+      goldGained: 0,
+      harvestCrop: null,
+      message: `播下${CROPS[seed].name}`,
+    };
+  }
+
+  if (kind === 'water') {
+    return {
+      plot: {...plot, watered: true, wateredAt: now},
+      kind,
+      changed: true,
+      goldGained: 0,
+      harvestCrop: null,
+      message: '浇了一壶水',
+    };
+  }
+
+  // harvest
+  const cropId = plot.cropId;
+  if (!cropId) {
+    return {plot, kind, changed: false, goldGained: 0, harvestCrop: null, message: ''};
+  }
+  const reward = CROPS[cropId].gold;
+  return {
+    plot: {
+      id: plot.id,
+      cropId: null,
+      grownMs: 0,
+      watered: false,
+      wateredAt: null,
+      progress: 0,
+    },
+    kind,
+    changed: true,
+    goldGained: reward,
+    harvestCrop: cropId,
+    message: `收获 +${reward} 金`,
+  };
+}
+
+/** Soft helpers: water up to `limit` dry growing plots. */
+export function helpWaterPlots(
+  plots: PlotState[],
+  now: number,
+  limit = 1,
+): {plots: PlotState[]; wateredIds: number[]} {
+  const wateredIds: number[] = [];
+  const next = plots.map((plot) => {
+    if (wateredIds.length >= limit) return plot;
+    if (primaryKind(plot) !== 'water') return plot;
+    wateredIds.push(plot.id);
+    return {...plot, watered: true, wateredAt: now};
+  });
+  return {plots: next, wateredIds};
+}

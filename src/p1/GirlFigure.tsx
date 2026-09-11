@@ -55,13 +55,37 @@ export function GirlFigure({
   );
 }
 
-export function BlackCat({size = 'farm'}: {size?: 'farm' | 'room' | 'wardrobe'}) {
-  return (
-    <div className={`black-cat size-${size}`} aria-hidden>
+export function BlackCat({
+  size = 'farm',
+  onAssist,
+}: {
+  size?: 'farm' | 'room' | 'wardrobe';
+  onAssist?: () => void;
+}) {
+  const body = (
+    <>
       <div className="cat-body" />
       <div className="cat-head" />
       <div className="cat-crescent" />
-    </div>
+    </>
+  );
+  if (!onAssist) {
+    return (
+      <div className={`black-cat size-${size}`} aria-hidden>
+        {body}
+      </div>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className={`black-cat size-${size} is-helper`}
+      aria-label="黑猫帮忙浇一格"
+      title="黑猫帮忙浇一格"
+      onClick={onAssist}
+    >
+      {body}
+    </button>
   );
 }
 

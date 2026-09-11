@@ -1320,3 +1320,42 @@ button {
 
 
 
+
+
+/* P6 sticky seed + swipe + helpers */
+.p1-plots {
+  touch-action: none;
+  user-select: none;
+}
+
+.touch-hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #8a6a55;
+  text-align: center;
+  max-width: 320px;
+}
+
+.black-cat.is-helper {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  animation: cat-nudge 2.8s ease-in-out infinite;
+}
+
+.black-cat.is-helper:focus-visible {
+  outline: 2px solid #f3a989;
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+@keyframes cat-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.plot-tile.is-watered {
+  filter: saturate(1.05);
+}

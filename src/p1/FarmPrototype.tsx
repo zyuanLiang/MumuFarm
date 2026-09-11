@@ -1,6 +1,6 @@
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent} from 'react';
 import {CottageView} from './CottageView';
-import {CROPS, SEED_ORDER} from './crops';
+import {CROPS, SEED_ORDER, type PrimaryKind} from './crops';
 import {
   ATMOSPHERES,
   pickAtmosphere,
@@ -81,6 +81,106 @@ export function FarmPrototype() {
   const [sunflowerCelebrated, setSunflowerCelebrated] = useState(meta.sunflowerCelebrated);
   const [starPumpkinGifted, setStarPumpkinGifted] = useState(meta.starPumpkinGifted);
   const [visitor, setVisitor] = useState<VisitorKind>(null);
+
+  const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
+  const brushedRef = useRef<Set<number>>(new Set());
+  const rainHelpAtRef = useRef(0);
+
+  const catAssist = useCallback(() => {
+    resumeAudio();
+    farm.onHelpWater('黑猫踮脚浇了一格～', 1);
+    playSfx('water');
+  }, [farm]);
+
+  // Soft rain gently waters one dry plot every ~12s while raining.
+  useEffect(() => {
+    if (atmosphere !== 'soft_rain') return;
+    const id = window.setInterval(() => {
+      const now = Date.now();
+      if (now - rainHelpAtRef.current < 12_000) return;
+      const needs = farm.rawPlots.some((p) => !p.watered && p.cropId && p.progress < 1);
+      if (!needs) return;
+      rainHelpAtRef.current = now;
+      farm.onHelpWater('软雨替你润了一块地', 1);
+      playSfx('water');
+    }, 4000);
+    return () => window.clearInterval(id);
+  }, [atmosphere, farm]);
+
+  const plotIdFromEvent = (event: ReactPointerEvent | PointerEvent) => {
+    const el = document.elementFromPoint(event.clientX, event.clientY);
+    const host = el?.closest?.('[data-plot-id]') as HTMLElement | null;
+    if (!host) return null;
+    const id = Number(host.dataset.plotId);
+    return Number.isFinite(id) ? id : null;
+  };
+
+  const brushPlot = useCallback(
+    (plotId: number, isStart: boolean) => {
+      if (brushedRef.current.has(plotId)) return;
+      const plot = farm.plots.find((p) => p.id === plotId);
+      if (!plot) return;
+      const kind = plot.stage === 'empty'
+        ? 'plant'
+        : plot.stage === 'mature'
+          ? 'harvest'
+          : plot.watered
+            ? 'noop'
+            : 'water';
+      if (isStart) {
+        if (kind === 'noop') {
+          farm.onSelectPlot(plotId);
+          brushModeRef.current = null;
+          return;
+        }
+        brushModeRef.current = kind;
+        brushedRef.current = new Set([plotId]);
+        farm.onApplyPlot(plotId, kind);
+        if (kind === 'plant') playSfx('plant');
+        if (kind === 'water') playSfx('water');
+        if (kind === 'harvest') playSfx('harvest');
+        return;
+      }
+      const mode = brushModeRef.current;
+      if (!mode) return;
+      brushedRef.current.add(plotId);
+      farm.onApplyPlot(plotId, mode);
+      if (mode === 'plant') playSfx('plant');
+      if (mode === 'water') playSfx('water');
+      if (mode === 'harvest') playSfx('harvest');
+    },
+    [farm],
+  );
+
+  const onPlotsPointerDown = useCallback(
+    (event: ReactPointerEvent<HTMLElement>) => {
+      resumeAudio();
+      (event.currentTarget as HTMLElement).setPointerCapture?.(event.pointerId);
+      brushedRef.current = new Set();
+      brushModeRef.current = null;
+      const plotId = plotIdFromEvent(event);
+      if (plotId == null) return;
+      event.preventDefault();
+      brushPlot(plotId, true);
+    },
+    [brushPlot],
+  );
+
+  const onPlotsPointerMove = useCallback(
+    (event: ReactPointerEvent<HTMLElement>) => {
+      if (event.buttons === 0 && event.pointerType === 'mouse') return;
+      const plotId = plotIdFromEvent(event);
+      if (plotId == null) return;
+      brushPlot(plotId, false);
+    },
+    [brushPlot],
+  );
+
+  const onPlotsPointerUp = useCallback(() => {
+    brushModeRef.current = null;
+    brushedRef.current = new Set();
+  }, []);
+
 
   useEffect(() => {
     const unlockAudio = () => resumeAudio();
@@ -408,7 +508,7 @@ export function FarmPrototype() {
               size="farm"
               pose={showoff ? 'showoff' : 'idle'}
             />
-            <BlackCat size="farm" />
+            <BlackCat size="farm" onAssist={catAssist} />
           </div>
         </section>
 
@@ -422,7 +522,14 @@ export function FarmPrototype() {
           </p>
         )}
 
-        <section className="p1-plots" aria-label="六块菜地">
+        <section
+          className="p1-plots"
+          aria-label="六块菜地，点选或滑动浇收"
+          onPointerDown={onPlotsPointerDown}
+          onPointerMove={onPlotsPointerMove}
+          onPointerUp={onPlotsPointerUp}
+          onPointerCancel={onPlotsPointerUp}
+        >
           {farm.plots.map((plot) => (
             <PlotTile
               key={plot.id}
@@ -436,6 +543,7 @@ export function FarmPrototype() {
             />
           ))}
         </section>
+        <p className="touch-hint">种子粘手：点空地就种 · 手指滑过可浇水/收获 · 点黑猫或下着软雨会帮忙</p>
 
         <p className="p1-feedback" role="status">
           {showoff

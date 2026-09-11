@@ -31,6 +31,7 @@ export function PlotTile({
   return (
     <button
       type="button"
+      data-plot-id={id}
       className={[
         'plot-tile',
         watered ? 'is-watered' : 'is-dry',
