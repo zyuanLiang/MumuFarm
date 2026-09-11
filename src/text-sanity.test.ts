@@ -141,3 +141,14 @@ test('P9 mix wardrobe exposes hat dress boots slots', () => {
   assert.match(girl, /dress-\$\{look\.dress\}/);
   assert.match(girl, /hat-\$\{look\.hat\}/);
 });
+
+test('P10 daily tips suggest outfit and harvest notes', () => {
+  const tips = readUtf8('src/p1/dailyTips.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.match(tips, /suggestTodayLook/);
+  assert.match(tips, /makeHarvestNote/);
+  assert.match(tips, /shouldPinHarvestNote/);
+  assert.match(farm, /applyDailyTip/);
+  assert.match(farm, /今天穿什么/);
+  assert.match(farm, /丰收小记/);
+});

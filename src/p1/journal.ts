@@ -73,6 +73,8 @@ export function createJournalEntry(input: {
   accessory: AccessoryId;
   atmosphere: AtmosphereId;
   now?: number;
+  /** Override caption (e.g. 丰收小记) */
+  caption?: string;
 }): JournalEntry {
   const now = input.now ?? Date.now();
   return {
@@ -83,13 +85,15 @@ export function createJournalEntry(input: {
     look: input.look,
     accessory: input.accessory,
     atmosphere: input.atmosphere,
-    caption: makeJournalCaption(
-      input.vista,
-      input.look,
-      input.accessory,
-      input.atmosphere,
-      now,
-    ),
+    caption:
+      input.caption ??
+      makeJournalCaption(
+        input.vista,
+        input.look,
+        input.accessory,
+        input.atmosphere,
+        now,
+      ),
   };
 }
 

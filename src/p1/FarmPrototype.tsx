@@ -22,12 +22,19 @@ import {
   hatsUnlockedBy,
   lookFromOutfit,
   lookLabel,
+  looksEqual,
   normalizeLook,
   type BootsId,
   type DressId,
   type HatId,
   type Look,
 } from './pieces';
+import {
+  makeHarvestNote,
+  shouldPinHarvestNote,
+  suggestTodayLook,
+  type DailyTip,
+} from './dailyTips';
 import {PlotTile} from './PlotTile';
 import {loadSave, writeSave} from './save';
 import {playSfx, resumeAudio} from './sfx';
@@ -125,6 +132,9 @@ export function FarmPrototype() {
   const [visitor, setVisitor] = useState<VisitorKind>(null);
   const [cottageEntering, setCottageEntering] = useState(false);
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>(meta.journalEntries ?? []);
+  const [tipDismissed, setTipDismissed] = useState(false);
+  const [dailyTip, setDailyTip] = useState<DailyTip | null>(null);
+  const sessionHarvestsRef = useRef(0);
 
   const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
   const brushedRef = useRef<Set<number>>(new Set());
@@ -237,6 +247,21 @@ export function FarmPrototype() {
   }, [atmosphere, catGiftClaimed, birdGiftClaimed]);
 
   useEffect(() => {
+    const tip = suggestTodayLook({
+      atmosphere,
+      unlocked: {
+        hats: unlockedHats,
+        dresses: unlockedDresses,
+        boots: unlockedBoots,
+      },
+      current: look,
+      seed: Date.now() + unlockedDresses.length * 17,
+    });
+    setDailyTip(tip);
+    setTipDismissed(false);
+  }, [atmosphere, unlockedHats, unlockedDresses, unlockedBoots]);
+
+  useEffect(() => {
     if (!showoff) return;
     const id = window.setTimeout(() => setShowoff(false), SHOWOFF_MS);
     return () => window.clearTimeout(id);
@@ -315,18 +340,19 @@ export function FarmPrototype() {
     unlockedVistas,
   ]);
 
-  // Special crop celebrations / gifts
+  // Special crop celebrations / gifts + 丰收小记
   useEffect(() => {
     if (!farm.lastHarvestCrop) return;
     const crop = farm.lastHarvestCrop;
+    sessionHarvestsRef.current += 1;
+    const note = makeHarvestNote(crop, farm.harvestCount, activeVista);
     if (crop === 'sunflower' && !sunflowerCelebrated) {
       setSunflowerCelebrated(true);
       setCelebrate(true);
       setBubble('向日葵一开，院子就亮了。');
       farm.setFeedback('向日葵开花啦！');
       playSfx('unlock');
-    }
-    if (crop === 'star_pumpkin' && !starPumpkinGifted) {
+    } else if (crop === 'star_pumpkin' && !starPumpkinGifted) {
       setStarPumpkinGifted(true);
       setUnlockedAccessories((prev) =>
         prev.includes('flower_crown') ? prev : [...prev, 'flower_crown'],
@@ -336,10 +362,25 @@ export function FarmPrototype() {
       setBubble('小小魔法，戴在头发上。');
       setShowoff(true);
       playSfx('unlock');
+    } else {
+      setBubble(note);
     }
+
+    if (shouldPinHarvestNote(crop, sessionHarvestsRef.current)) {
+      const entry = createJournalEntry({
+        vista: activeVista,
+        look,
+        accessory,
+        atmosphere,
+        caption: `丰收小记 · ${note}`,
+      });
+      setJournalEntries((prev) => prependJournalEntry(prev, entry));
+      setToast('丰收小记写进手帐了');
+    }
+
     playSfx('harvest');
     farm.clearLastHarvest();
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- harvest id only
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- harvest burst only
   }, [farm.lastHarvestCrop, sunflowerCelebrated, starPumpkinGifted]);
 
   useEffect(() => {
@@ -419,6 +460,16 @@ export function FarmPrototype() {
     setScene('journal');
     playSfx('tap');
   }, []);
+
+  const applyDailyTip = useCallback(() => {
+    if (!dailyTip) return;
+    setLook(dailyTip.look);
+    setTipDismissed(true);
+    setShowoff(true);
+    playSfx('equip');
+    setBubble(dailyTip.reason);
+    farm.setFeedback(`今天试试：${dailyTip.label}`);
+  }, [dailyTip, farm]);
 
   const equipAndShowOff = useCallback(() => {
     setLook(preview);
@@ -658,6 +709,29 @@ export function FarmPrototype() {
         <p className="day-bubble" role="status">
           {bubble}
         </p>
+
+        {dailyTip && !tipDismissed && !looksEqual(dailyTip.look, look) && !showoff && (
+          <div className="daily-tip" role="status">
+            <div className="daily-tip-copy">
+              <strong>今天穿什么</strong>
+              <span>{dailyTip.label}</span>
+              <em>{dailyTip.reason}</em>
+            </div>
+            <div className="daily-tip-actions">
+              <button type="button" className="daily-tip-wear" onClick={applyDailyTip}>
+                穿上试试
+              </button>
+              <button
+                type="button"
+                className="daily-tip-skip"
+                aria-label="先不换"
+                onClick={() => setTipDismissed(true)}
+              >
+                先不换
+              </button>
+            </div>
+          </div>
+        )}
 
         {showoff && (
           <p className="showoff-banner" role="status">
