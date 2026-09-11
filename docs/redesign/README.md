@@ -17,7 +17,8 @@
 - **P11 首屏呼吸**：[12-p11-visual-breath.md](./12-p11-visual-breath.md)（场景动效、种地微反馈）
 - **P12 纸片作物**：[13-p12-paper-crops.md](./13-p12-paper-crops.md)（垄沟空地、四阶段剪影）
 - **P13 回访摘要**：[14-p13-yard-summary.md](./14-p13-yard-summary.md)（熟了/该浇提示、纸片种子栏）
+- **P14 主题皮肤包**：[15-p14-theme-skin-packs.md](./15-p14-theme-skin-packs.md)（可热换主题/皮肤，频繁换皮）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 种地心跳 → 粘手/滑动 → 混搭换装 → 蘑菇屋 → 拍照手帐 → 今日轻提示 → 首屏呼吸 → 纸片作物 → 回访摘要。
+当前实现：`src/p1/` — 玩法闭环 + **ThemePack/SkinPack** 资产热换层。
 

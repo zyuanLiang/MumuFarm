@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rimraf dist .vite",
     "lint": "tsc --noEmit",
-    "test": "tsx --test src/p1/crops.test.ts src/p1/outfits.test.ts src/p1/dayFeel.test.ts src/p1/journal.test.ts src/p1/dailyTips.test.ts src/p1/yardSummary.test.ts src/text-sanity.test.ts",
+    "test": "tsx --test src/p1/crops.test.ts src/p1/outfits.test.ts src/p1/dayFeel.test.ts src/p1/journal.test.ts src/p1/dailyTips.test.ts src/p1/yardSummary.test.ts src/p1/themes/themes.test.ts src/text-sanity.test.ts",
     "check:encoding": "node scripts/check-utf8.mjs",
     "android:sync": "npx cap sync android",
     "android:open": "npx cap open android"

@@ -45,6 +45,15 @@ import {VISTA_ORDER, VISTAS, vistasUnlockedBy, type VistaId} from './vistas';
 import {JournalView} from './JournalView';
 import {createJournalEntry, prependJournalEntry, type JournalEntry} from './journal';
 import {WardrobeView} from './WardrobeView';
+import {
+  DEFAULT_CROP_SKIN_ID,
+  DEFAULT_THEME_ID,
+  getTheme,
+  themesUnlockedBy,
+  type ThemeId,
+  type SkinId,
+} from './themes';
+import {themeStyle} from './themes/useThemeStyle';
 
 type Scene = 'farm' | 'cottage' | 'wardrobe' | 'journal';
 
@@ -95,6 +104,11 @@ function readMeta() {
     mushroomPinGifted: Boolean(saved?.mushroomPinGifted),
     journalEntries: saved?.journalEntries ?? [],
     lastBubble: saved?.lastBubble ?? pickBubble(),
+    activeTheme: (saved?.activeTheme as ThemeId) ?? DEFAULT_THEME_ID,
+    unlockedThemes: saved?.unlockedThemes?.length
+      ? saved.unlockedThemes
+      : themesUnlockedBy(harvestCount),
+    activeCropSkin: (saved?.activeCropSkin as SkinId) ?? DEFAULT_CROP_SKIN_ID,
   };
 }
 
@@ -142,6 +156,11 @@ export function FarmPrototype() {
   );
   const [yardTipDismissed, setYardTipDismissed] = useState(false);
   const yardBootstrapped = useRef(false);
+  const [activeTheme, setActiveTheme] = useState<ThemeId>(
+    meta.unlockedThemes.includes(meta.activeTheme) ? meta.activeTheme : DEFAULT_THEME_ID,
+  );
+  const [unlockedThemes, setUnlockedThemes] = useState<ThemeId[]>(meta.unlockedThemes);
+  const [activeCropSkin, setActiveCropSkin] = useState<SkinId>(meta.activeCropSkin);
 
   const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
   const brushedRef = useRef<Set<number>>(new Set());
@@ -359,6 +378,14 @@ export function FarmPrototype() {
       playSfx('unlock');
     }
 
+    const fromThemes = themesUnlockedBy(hc);
+    const newTheme = fromThemes.find((id) => !unlockedThemes.includes(id));
+    if (newTheme) {
+      setUnlockedThemes((p) => Array.from(new Set([...p, ...fromThemes])));
+      setToast(`解锁主题：${getTheme(newTheme).name}`);
+      playSfx('unlock');
+    }
+
     prevHarvestRef.current = hc;
   }, [
     farm.harvestCount,
@@ -367,6 +394,7 @@ export function FarmPrototype() {
     unlockedDresses,
     unlockedBoots,
     unlockedVistas,
+    unlockedThemes,
   ]);
 
   // Special crop celebrations / gifts + 丰收小记
@@ -436,6 +464,9 @@ export function FarmPrototype() {
       mushroomPinGifted,
       journalEntries,
       lastBubble: bubble,
+      activeTheme,
+      unlockedThemes,
+      activeCropSkin,
     });
   }, [
     farm.gold,
@@ -458,6 +489,9 @@ export function FarmPrototype() {
     mushroomPinGifted,
     journalEntries,
     bubble,
+    activeTheme,
+    unlockedThemes,
+    activeCropSkin,
   ]);
 
   const openCottage = useCallback(() => {
@@ -610,12 +644,33 @@ export function FarmPrototype() {
     farm.setFeedback(`远景切换：${VISTAS[next].name}`);
   }, [unlockedVistas, activeVista, farm]);
 
+  const cycleTheme = useCallback(() => {
+    if (unlockedThemes.length <= 1) {
+      farm.setFeedback('再收获几次，会解锁新主题皮肤');
+      return;
+    }
+    const idx = unlockedThemes.indexOf(activeTheme);
+    const next = unlockedThemes[(idx + 1) % unlockedThemes.length];
+    setActiveTheme(next);
+    farm.setFeedback(`主题切换：${getTheme(next).name}`);
+    playSfx('tap');
+  }, [unlockedThemes, activeTheme, farm]);
+
   const atm = ATMOSPHERES[atmosphere];
   const outfitLabel = lookLabel(look);
+  const theme = getTheme(activeTheme);
+  const shellStyle = themeStyle(theme);
+  const shellClass = `p1-shell has-paper ${atm.skyClass} vista-${activeVista}`;
+  const shellProps = {
+    className: shellClass,
+    style: shellStyle,
+    'data-theme': theme.id,
+    'data-crop-skin': activeCropSkin,
+  };
 
   if (scene === 'cottage') {
     return (
-      <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
+      <div {...shellProps}>
         <CottageView
           entering={cottageEntering}
           look={look}
@@ -629,7 +684,7 @@ export function FarmPrototype() {
 
   if (scene === 'wardrobe') {
     return (
-      <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
+      <div {...shellProps}>
         <WardrobeView
           equipped={look}
           preview={preview}
@@ -654,7 +709,7 @@ export function FarmPrototype() {
 
   if (scene === 'journal') {
     return (
-      <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
+      <div {...shellProps}>
         <JournalView
           entries={journalEntries}
           onBack={() => setScene('farm')}
@@ -668,7 +723,7 @@ export function FarmPrototype() {
   }
 
   return (
-    <div className={`p1-shell has-paper ${atm.skyClass} vista-${activeVista}`}>
+    <div {...shellProps}>
       <div className="p1-sky is-breathing" aria-hidden>
         <div className="p1-westlake">
           <div className="wl-pagoda" />
@@ -708,6 +763,16 @@ export function FarmPrototype() {
         <button type="button" className="p1-chip" onClick={cycleVista} aria-label="切换远景">
           {VISTAS[activeVista].name}
           {unlockedVistas.length > 1 ? ` ·${unlockedVistas.length}` : ''}
+        </button>
+        <button
+          type="button"
+          className="p1-chip theme-chip"
+          onClick={cycleTheme}
+          aria-label="切换主题皮肤"
+          title={theme.blurb}
+        >
+          {theme.name}
+          {unlockedThemes.length > 1 ? ` ·${unlockedThemes.length}` : ''}
         </button>
         <div className="p1-chip p1-gold" aria-label={`金币 ${farm.gold}`}>
           <span className="p1-coin" />

@@ -16,6 +16,13 @@ import {
   type HatId,
   type Look,
 } from './pieces';
+import {
+  DEFAULT_CROP_SKIN_ID,
+  DEFAULT_THEME_ID,
+  themesUnlockedBy,
+  type SkinId,
+  type ThemeId,
+} from './themes';
 
 const SAVE_KEY = 'mumufarm.p4.v2';
 const LEGACY_KEY = 'mumufarm.p3.v1';
@@ -43,6 +50,11 @@ export interface GameSave {
   mushroomPinGifted?: boolean;
   journalEntries?: JournalEntry[];
   lastBubble: string;
+  /** World color / surface theme pack */
+  activeTheme?: ThemeId;
+  unlockedThemes?: ThemeId[];
+  /** Crop sticker skin pack (independent of world theme) */
+  activeCropSkin?: SkinId;
 }
 
 function migrateLegacy(raw: unknown): GameSave | null {
@@ -77,6 +89,9 @@ function migrateLegacy(raw: unknown): GameSave | null {
       ? (data.journalEntries as JournalEntry[])
       : [],
     lastBubble: typeof data.lastBubble === 'string' ? data.lastBubble : '今天也想慢慢种一点～',
+    activeTheme: DEFAULT_THEME_ID,
+    unlockedThemes: themesUnlockedBy(harvestCount),
+    activeCropSkin: DEFAULT_CROP_SKIN_ID,
   };
 }
 
@@ -100,6 +115,11 @@ export function loadSave(): GameSave | null {
         unlockedBoots: parsed.unlockedBoots?.length
           ? parsed.unlockedBoots
           : bootsUnlockedBy(harvestCount),
+        activeTheme: parsed.activeTheme ?? DEFAULT_THEME_ID,
+        unlockedThemes: parsed.unlockedThemes?.length
+          ? parsed.unlockedThemes
+          : themesUnlockedBy(harvestCount),
+        activeCropSkin: parsed.activeCropSkin ?? DEFAULT_CROP_SKIN_ID,
       };
     }
     return migrateLegacy(parsed);

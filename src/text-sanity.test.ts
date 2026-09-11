@@ -205,3 +205,21 @@ test('P13 yard summary and paper seed icons', () => {
   assert.match(css, /yard-tip-go/);
   assert.match(css, /seed-icon-star_pumpkin/);
 });
+
+test('P14 theme and skin packs support hot-swap', () => {
+  const registry = readUtf8('src/p1/themes/index.ts');
+  const lilac = readUtf8('src/p1/themes/packs/rainyLilac.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const save = readUtf8('src/p1/save.ts');
+  const doc = readUtf8('docs/redesign/15-p14-theme-skin-packs.md');
+  assert.match(registry, /THEME_PACKS/);
+  assert.match(registry, /SKIN_PACKS/);
+  assert.match(registry, /themeToCssVars/);
+  assert.match(lilac, /rainy_lilac/);
+  assert.match(farm, /cycleTheme/);
+  assert.match(farm, /data-theme/);
+  assert.match(farm, /activeCropSkin/);
+  assert.match(save, /activeTheme/);
+  assert.match(save, /unlockedThemes/);
+  assert.match(doc, /频繁换/);
+});

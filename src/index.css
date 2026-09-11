@@ -47,16 +47,26 @@ button {
   height: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background: linear-gradient(180deg, #f7d9c4 0%, #f3e2cf 28%, #e7f0d8 62%, #dfe9c9 100%);
+  background: var(--shell-gradient, linear-gradient(180deg, #f7d9c4 0%, #f3e2cf 28%, #e7f0d8 62%, #dfe9c9 100%));
+  color: var(--ink);
+  transition: background 0.45s ease, color 0.3s ease;
 }
 
 .p1-sky {
   position: absolute;
   inset: 0 0 42% 0;
   pointer-events: none;
-  background:
+  background: var(--sky-gradient,
     radial-gradient(ellipse 80% 45% at 70% 18%, rgba(255, 214, 170, 0.85), transparent 60%),
-    linear-gradient(180deg, #f4c7b0 0%, #e8d5c4 55%, transparent 100%);
+    linear-gradient(180deg, #f4c7b0 0%, #e8d5c4 55%, transparent 100%));
+  transition: background 0.45s ease, opacity 0.35s ease;
+}
+
+/* Optional real vista / house art from theme.assets — empty = CSS silhouette */
+.p1-shell[data-vista-bg] .p1-sky {
+  background-image: var(--vista-bg-image), var(--sky-gradient);
+  background-size: cover, auto;
+  background-position: center top, center;
 }
 
 .p1-westlake {
@@ -2304,4 +2314,18 @@ button {
   height: 7px;
   background: #fff7c8;
   clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+/* —— P14 theme / skin pack hooks —— */
+.p1-shell[data-theme="rainy_lilac"] .mh-cap {
+  background:
+    radial-gradient(circle at 28% 42%, #f4f0f8 0 10px, transparent 11px),
+    radial-gradient(circle at 62% 30%, #f4f0f8 0 8px, transparent 9px),
+    linear-gradient(180deg, #c8b0e0, #9b7ec8);
+}
+.theme-chip {
+  max-width: 7.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
