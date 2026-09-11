@@ -27,7 +27,8 @@
 - **P21 换装黑猫欢呼**：[22-p21-cat-showoff-cheer.md](./22-p21-cat-showoff-cheer.md)（回农场炫耀时猫小跳）
 - **P22 细雨躲檐**：[23-p22-cat-rain-shelter.md](./23-p22-cat-rain-shelter.md)（软雨时猫躲蘑菇檐下）
 - **P23 雨紫衣柜补齐**：[24-p23-rainy-lilac-wardrobe.md](./24-p23-rainy-lilac-wardrobe.md)（雨紫主题帽衣靴贴纸整包）
+- **P24 真 PNG 立绘包**：[25-p24-png-portrait-wardrobe.md](./25-p24-png-portrait-wardrobe.md)（水彩 PNG 帽衣靴 + 蘑菇屋）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题热换（含雨紫衣柜贴）+ 手帐/拍照 + **黑猫陪伴四拍（跟进/抬头/欢呼/躲雨）**。
+当前实现：`src/p1/` — 玩法闭环 + 主题热换（SVG 示例/雨紫 + **PNG 立绘包**）+ 手帐/拍照 + 黑猫陪伴四拍。
 

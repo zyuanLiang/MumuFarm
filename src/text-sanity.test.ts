@@ -376,3 +376,23 @@ test('P23 rainy lilac theme fills wardrobe sticker slots', () => {
   assert.match(readUtf8('public/themes/rainy-lilac/wardrobe/hat-rain-hood.svg'), /viewBox="0 0 80 48"/);
   assert.match(readUtf8('public/themes/rainy-lilac/wardrobe/boots-moon.svg'), /viewBox="0 0 80 28"/);
 });
+
+test('P24 png portrait theme ships real PNG wardrobe stickers', () => {
+  const pack = readUtf8('src/p1/themes/packs/pngPortrait.ts');
+  const index = readUtf8('src/p1/themes/index.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const doc = readUtf8('docs/redesign/25-p24-png-portrait-wardrobe.md');
+  assert.match(index, /pngPortraitTheme/);
+  assert.match(pack, /id: 'png_portrait'/);
+  assert.match(pack, /png-portrait\/wardrobe\/dress-witch\.png/);
+  assert.match(pack, /png-portrait\/wardrobe\/hat-witch\.png/);
+  assert.match(pack, /png-portrait\/mushroom-house\.png/);
+  assert.match(farm, /水彩立绘包穿上了/);
+  assert.match(doc, /PNG/);
+  // binary PNG magic via first bytes as latin1
+  const witch = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/wardrobe/dress-witch.png'));
+  assert.equal(witch[0], 0x89);
+  assert.equal(witch[1], 0x50); // P
+  assert.equal(witch[2], 0x4e); // N
+  assert.equal(witch[3], 0x47); // G
+});

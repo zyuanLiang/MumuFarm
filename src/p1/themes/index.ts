@@ -1,4 +1,5 @@
 import {cottageCreamTheme} from './packs/cottageCream';
+import {pngPortraitTheme} from './packs/pngPortrait';
 import {rainyLilacTheme} from './packs/rainyLilac';
 import {sampleArtTheme} from './packs/sampleArt';
 import {paperCropsSkin, sampleCropsSkin, springCropsSkin} from './packs/cropSkins';
@@ -12,12 +13,14 @@ export const THEME_PACKS: Record<string, ThemePack> = {
   [cottageCreamTheme.id]: cottageCreamTheme,
   [sampleArtTheme.id]: sampleArtTheme,
   [rainyLilacTheme.id]: rainyLilacTheme,
+  [pngPortraitTheme.id]: pngPortraitTheme,
 };
 
 export const THEME_ORDER: ThemeId[] = [
   cottageCreamTheme.id,
   sampleArtTheme.id,
   rainyLilacTheme.id,
+  pngPortraitTheme.id,
 ];
 
 export const SKIN_PACKS: Record<string, SkinPack> = {

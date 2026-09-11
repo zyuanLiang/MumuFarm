@@ -96,4 +96,16 @@ describe('p14 theme / skin packs', () => {
     assert.ok(bootsArtUrl(lilac, 'moon')?.includes('rainy-lilac/wardrobe/boots-moon'));
     assert.equal(dressArtUrl(getTheme('cottage_cream'), 'witch'), undefined);
   });
+
+  it('p24 png portrait theme fills wardrobe with .png stickers', () => {
+    const png = getTheme('png_portrait');
+    assert.ok(THEME_ORDER.includes('png_portrait'));
+    assert.ok(themesUnlockedBy(5).includes('png_portrait'));
+    assert.ok(!themesUnlockedBy(4).includes('png_portrait'));
+    assert.ok(dressArtUrl(png, 'witch')?.endsWith('.png'));
+    assert.ok(dressArtUrl(png, 'witch')?.includes('png-portrait/wardrobe/dress-witch'));
+    assert.ok(hatArtUrl(png, 'witch_hat')?.includes('png-portrait/wardrobe/hat-witch.png'));
+    assert.ok(bootsArtUrl(png, 'yellow')?.includes('png-portrait/wardrobe/boots-yellow.png'));
+    assert.ok(houseArtUrl(png)?.includes('png-portrait/mushroom-house.png'));
+  });
 });
