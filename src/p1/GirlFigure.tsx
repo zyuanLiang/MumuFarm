@@ -24,7 +24,9 @@ export function GirlFigure({
         ? '围巾'
         : accessory === 'flower_crown'
           ? '花冠'
-          : '';
+          : accessory === 'mushroom_pin'
+            ? '蘑菇胸针'
+            : '';
 
   return (
     <div
@@ -42,6 +44,7 @@ export function GirlFigure({
         <span className="ear right" />
       </div>
       <div className="gf-scarf" aria-hidden />
+      <div className="gf-mushroom-pin" aria-hidden />
       <div className="gf-head" aria-hidden>
         <span className="gf-eye left" />
         <span className="gf-eye right" />

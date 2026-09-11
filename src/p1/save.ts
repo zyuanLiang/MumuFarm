@@ -25,6 +25,7 @@ export interface GameSave {
   birdGiftClaimed: boolean;
   sunflowerCelebrated: boolean;
   starPumpkinGifted?: boolean;
+  mushroomPinGifted?: boolean;
   lastBubble: string;
 }
 
@@ -50,6 +51,7 @@ function migrateLegacy(raw: unknown): GameSave | null {
     birdGiftClaimed: Boolean(data.birdGiftClaimed),
     sunflowerCelebrated: Boolean(data.sunflowerCelebrated),
     starPumpkinGifted: Boolean(data.starPumpkinGifted),
+    mushroomPinGifted: Boolean(data.mushroomPinGifted),
     lastBubble: typeof data.lastBubble === 'string' ? data.lastBubble : '今天也想慢慢种一点～',
   };
 }

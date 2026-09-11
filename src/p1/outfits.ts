@@ -1,4 +1,4 @@
-export type OutfitId = 'raincoat' | 'witch' | 'denim' | 'garden';
+export type OutfitId = 'raincoat' | 'witch' | 'denim' | 'garden' | 'picnic' | 'moonlight';
 
 export interface OutfitDef {
   id: OutfitId;
@@ -33,9 +33,28 @@ export const OUTFITS: Record<OutfitId, OutfitDef> = {
     blurb: '蜜桃背带裙，适合蹲在菜畦边',
     unlockAtHarvests: 6,
   },
+  picnic: {
+    id: 'picnic',
+    name: '野餐格裙',
+    blurb: '红白格，适合坐在田埂吃点心',
+    unlockAtHarvests: 8,
+  },
+  moonlight: {
+    id: 'moonlight',
+    name: '月夜裙',
+    blurb: '柔蓝长裙，西湖暮色时最好看',
+    unlockAtHarvests: 10,
+  },
 };
 
-export const OUTFIT_ORDER: OutfitId[] = ['raincoat', 'witch', 'denim', 'garden'];
+export const OUTFIT_ORDER: OutfitId[] = [
+  'raincoat',
+  'witch',
+  'denim',
+  'garden',
+  'picnic',
+  'moonlight',
+];
 
 export function outfitsUnlockedBy(harvestCount: number): OutfitId[] {
   return OUTFIT_ORDER.filter((id) => harvestCount >= OUTFITS[id].unlockAtHarvests);

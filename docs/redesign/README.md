@@ -10,7 +10,8 @@
 - **P4 内容循环**：[05-p4-content-loop.md](./05-p4-content-loop.md)
 - **P5 手感抛光**：[06-p5-polish.md](./06-p5-polish.md)（音效、花园装、花冠、拍照相框）
 - **P6 省手操作**：[07-p6-touch-helpers.md](./07-p6-touch-helpers.md)（粘手播种、滑动浇收、猫/软雨代劳）
+- **P7 衣橱与蘑菇屋**：[08-p7-wardrobe-cottage.md](./08-p7-wardrobe-cottage.md)（野餐/月夜装、蘑菇胸针、进门感）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 种地心跳 → 粘手/滑动操作 → 收获解锁 → 换装回场 → 轻访客 → 音效与手帐拍照。
+当前实现：`src/p1/` — 种地心跳 → 粘手/滑动 → 收获解锁换装 → 蘑菇屋进门 → 轻访客 → 音效手帐。
 

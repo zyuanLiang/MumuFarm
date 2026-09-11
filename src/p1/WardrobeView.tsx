@@ -33,7 +33,8 @@ export function WardrobeView({
   const hasEars = unlockedAccessories.includes('cat_ears');
   const hasScarf = unlockedAccessories.includes('scarf');
   const hasCrown = unlockedAccessories.includes('flower_crown');
-  const hasAnyAccessory = hasEars || hasScarf || hasCrown;
+  const hasPin = unlockedAccessories.includes('mushroom_pin');
+  const hasAnyAccessory = hasEars || hasScarf || hasCrown || hasPin;
 
   return (
     <div className="p2-wardrobe">
@@ -53,7 +54,8 @@ export function WardrobeView({
         {def.name}
         {previewAccessory === 'cat_ears' ? ' + 猫耳' : ''}
         {previewAccessory === 'scarf' ? ' + 围巾' : ''}
-        {previewAccessory === 'flower_crown' ? ' + 花冠' : ''} · {def.blurb}
+        {previewAccessory === 'flower_crown' ? ' + 花冠' : ''}
+        {previewAccessory === 'mushroom_pin' ? ' + 蘑菇胸针' : ''} · {def.blurb}
         {same ? '（穿着中）' : ''}
       </p>
 
@@ -114,6 +116,16 @@ export function WardrobeView({
             >
               <span className="outfit-thumb thumb-crown" />
               <span>花冠</span>
+            </button>
+          )}
+          {hasPin && (
+            <button
+              type="button"
+              className={`outfit-card ${previewAccessory === 'mushroom_pin' ? 'is-on' : ''}`}
+              onClick={() => onPreviewAccessory('mushroom_pin')}
+            >
+              <span className="outfit-thumb thumb-pin" />
+              <span>蘑菇胸针</span>
             </button>
           )}
         </div>

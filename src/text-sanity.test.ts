@@ -91,3 +91,21 @@ test('P6 sticky seed swipe helpers and soft rain/cat assist', () => {
   assert.match(hook, /onApplyPlot/);
   assert.match(hook, /onHelpWater/);
 });
+
+
+test('P7 wardrobe expansion and mushroom cottage enter', () => {
+  const outfits = readUtf8('src/p1/outfits.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const cottage = readUtf8('src/p1/CottageView.tsx');
+  const day = readUtf8('src/p1/dayFeel.ts');
+  assert.match(outfits, /picnic/);
+  assert.match(outfits, /moonlight/);
+  assert.match(outfits, /野餐格裙/);
+  assert.match(outfits, /月夜裙/);
+  assert.match(day, /mushroom_pin/);
+  assert.match(farm, /cottageEntering/);
+  assert.match(farm, /mushroomPinGifted/);
+  assert.match(farm, /蘑菇屋里找到一枚蘑菇胸针|蘑菇屋里找到一枚蘑菇胸针|蘑菇胸针/);
+  assert.match(cottage, /推开蘑菇门/);
+  assert.match(cottage, /cottage-enter-veil/);
+});

@@ -46,6 +46,7 @@ function readMeta() {
     birdGiftClaimed: Boolean(saved?.birdGiftClaimed),
     sunflowerCelebrated: Boolean(saved?.sunflowerCelebrated),
     starPumpkinGifted: Boolean(saved?.starPumpkinGifted),
+    mushroomPinGifted: Boolean(saved?.mushroomPinGifted),
     lastBubble: saved?.lastBubble ?? pickBubble(),
   };
 }
@@ -80,7 +81,9 @@ export function FarmPrototype() {
   const [birdGiftClaimed, setBirdGiftClaimed] = useState(meta.birdGiftClaimed);
   const [sunflowerCelebrated, setSunflowerCelebrated] = useState(meta.sunflowerCelebrated);
   const [starPumpkinGifted, setStarPumpkinGifted] = useState(meta.starPumpkinGifted);
+  const [mushroomPinGifted, setMushroomPinGifted] = useState(Boolean(meta.mushroomPinGifted));
   const [visitor, setVisitor] = useState<VisitorKind>(null);
+  const [cottageEntering, setCottageEntering] = useState(false);
 
   const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
   const brushedRef = useRef<Set<number>>(new Set());
@@ -281,6 +284,7 @@ export function FarmPrototype() {
       birdGiftClaimed,
       sunflowerCelebrated,
       starPumpkinGifted,
+      mushroomPinGifted,
       lastBubble: bubble,
     });
   }, [
@@ -298,13 +302,28 @@ export function FarmPrototype() {
     birdGiftClaimed,
     sunflowerCelebrated,
     starPumpkinGifted,
+      mushroomPinGifted,
     bubble,
   ]);
 
   const openCottage = useCallback(() => {
-    setScene('cottage');
     setShowoff(false);
-  }, []);
+    setCottageEntering(true);
+    setScene('cottage');
+    farm.setFeedback('推开蘑菇门，屋里暖暖的');
+    playSfx('tap');
+    window.setTimeout(() => setCottageEntering(false), 900);
+    if (!mushroomPinGifted) {
+      setMushroomPinGifted(true);
+      setUnlockedAccessories((prev) =>
+        prev.includes('mushroom_pin') ? prev : [...prev, 'mushroom_pin'],
+      );
+      setAccessory('mushroom_pin');
+      setToast('蘑菇屋里找到一枚蘑菇胸针');
+      setBubble('这是蘑菇屋留给你的小记号。');
+      playSfx('unlock');
+    }
+  }, [farm, mushroomPinGifted]);
 
   const openWardrobe = useCallback(() => {
     setPreview(outfit);
@@ -394,6 +413,7 @@ export function FarmPrototype() {
     return (
       <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
         <CottageView
+          entering={cottageEntering}
           outfit={outfit}
           accessory={accessory}
           onBack={() => setScene('farm')}
@@ -547,7 +567,7 @@ export function FarmPrototype() {
 
         <p className="p1-feedback" role="status">
           {showoff
-            ? `穿上了${outfitLabel}${accessory === 'cat_ears' ? '·猫耳' : ''}${accessory === 'scarf' ? '·围巾' : ''}${accessory === 'flower_crown' ? '·花冠' : ''}`
+            ? `穿上了${outfitLabel}${accessory === 'cat_ears' ? '·猫耳' : ''}${accessory === 'scarf' ? '·围巾' : ''}${accessory === 'flower_crown' ? '·花冠' : ''}${accessory === 'mushroom_pin' ? '·蘑菇胸针' : ''}`
             : farm.lastAction}
         </p>
 
