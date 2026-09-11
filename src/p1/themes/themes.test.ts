@@ -64,4 +64,17 @@ describe('p14 theme / skin packs', () => {
     assert.equal(dressArtUrl(getTheme('cottage_cream'), 'witch'), undefined);
     assert.equal(bootsArtUrl(getTheme('cottage_cream'), 'yellow'), undefined);
   });
+
+  it('p16 seasonal packs fill rainy lilac theme and spring crops', () => {
+    const lilac = getTheme('rainy_lilac');
+    assert.ok(houseArtUrl(lilac)?.includes('rainy-lilac/mushroom-house'));
+    assert.ok(vistaArtUrl(lilac, 'westlake')?.includes('rainy-lilac/vista-westlake'));
+    assert.ok(vistaArtUrl(lilac, 'guilin')?.includes('rainy-lilac/vista-guilin'));
+    const spring = getSkin('spring_crops');
+    assert.ok(cropArtUrl(spring, 'wheat', 'mature')?.includes('spring-crops/wheat-mature'));
+    assert.ok(cropArtUrl(spring, 'star_pumpkin', 'mature')?.includes('star-pumpkin-mature'));
+    assert.ok(cropArtUrl(spring, 'carrot', 'sprout')?.includes('spring-crops/sprout'));
+    assert.ok(skinsUnlockedBy(6, 'crops').includes('spring_crops'));
+    assert.ok(!skinsUnlockedBy(5, 'crops').includes('spring_crops'));
+  });
 });

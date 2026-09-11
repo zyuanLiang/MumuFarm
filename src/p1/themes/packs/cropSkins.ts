@@ -16,14 +16,26 @@ export const paperCropsSkin: SkinPack = {
   },
 };
 
+/** Second crop pack — spring palette; swap files under public/skins/spring-crops/. */
 export const springCropsSkin: SkinPack = {
   id: 'spring_crops',
   name: '春日作物',
-  blurb: '示例第二套作物皮（占位，待贴图）',
+  blurb: '嫩绿＋花粉色一季；与示例贴同槽位',
   kind: 'crops',
   unlockAtHarvests: 6,
   assets: {
-    // Ready for frequent swaps — drop files under public/skins/spring-crops/
+    'wheat.mature': '/skins/spring-crops/wheat-mature.svg',
+    'carrot.mature': '/skins/spring-crops/carrot-mature.svg',
+    'sunflower.mature': '/skins/spring-crops/sunflower-mature.svg',
+    'star_pumpkin.mature': '/skins/spring-crops/star-pumpkin-mature.svg',
+    'wheat.sprout': '/skins/spring-crops/sprout.svg',
+    'carrot.sprout': '/skins/spring-crops/sprout.svg',
+    'sunflower.sprout': '/skins/spring-crops/sprout.svg',
+    'star_pumpkin.sprout': '/skins/spring-crops/sprout.svg',
+    'wheat.seed': '/skins/spring-crops/seed.svg',
+    'carrot.seed': '/skins/spring-crops/seed.svg',
+    'sunflower.seed': '/skins/spring-crops/seed.svg',
+    'star_pumpkin.seed': '/skins/spring-crops/seed.svg',
   },
 };
 

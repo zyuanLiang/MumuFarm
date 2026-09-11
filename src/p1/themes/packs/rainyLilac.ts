@@ -4,7 +4,7 @@ import type {ThemePack} from '../types';
 export const rainyLilacTheme: ThemePack = {
   id: 'rainy_lilac',
   name: '雨紫庭院',
-  blurb: '软雨紫调，换主题不换玩法',
+  blurb: '软雨紫调；小屋与远景可整包替换',
   unlockAtHarvests: 3,
   tokens: {
     cream: '#f4f0f8',
@@ -22,5 +22,13 @@ export const rainyLilacTheme: ThemePack = {
     skyGradient:
       'radial-gradient(ellipse 80% 45% at 65% 20%, rgba(180, 160, 220, 0.75), transparent 60%), linear-gradient(180deg, #b8a8d0 0%, #c8c0d8 55%, transparent 100%)',
   },
-  assets: {},
+  assets: {
+    vistaBg: {
+      westlake: '/themes/rainy-lilac/vista-westlake.svg',
+      guilin: '/themes/rainy-lilac/vista-guilin.svg',
+      skycastle: '/themes/rainy-lilac/vista-skycastle.svg',
+      huangshan: '/themes/rainy-lilac/vista-huangshan.svg',
+    },
+    mushroomHouse: '/themes/rainy-lilac/mushroom-house.svg',
+  },
 };

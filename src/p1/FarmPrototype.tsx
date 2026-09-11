@@ -391,6 +391,15 @@ export function FarmPrototype() {
       playSfx('unlock');
     }
 
+    const prevSkins = skinsUnlockedBy(prevHarvestRef.current, 'crops');
+    const nextSkins = skinsUnlockedBy(hc, 'crops');
+    const newSkin = nextSkins.find((id) => !prevSkins.includes(id));
+    if (newSkin) {
+      setToast(`解锁作物皮：${getSkin(newSkin).name}`);
+      setBubble(`${getSkin(newSkin).name}可以在收获提示旁切换看看。`);
+      playSfx('unlock');
+    }
+
     prevHarvestRef.current = hc;
   }, [
     farm.harvestCount,

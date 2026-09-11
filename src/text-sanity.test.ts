@@ -259,3 +259,17 @@ test('P15 girl master sticker anchors and full sample wardrobe', () => {
   assert.match(css, /\.p1-sky \.vista-guilin/);
   assert.match(doc, /母版锚点/);
 });
+
+test('P16 seasonal packs ship spring crops and rainy lilac art', () => {
+  const crops = readUtf8('src/p1/themes/packs/cropSkins.ts');
+  const lilac = readUtf8('src/p1/themes/packs/rainyLilac.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const doc = readUtf8('docs/redesign/17-p16-seasonal-packs.md');
+  assert.match(crops, /spring-crops\/wheat-mature/);
+  assert.match(crops, /春日作物/);
+  assert.match(lilac, /rainy-lilac\/mushroom-house/);
+  assert.match(lilac, /rainy-lilac\/vista-westlake/);
+  assert.match(farm, /解锁作物皮/);
+  assert.match(doc, /换季/);
+  assert.match(doc, /春日作物/);
+});

@@ -19,7 +19,8 @@
 - **P13 回访摘要**：[14-p13-yard-summary.md](./14-p13-yard-summary.md)（熟了/该浇提示、纸片种子栏）
 - **P14 主题皮肤包**：[15-p14-theme-skin-packs.md](./15-p14-theme-skin-packs.md)（可热换主题/皮肤，频繁换皮）
 - **P15 女孩母版贴纸**：[16-p15-girl-master-stickers.md](./16-p15-girl-master-stickers.md)（锚点锁定、靴层、示例贴齐全）
+- **P16 换季皮肤包**：[17-p16-seasonal-packs.md](./17-p16-seasonal-packs.md)（春日作物 + 雨紫主题整包）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + ThemePack/SkinPack + **固定母版贴纸层**。
+当前实现：`src/p1/` — 玩法闭环 + 可热换 Theme/Skin（含换季示例包）。
 
