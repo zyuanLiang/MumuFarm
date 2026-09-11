@@ -464,6 +464,12 @@ button {
 .black-cat.pose-look-up .cat-crescent {
   animation: cat-bell-ting 0.9s ease-out;
 }
+.black-cat.pose-cheer {
+  animation: cat-cheer 0.7s ease-out;
+}
+.black-cat.pose-cheer .cat-crescent {
+  animation: cat-bell-ting 0.7s ease-out;
+}
 
 @keyframes cat-trot-in {
   0% { opacity: 0; transform: translate(28px, 8px) scale(0.92); }
@@ -479,6 +485,12 @@ button {
   0%, 100% { transform: rotate(-30deg); }
   40% { transform: rotate(-50deg); }
   70% { transform: rotate(-18deg); }
+}
+@keyframes cat-cheer {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(-8deg); }
+  50% { transform: translateY(-4px) rotate(6deg); }
+  75% { transform: translateY(-8px) rotate(-4deg); }
 }
 
 .p2-cottage.cat-trailing .cottage-actors .black-cat {

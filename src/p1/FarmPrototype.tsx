@@ -883,7 +883,11 @@ export function FarmPrototype() {
               size="farm"
               pose={showoff ? 'showoff' : 'idle'}
             />
-            <BlackCat size="farm" onAssist={catAssist} pose={catPose} />
+            <BlackCat
+              size="farm"
+              onAssist={catAssist}
+              pose={showoff ? 'cheer' : catPose}
+            />
           </div>
         </section>
 
@@ -916,7 +920,7 @@ export function FarmPrototype() {
 
         {showoff && (
           <p className="showoff-banner" role="status">
-            换好啦，回菜地看看～
+            换好啦，黑猫也跳了一下～
           </p>
         )}
 

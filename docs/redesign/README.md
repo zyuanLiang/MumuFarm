@@ -24,7 +24,8 @@
 - **P18 手帐远景贴纸**：[19-p18-journal-vista-stickers.md](./19-p18-journal-vista-stickers.md)（手帐卡挂主题远景）
 - **P19 拍照相框远景**：[20-p19-photo-frame-vista.md](./20-p19-photo-frame-vista.md)（咔嚓预览挂远景+合影）
 - **P20 黑猫跟进小屋**：[21-p20-cat-cottage-follow.md](./21-p20-cat-cottage-follow.md)（进门跟随 + 收获抬头）
+- **P21 换装黑猫欢呼**：[22-p21-cat-showoff-cheer.md](./22-p21-cat-showoff-cheer.md)（回农场炫耀时猫小跳）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题热换 + 手帐/拍照贴图 + **黑猫陪伴动作**。
+当前实现：`src/p1/` — 玩法闭环 + 主题热换 + 手帐/拍照 + **黑猫陪伴三拍（跟进/抬头/欢呼）**。
 

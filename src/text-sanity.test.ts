@@ -329,10 +329,20 @@ test('P20 black cat follows into cottage and looks up on harvest', () => {
   assert.match(cottage, /pose=\{catArrived \? 'idle' : 'follow'\}/);
   assert.match(cottage, /黑猫踮脚/);
   assert.match(cottage, /cat-trailing/);
-  assert.match(girl, /pose\?: 'idle' \| 'follow' \| 'look-up'/);
+  assert.match(girl, /pose\?: 'idle' \| 'follow' \| 'look-up' \| 'cheer'/);
   assert.match(farm, /setCatPose\('look-up'\)/);
-  assert.match(farm, /pose=\{catPose\}/);
   assert.match(css, /cat-trot-in/);
   assert.match(css, /cat-look-up/);
   assert.match(doc, /跟进/);
+});
+
+test('P21 black cat cheers on wardrobe showoff', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/22-p21-cat-showoff-cheer.md');
+  assert.match(farm, /pose=\{showoff \? 'cheer' : catPose\}/);
+  assert.match(farm, /黑猫也跳了一下/);
+  assert.match(css, /cat-cheer/);
+  assert.match(css, /pose-cheer/);
+  assert.match(doc, /欢呼/);
 });
