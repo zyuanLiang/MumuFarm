@@ -1,9 +1,9 @@
 import type {AccessoryId} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
-import type {OutfitId} from './outfits';
+import type {Look} from './pieces';
 
 interface CottageViewProps {
-  outfit: OutfitId;
+  look: Look;
   accessory: AccessoryId;
   entering?: boolean;
   onBack: () => void;
@@ -11,7 +11,7 @@ interface CottageViewProps {
 }
 
 export function CottageView({
-  outfit,
+  look,
   accessory,
   entering = false,
   onBack,
@@ -53,7 +53,7 @@ export function CottageView({
         </div>
 
         <div className="cottage-actors">
-          <GirlFigure outfit={outfit} accessory={accessory} size="room" />
+          <GirlFigure look={look} accessory={accessory} size="room" />
           <BlackCat size="room" />
         </div>
       </div>

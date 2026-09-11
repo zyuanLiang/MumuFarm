@@ -6,6 +6,16 @@ import type {VistaId} from './vistas';
 import {outfitsUnlockedBy} from './outfits';
 import {vistasUnlockedBy} from './vistas';
 import type {JournalEntry} from './journal';
+import {
+  bootsUnlockedBy,
+  dressesUnlockedBy,
+  hatsUnlockedBy,
+  lookFromOutfit,
+  type BootsId,
+  type DressId,
+  type HatId,
+  type Look,
+} from './pieces';
 
 const SAVE_KEY = 'mumufarm.p4.v2';
 const LEGACY_KEY = 'mumufarm.p3.v1';
@@ -14,9 +24,13 @@ export interface GameSave {
   version: 2;
   gold: number;
   outfit: OutfitId;
+  look?: Look;
   accessory: AccessoryId;
   unlockedAccessories: AccessoryId[];
   unlockedOutfits: OutfitId[];
+  unlockedHats?: HatId[];
+  unlockedDresses?: DressId[];
+  unlockedBoots?: BootsId[];
   unlockedVistas: VistaId[];
   activeVista: VistaId;
   selectedSeed: CropId;
@@ -35,15 +49,20 @@ function migrateLegacy(raw: unknown): GameSave | null {
   if (!raw || typeof raw !== 'object') return null;
   const data = raw as Record<string, unknown>;
   const harvestCount = typeof data.harvestCount === 'number' ? data.harvestCount : 0;
+  const outfit = (data.outfit as OutfitId) ?? 'raincoat';
   return {
     version: 2,
     gold: typeof data.gold === 'number' ? data.gold : 20,
-    outfit: (data.outfit as OutfitId) ?? 'raincoat',
+    outfit,
+    look: lookFromOutfit(outfit),
     accessory: (data.accessory as AccessoryId) ?? 'none',
     unlockedAccessories: Array.isArray(data.unlockedAccessories)
       ? (data.unlockedAccessories as AccessoryId[])
       : ['none'],
     unlockedOutfits: outfitsUnlockedBy(harvestCount),
+    unlockedHats: hatsUnlockedBy(harvestCount),
+    unlockedDresses: dressesUnlockedBy(harvestCount),
+    unlockedBoots: bootsUnlockedBy(harvestCount),
     unlockedVistas: vistasUnlockedBy(harvestCount),
     activeVista: 'westlake',
     selectedSeed: (data.selectedSeed as CropId) ?? 'wheat',
@@ -65,8 +84,24 @@ export function loadSave(): GameSave | null {
   try {
     const raw = localStorage.getItem(SAVE_KEY) ?? localStorage.getItem(LEGACY_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as {version?: number};
-    if (parsed.version === 2) return parsed as GameSave;
+    const parsed = JSON.parse(raw) as GameSave & {version?: number};
+    if (parsed.version === 2) {
+      const harvestCount = parsed.harvestCount ?? 0;
+      const outfit = parsed.outfit ?? 'raincoat';
+      return {
+        ...parsed,
+        look: parsed.look ?? lookFromOutfit(outfit),
+        unlockedHats: parsed.unlockedHats?.length
+          ? parsed.unlockedHats
+          : hatsUnlockedBy(harvestCount),
+        unlockedDresses: parsed.unlockedDresses?.length
+          ? parsed.unlockedDresses
+          : dressesUnlockedBy(harvestCount),
+        unlockedBoots: parsed.unlockedBoots?.length
+          ? parsed.unlockedBoots
+          : bootsUnlockedBy(harvestCount),
+      };
+    }
     return migrateLegacy(parsed);
   } catch {
     return null;

@@ -353,40 +353,16 @@ button {
   z-index: 2;
 }
 
-/* Raincoat outfit */
-.outfit-raincoat .gf-hair {
-  top: 20%;
-}
-.outfit-raincoat .gf-body {
+/* P9 mix layers: dress / hat / boots */
+.dress-raincoat .gf-hair { top: 20%; }
+.dress-raincoat .gf-body {
   background: linear-gradient(180deg, #f7d34d, #e8b83a);
 }
-.outfit-raincoat .gf-hat {
-  display: block;
-  left: 10%;
-  top: 4%;
-  width: 80%;
-  height: 22%;
-  border-radius: 40% 40% 18% 18%;
-  background: var(--honey);
-}
-.outfit-raincoat .gf-boots {
-  background: #e2b12f;
-}
 
-/* Witch outfit — same face/body ratio, purple clothes only */
-.outfit-witch .gf-hat {
-  display: block;
-  left: 8%;
-  top: -2%;
-  width: 84%;
-  height: 34%;
-  background: var(--lilac);
-  clip-path: polygon(50% 0, 92% 78%, 70% 78%, 74% 100%, 26% 100%, 30% 78%, 8% 78%);
-}
-.outfit-witch .gf-body {
+.dress-witch .gf-body {
   background: linear-gradient(180deg, #8f79b8, #6f5a96);
 }
-.outfit-witch .gf-apron {
+.dress-witch .gf-apron {
   display: block;
   left: 30%;
   top: 52%;
@@ -395,9 +371,54 @@ button {
   border-radius: 10%;
   background: #fff8ee;
 }
-.outfit-witch .gf-boots {
-  background: #5a4638;
+
+.hat-bare .gf-hat { display: none; }
+.hat-rain_hood .gf-hat {
+  display: block;
+  left: 10%;
+  top: 4%;
+  width: 80%;
+  height: 22%;
+  border-radius: 40% 40% 18% 18%;
+  background: var(--honey);
 }
+.hat-witch_hat .gf-hat {
+  display: block;
+  left: 8%;
+  top: -2%;
+  width: 84%;
+  height: 34%;
+  background: var(--lilac);
+  clip-path: polygon(50% 0, 92% 78%, 70% 78%, 74% 100%, 26% 100%, 30% 78%, 8% 78%);
+}
+.hat-straw_hat .gf-hat {
+  display: block;
+  left: 6%;
+  top: 2%;
+  width: 88%;
+  height: 18%;
+  border-radius: 50%;
+  background: #e6c56a;
+  box-shadow: inset 0 -6px 0 #c9a84a;
+}
+.hat-beret .gf-hat {
+  display: block;
+  left: 22%;
+  top: 2%;
+  width: 52%;
+  height: 18%;
+  border-radius: 50%;
+  background: #6d5a7a;
+  transform: rotate(-12deg);
+}
+
+.boots-yellow .gf-boots { background: #e2b12f; }
+.boots-witch .gf-boots { background: #5a4638; }
+.boots-denim .gf-boots { background: #5a4638; }
+.boots-peach .gf-boots { background: #c4a07a; }
+.boots-check .gf-boots { background: #c4785a; }
+.boots-moon .gf-boots { background: #6d7fa8; }
+.boots-moss .gf-boots { background: #6f8f62; }
 
 .black-cat {
   position: relative;
@@ -1066,13 +1087,9 @@ button {
   100% { opacity: 0; }
 }
 
-/* denim outfit */
-.outfit-denim .gf-hat { display: none; }
-.outfit-denim .gf-body {
+/* denim dress */
+.dress-denim .gf-body {
   background: linear-gradient(180deg, #fff8ee 0 42%, var(--denim) 42%);
-}
-.outfit-denim .gf-boots {
-  background: #5a4638;
 }
 
 .gf-scarf {
@@ -1217,11 +1234,10 @@ button {
 }
 
 /* P5 garden + flower crown + photo frame + cottage arc */
-.outfit-garden .gf-hat { display: none; }
-.outfit-garden .gf-body {
+.dress-garden .gf-body {
   background: linear-gradient(180deg, #fff8ee 0 30%, #f3a989 30%);
 }
-.outfit-garden .gf-apron {
+.dress-garden .gf-apron {
   display: block;
   left: 28%;
   top: 48%;
@@ -1229,9 +1245,6 @@ button {
   height: 28%;
   border-radius: 12%;
   background: #ffe6c8;
-}
-.outfit-garden .gf-boots {
-  background: #c4a07a;
 }
 
 .gf-crown {
@@ -1365,15 +1378,14 @@ button {
 
 
 
-/* P7 wardrobe + mushroom cottage enter */
-.outfit-picnic .gf-hat { display: none; }
-.outfit-picnic .gf-body {
+/* P7/P9 dresses */
+.dress-picnic .gf-body {
   background:
     linear-gradient(180deg, #fff8ee 0 28%, transparent 28%),
     repeating-linear-gradient(90deg, #f08080 0 8px, #fff8ee 8px 16px);
   background-color: #fff8ee;
 }
-.outfit-picnic .gf-apron {
+.dress-picnic .gf-apron {
   display: block;
   left: 30%;
   top: 52%;
@@ -1383,13 +1395,11 @@ button {
   background: #fff8ee;
   box-shadow: inset 0 0 0 1px rgba(240, 128, 128, 0.35);
 }
-.outfit-picnic .gf-boots { background: #c4785a; }
 
-.outfit-moonlight .gf-hat { display: none; }
-.outfit-moonlight .gf-body {
+.dress-moonlight .gf-body {
   background: linear-gradient(180deg, #eef3ff 0 26%, #9bb6e8 26%);
 }
-.outfit-moonlight .gf-apron {
+.dress-moonlight .gf-apron {
   display: block;
   left: 22%;
   top: 46%;
@@ -1398,7 +1408,34 @@ button {
   border-radius: 18% 18% 28% 28%;
   background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(155,182,232,0.1));
 }
-.outfit-moonlight .gf-boots { background: #6d7fa8; }
+
+.dress-sweater .gf-body {
+  background: linear-gradient(180deg, #f4e4c8 0 34%, #e8d2a8 34%);
+}
+.dress-sweater .gf-apron {
+  display: block;
+  left: 26%;
+  top: 50%;
+  width: 48%;
+  height: 20%;
+  border-radius: 12%;
+  background: #fff8ee;
+  opacity: 0.7;
+}
+
+.dress-spore .gf-body {
+  background: linear-gradient(180deg, #fff3c8 0 28%, #f0c75e 28% 62%, #e8a83a 62%);
+}
+.dress-spore .gf-apron {
+  display: block;
+  left: 34%;
+  top: 44%;
+  width: 32%;
+  height: 16%;
+  border-radius: 50%;
+  background: #fff8ee;
+  box-shadow: 0 0 0 2px rgba(255,248,238,0.35);
+}
 
 .gf-mushroom-pin {
   display: none;
@@ -1606,3 +1643,33 @@ button {
   font-size: 11px;
   opacity: 0.6;
 }
+
+
+/* P9 mix wardrobe */
+.wardrobe-slot-label {
+  margin: 8px 14px 2px;
+  font-size: 12px;
+  color: #8a6a55;
+  opacity: 0.85;
+}
+.p2-wardrobe .outfit-row {
+  margin-bottom: 2px;
+}
+.thumb-sweater {
+  background: linear-gradient(180deg, #f4e4c8 0 40%, #e8d2a8 40%);
+}
+.thumb-spore {
+  background: linear-gradient(180deg, #fff3c8 0 30%, #f0c75e 30% 65%, #e8a83a 65%);
+}
+.thumb-hat-bare { background: #fff8ee; }
+.thumb-hat-rain_hood { background: radial-gradient(circle at 50% 40%, var(--honey) 0 55%, #fff8ee 56%); }
+.thumb-hat-witch_hat { background: linear-gradient(180deg, var(--lilac), #6f5a96); }
+.thumb-hat-straw_hat { background: radial-gradient(circle at 50% 55%, #e6c56a 0 60%, #fff8ee 61%); }
+.thumb-hat-beret { background: radial-gradient(circle at 45% 45%, #6d5a7a 0 45%, #fff8ee 46%); }
+.thumb-boots-yellow { background: linear-gradient(180deg, #fff8ee 0 55%, #e2b12f 55%); }
+.thumb-boots-witch { background: linear-gradient(180deg, #fff8ee 0 55%, #5a4638 55%); }
+.thumb-boots-denim { background: linear-gradient(180deg, #fff8ee 0 55%, #5a4638 55%); }
+.thumb-boots-peach { background: linear-gradient(180deg, #fff8ee 0 55%, #c4a07a 55%); }
+.thumb-boots-check { background: linear-gradient(180deg, #fff8ee 0 55%, #c4785a 55%); }
+.thumb-boots-moon { background: linear-gradient(180deg, #fff8ee 0 55%, #6d7fa8 55%); }
+.thumb-boots-moss { background: linear-gradient(180deg, #fff8ee 0 55%, #6f8f62 55%); }

@@ -1,12 +1,13 @@
 import {ATMOSPHERES} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
-import {OUTFITS} from './outfits';
 import {VISTAS} from './vistas';
 import {
   accessoryLabel,
+  entryLook,
   formatJournalTime,
   type JournalEntry,
 } from './journal';
+import {lookLabel} from './pieces';
 
 interface JournalViewProps {
   entries: JournalEntry[];
@@ -32,16 +33,13 @@ export function JournalView({entries, onBack, onTakePhoto}: JournalViewProps) {
 
       <div className="journal-list" aria-label="手帐页">
         {entries.map((entry) => {
+          const look = entryLook(entry);
           const acc = accessoryLabel(entry.accessory);
           return (
             <article key={entry.id} className={`journal-card vista-${entry.vista}`}>
               <div className="journal-card-sky" aria-hidden />
               <div className="journal-card-stage">
-                <GirlFigure
-                  outfit={entry.outfit}
-                  accessory={entry.accessory}
-                  size="room"
-                />
+                <GirlFigure look={look} accessory={entry.accessory} size="room" />
                 <BlackCat size="room" />
               </div>
               <div className="journal-card-meta">
@@ -49,7 +47,7 @@ export function JournalView({entries, onBack, onTakePhoto}: JournalViewProps) {
                   {VISTAS[entry.vista].name} · {ATMOSPHERES[entry.atmosphere].name}
                 </strong>
                 <span>
-                  {OUTFITS[entry.outfit]?.name ?? '黄雨衣'}
+                  {lookLabel(look)}
                   {acc ? ` · ${acc}` : ''}
                 </span>
                 <p>{entry.caption}</p>

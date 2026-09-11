@@ -123,3 +123,21 @@ test('P8 scrapbook journal saves photo moments', () => {
   assert.match(view, /手帐本/);
   assert.match(save, /journalEntries/);
 });
+
+test('P9 mix wardrobe exposes hat dress boots slots', () => {
+  const pieces = readUtf8('src/p1/pieces.ts');
+  const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  assert.match(pieces, /LOOK_PRESETS/);
+  assert.match(pieces, /straw_hat/);
+  assert.match(pieces, /sweater/);
+  assert.match(pieces, /spore/);
+  assert.match(wardrobe, /onPreviewHat/);
+  assert.match(wardrobe, /onPreviewBoots/);
+  assert.match(wardrobe, /套装（一键穿上，再混搭）/);
+  assert.match(farm, /onApplyPreset/);
+  assert.match(farm, /unlockedHats/);
+  assert.match(girl, /dress-\$\{look\.dress\}/);
+  assert.match(girl, /hat-\$\{look\.hat\}/);
+});

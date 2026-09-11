@@ -1,4 +1,12 @@
-export type OutfitId = 'raincoat' | 'witch' | 'denim' | 'garden' | 'picnic' | 'moonlight';
+export type OutfitId =
+  | 'raincoat'
+  | 'witch'
+  | 'denim'
+  | 'garden'
+  | 'picnic'
+  | 'sweater'
+  | 'moonlight'
+  | 'spore';
 
 export interface OutfitDef {
   id: OutfitId;
@@ -39,11 +47,23 @@ export const OUTFITS: Record<OutfitId, OutfitDef> = {
     blurb: '红白格，适合坐在田埂吃点心',
     unlockAtHarvests: 8,
   },
+  sweater: {
+    id: 'sweater',
+    name: '奶油毛衣',
+    blurb: '软软的，配贝雷帽刚刚好',
+    unlockAtHarvests: 9,
+  },
   moonlight: {
     id: 'moonlight',
     name: '月夜裙',
     blurb: '柔蓝长裙，西湖暮色时最好看',
     unlockAtHarvests: 10,
+  },
+  spore: {
+    id: 'spore',
+    name: '蘑菇裙',
+    blurb: '一点小魔法，还是奶油纸片味',
+    unlockAtHarvests: 12,
   },
 };
 
@@ -53,7 +73,9 @@ export const OUTFIT_ORDER: OutfitId[] = [
   'denim',
   'garden',
   'picnic',
+  'sweater',
   'moonlight',
+  'spore',
 ];
 
 export function outfitsUnlockedBy(harvestCount: number): OutfitId[] {

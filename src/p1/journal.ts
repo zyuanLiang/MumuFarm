@@ -2,6 +2,12 @@ import type {AccessoryId, AtmosphereId} from './dayFeel';
 import {ATMOSPHERES} from './dayFeel';
 import type {OutfitId} from './outfits';
 import {OUTFITS} from './outfits';
+import {
+  closestOutfit,
+  lookFromOutfit,
+  lookLabel,
+  type Look,
+} from './pieces';
 import type {VistaId} from './vistas';
 import {VISTAS} from './vistas';
 
@@ -9,7 +15,10 @@ export interface JournalEntry {
   id: string;
   createdAt: number;
   vista: VistaId;
+  /** Closest preset / legacy field */
   outfit: OutfitId;
+  /** Mix look when available */
+  look?: Look;
   accessory: AccessoryId;
   atmosphere: AtmosphereId;
   caption: string;
@@ -40,23 +49,27 @@ export function accessoryLabel(accessory: AccessoryId): string {
   }
 }
 
+export function entryLook(entry: JournalEntry): Look {
+  return entry.look ?? lookFromOutfit(entry.outfit);
+}
+
 export function makeJournalCaption(
   vista: VistaId,
-  outfit: OutfitId,
+  look: Look,
   accessory: AccessoryId,
   atmosphere: AtmosphereId,
   seed = Date.now(),
 ): string {
-  const look = OUTFITS[outfit]?.name ?? '黄雨衣';
+  const wearBase = lookLabel(look);
   const acc = accessoryLabel(accessory);
-  const wear = acc ? `${look}·${acc}` : look;
+  const wear = acc ? `${wearBase}·${acc}` : wearBase;
   const bit = CAPTION_BITS[seed % CAPTION_BITS.length];
   return `${VISTAS[vista].name} · ${ATMOSPHERES[atmosphere].name} · ${wear}。${bit}`;
 }
 
 export function createJournalEntry(input: {
   vista: VistaId;
-  outfit: OutfitId;
+  look: Look;
   accessory: AccessoryId;
   atmosphere: AtmosphereId;
   now?: number;
@@ -66,12 +79,13 @@ export function createJournalEntry(input: {
     id: `j-${now}-${Math.floor(Math.random() * 9999)}`,
     createdAt: now,
     vista: input.vista,
-    outfit: input.outfit,
+    outfit: closestOutfit(input.look),
+    look: input.look,
     accessory: input.accessory,
     atmosphere: input.atmosphere,
     caption: makeJournalCaption(
       input.vista,
-      input.outfit,
+      input.look,
       input.accessory,
       input.atmosphere,
       now,
@@ -94,4 +108,19 @@ export function formatJournalTime(ts: number): string {
   const hh = String(d.getHours()).padStart(2, '0');
   const mi = String(d.getMinutes()).padStart(2, '0');
   return `${mm}-${dd} ${hh}:${mi}`;
+}
+
+/** Legacy helper for tests that still pass outfit id. */
+export function captionFromOutfit(
+  vista: VistaId,
+  outfit: OutfitId,
+  accessory: AccessoryId,
+  atmosphere: AtmosphereId,
+  seed = Date.now(),
+): string {
+  return makeJournalCaption(vista, lookFromOutfit(outfit), accessory, atmosphere, seed);
+}
+
+export function outfitDisplayName(outfit: OutfitId): string {
+  return OUTFITS[outfit]?.name ?? '黄雨衣';
 }

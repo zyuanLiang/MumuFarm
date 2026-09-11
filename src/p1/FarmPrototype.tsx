@@ -12,6 +12,22 @@ import {
 } from './dayFeel';
 import {BlackCat, GirlFigure, SongBird, StrayCat} from './GirlFigure';
 import {OUTFITS, outfitsUnlockedBy, type OutfitId} from './outfits';
+import {
+  BOOTS,
+  DRESSES,
+  HATS,
+  bootsUnlockedBy,
+  closestOutfit,
+  dressesUnlockedBy,
+  hatsUnlockedBy,
+  lookFromOutfit,
+  lookLabel,
+  normalizeLook,
+  type BootsId,
+  type DressId,
+  type HatId,
+  type Look,
+} from './pieces';
 import {PlotTile} from './PlotTile';
 import {loadSave, writeSave} from './save';
 import {playSfx, resumeAudio} from './sfx';
@@ -31,8 +47,24 @@ const TOAST_MS = 2400;
 function readMeta() {
   const saved = loadSave();
   const harvestCount = saved?.harvestCount ?? 0;
+  const unlockedHats = saved?.unlockedHats?.length
+    ? saved.unlockedHats
+    : hatsUnlockedBy(harvestCount);
+  const unlockedDresses = saved?.unlockedDresses?.length
+    ? saved.unlockedDresses
+    : dressesUnlockedBy(harvestCount);
+  const unlockedBoots = saved?.unlockedBoots?.length
+    ? saved.unlockedBoots
+    : bootsUnlockedBy(harvestCount);
+  const outfit = (saved?.outfit ?? 'raincoat') as OutfitId;
+  const look = normalizeLook(saved?.look ?? lookFromOutfit(outfit), {
+    hats: unlockedHats,
+    dresses: unlockedDresses,
+    boots: unlockedBoots,
+  }, outfit);
   return {
-    outfit: (saved?.outfit ?? 'raincoat') as OutfitId,
+    outfit,
+    look,
     accessory: (saved?.accessory ?? 'none') as AccessoryId,
     unlockedAccessories: (saved?.unlockedAccessories?.length
       ? saved.unlockedAccessories
@@ -40,6 +72,9 @@ function readMeta() {
     unlockedOutfits: saved?.unlockedOutfits?.length
       ? saved.unlockedOutfits
       : outfitsUnlockedBy(harvestCount),
+    unlockedHats,
+    unlockedDresses,
+    unlockedBoots,
     unlockedVistas: saved?.unlockedVistas?.length
       ? saved.unlockedVistas
       : vistasUnlockedBy(harvestCount),
@@ -58,11 +93,9 @@ export function FarmPrototype() {
   const farm = useFarmPrototype();
   const meta = useMemo(() => readMeta(), []);
   const [scene, setScene] = useState<Scene>('farm');
-  const [outfit, setOutfit] = useState<OutfitId>(
-    meta.unlockedOutfits.includes(meta.outfit) ? meta.outfit : 'raincoat',
-  );
+  const [look, setLook] = useState<Look>(meta.look);
   const [accessory, setAccessory] = useState<AccessoryId>(meta.accessory);
-  const [preview, setPreview] = useState<OutfitId>(outfit);
+  const [preview, setPreview] = useState<Look>(meta.look);
   const [previewAccessory, setPreviewAccessory] = useState<AccessoryId>(meta.accessory);
   const [unlockedAccessories, setUnlockedAccessories] = useState<AccessoryId[]>(
     meta.unlockedAccessories.includes('none')
@@ -70,6 +103,10 @@ export function FarmPrototype() {
       : ['none', ...meta.unlockedAccessories],
   );
   const [unlockedOutfits, setUnlockedOutfits] = useState<OutfitId[]>(meta.unlockedOutfits);
+  const [unlockedHats, setUnlockedHats] = useState<HatId[]>(meta.unlockedHats);
+  const [unlockedDresses, setUnlockedDresses] = useState<DressId[]>(meta.unlockedDresses);
+  const [unlockedBoots, setUnlockedBoots] = useState<BootsId[]>(meta.unlockedBoots);
+  const prevHarvestRef = useRef(farm.harvestCount);
   const [unlockedVistas, setUnlockedVistas] = useState<VistaId[]>(meta.unlockedVistas);
   const [activeVista, setActiveVista] = useState<VistaId>(
     meta.unlockedVistas.includes(meta.activeVista) ? meta.activeVista : 'westlake',
@@ -225,24 +262,58 @@ export function FarmPrototype() {
 
   // Unlock content from harvest progress (monotonic: never shrink)
   useEffect(() => {
-    const fromHarvestOutfits = outfitsUnlockedBy(farm.harvestCount);
-    const fromHarvestVistas = vistasUnlockedBy(farm.harvestCount);
-
+    const hc = farm.harvestCount;
+    const fromHarvestOutfits = outfitsUnlockedBy(hc);
+    const fromHarvestVistas = vistasUnlockedBy(hc);
+    const fromHats = hatsUnlockedBy(hc);
+    const fromDresses = dressesUnlockedBy(hc);
+    const fromBoots = bootsUnlockedBy(hc);
     const newOutfit = fromHarvestOutfits.find((id) => !unlockedOutfits.includes(id));
+    const newHat = fromHats.find((id) => id !== 'bare' && !unlockedHats.includes(id));
+    const newDress = fromDresses.find((id) => !unlockedDresses.includes(id));
+    const newBoots = fromBoots.find((id) => !unlockedBoots.includes(id));
+    const newVista = fromHarvestVistas.find((id) => !unlockedVistas.includes(id));
+
+    if (newOutfit || newHat || newDress || newBoots) {
+      setUnlockedOutfits((p) => Array.from(new Set([...p, ...fromHarvestOutfits])));
+      setUnlockedHats((p) => Array.from(new Set([...p, ...fromHats])));
+      setUnlockedDresses((p) => Array.from(new Set([...p, ...fromDresses])));
+      setUnlockedBoots((p) => Array.from(new Set([...p, ...fromBoots])));
+    }
+
     if (newOutfit) {
-      setUnlockedOutfits((prev) => Array.from(new Set([...prev, ...fromHarvestOutfits])));
-      setToast(`解锁服装：${OUTFITS[newOutfit].name}`);
+      setToast(`解锁套装：${OUTFITS[newOutfit].name}`);
       setBubble(`${OUTFITS[newOutfit].name}可以去换上试试～`);
+      playSfx('unlock');
+    } else if (newDress) {
+      setToast(`解锁衣服：${DRESSES[newDress].name}`);
+      setBubble(`${DRESSES[newDress].name}可以去试衣间混搭～`);
+      playSfx('unlock');
+    } else if (newHat) {
+      setToast(`解锁帽子：${HATS[newHat].name}`);
+      setBubble(`${HATS[newHat].name}戴上会更有季节感。`);
+      playSfx('unlock');
+    } else if (newBoots) {
+      setToast(`解锁鞋子：${BOOTS[newBoots].name}`);
+      setBubble(`${BOOTS[newBoots].name}踩在菜地里刚刚好。`);
       playSfx('unlock');
     }
 
-    const newVista = fromHarvestVistas.find((id) => !unlockedVistas.includes(id));
     if (newVista) {
-      setUnlockedVistas((prev) => Array.from(new Set([...prev, ...fromHarvestVistas])));
+      setUnlockedVistas((p) => Array.from(new Set([...p, ...fromHarvestVistas])));
       setToast(`收到风景明信片：${VISTAS[newVista].name}`);
       playSfx('unlock');
     }
-  }, [farm.harvestCount, unlockedOutfits, unlockedVistas]);
+
+    prevHarvestRef.current = hc;
+  }, [
+    farm.harvestCount,
+    unlockedOutfits,
+    unlockedHats,
+    unlockedDresses,
+    unlockedBoots,
+    unlockedVistas,
+  ]);
 
   // Special crop celebrations / gifts
   useEffect(() => {
@@ -275,10 +346,14 @@ export function FarmPrototype() {
     writeSave({
       version: 2,
       gold: farm.gold,
-      outfit,
+      outfit: closestOutfit(look),
+      look,
       accessory,
       unlockedAccessories,
       unlockedOutfits,
+      unlockedHats,
+      unlockedDresses,
+      unlockedBoots,
       unlockedVistas,
       activeVista,
       selectedSeed: farm.selectedSeed,
@@ -297,10 +372,13 @@ export function FarmPrototype() {
     farm.selectedSeed,
     farm.rawPlots,
     farm.harvestCount,
-    outfit,
+    look,
     accessory,
     unlockedAccessories,
     unlockedOutfits,
+    unlockedHats,
+    unlockedDresses,
+    unlockedBoots,
     unlockedVistas,
     activeVista,
     catGiftClaimed,
@@ -332,10 +410,10 @@ export function FarmPrototype() {
   }, [farm, mushroomPinGifted]);
 
   const openWardrobe = useCallback(() => {
-    setPreview(outfit);
+    setPreview(look);
     setPreviewAccessory(accessory);
     setScene('wardrobe');
-  }, [outfit, accessory]);
+  }, [look, accessory]);
 
   const openJournal = useCallback(() => {
     setScene('journal');
@@ -343,19 +421,24 @@ export function FarmPrototype() {
   }, []);
 
   const equipAndShowOff = useCallback(() => {
-    setOutfit(preview);
+    setLook(preview);
     setAccessory(previewAccessory);
     setScene('farm');
     setShowoff(true);
     playSfx('equip');
+    const dress = preview.dress;
     setBubble(
-      preview === 'witch'
+      dress === 'witch'
         ? '魔女裙在菜地里也很好看。'
-        : preview === 'denim'
+        : dress === 'denim'
           ? '牛仔日常，适合晒太阳。'
-          : preview === 'garden'
+          : dress === 'garden'
             ? '背带裙沾上一点泥土刚刚好。'
-            : '雨衣适合今天出门。',
+            : dress === 'spore'
+              ? '蘑菇裙晃一晃，黑猫也跟过来了。'
+              : dress === 'sweater'
+                ? '奶油毛衣软软的，适合慢慢浇水。'
+                : '今天的搭配回菜地炫耀一下。',
     );
   }, [preview, previewAccessory]);
 
@@ -388,7 +471,7 @@ export function FarmPrototype() {
   const takePhoto = useCallback(() => {
     const entry = createJournalEntry({
       vista: activeVista,
-      outfit,
+      look,
       accessory,
       atmosphere,
     });
@@ -397,7 +480,7 @@ export function FarmPrototype() {
     playSfx('photo');
     farm.setFeedback(`咔嚓，${VISTAS[activeVista].name}风景收进手帐了`);
     setToast('手帐又多了一页');
-  }, [farm, activeVista, outfit, accessory, atmosphere]);
+  }, [farm, activeVista, look, accessory, atmosphere]);
 
   const onPrimaryWithSfx = useCallback(() => {
     const kind = farm.primaryKind;
@@ -426,14 +509,14 @@ export function FarmPrototype() {
   }, [unlockedVistas, activeVista, farm]);
 
   const atm = ATMOSPHERES[atmosphere];
-  const outfitLabel = OUTFITS[outfit]?.name ?? '黄雨衣';
+  const outfitLabel = lookLabel(look);
 
   if (scene === 'cottage') {
     return (
       <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
         <CottageView
           entering={cottageEntering}
-          outfit={outfit}
+          look={look}
           accessory={accessory}
           onBack={() => setScene('farm')}
           onOpenWardrobe={openWardrobe}
@@ -446,13 +529,19 @@ export function FarmPrototype() {
     return (
       <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
         <WardrobeView
-          equipped={outfit}
+          equipped={look}
           preview={preview}
           accessory={accessory}
           previewAccessory={previewAccessory}
-          unlockedOutfits={unlockedOutfits}
+          unlockedPresets={unlockedOutfits}
+          unlockedHats={unlockedHats}
+          unlockedDresses={unlockedDresses}
+          unlockedBoots={unlockedBoots}
           unlockedAccessories={unlockedAccessories}
-          onPreview={setPreview}
+          onApplyPreset={(id) => setPreview(lookFromOutfit(id))}
+          onPreviewHat={(id) => setPreview((p) => ({...p, hat: id}))}
+          onPreviewDress={(id) => setPreview((p) => ({...p, dress: id}))}
+          onPreviewBoots={(id) => setPreview((p) => ({...p, boots: id}))}
           onPreviewAccessory={setPreviewAccessory}
           onEquip={equipAndShowOff}
           onBack={() => setScene('cottage')}
@@ -557,7 +646,7 @@ export function FarmPrototype() {
 
           <div className="p1-actors">
             <GirlFigure
-              outfit={outfit}
+              look={look}
               accessory={accessory}
               size="farm"
               pose={showoff ? 'showoff' : 'idle'}
@@ -631,7 +720,7 @@ export function FarmPrototype() {
             手帐{journalEntries.length > 0 ? ` ·${journalEntries.length}` : ''}
           </button>
         </div>
-        <p className="harvest-hint">已收获 {farm.harvestCount} 次 · 明信片 {unlockedVistas.length}/{VISTA_ORDER.length} · 手帐 {journalEntries.length}</p>
+        <p className="harvest-hint">已收获 {farm.harvestCount} 次 · 单品 {unlockedHats.filter((h) => h !== 'bare').length + unlockedDresses.length + unlockedBoots.length} · 手帐 {journalEntries.length}</p>
       </main>
 
       <footer className="p1-dock">

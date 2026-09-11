@@ -1,22 +1,28 @@
 import type {AccessoryId} from './dayFeel';
-import type {OutfitId} from './outfits';
-import {OUTFITS} from './outfits';
+import {
+  BOOTS,
+  DRESSES,
+  HATS,
+  type Look,
+} from './pieces';
 
 interface GirlFigureProps {
-  outfit: OutfitId;
+  look: Look;
   accessory?: AccessoryId;
   size?: 'farm' | 'room' | 'wardrobe';
   pose?: 'idle' | 'showoff';
 }
 
-/** Same master: brown bob, oval eyes, round body. Clothes + optional accessory. */
+/** Same master: brown bob, oval eyes, round body. Mixable clothes + accessory. */
 export function GirlFigure({
-  outfit,
+  look,
   accessory = 'none',
   size = 'farm',
   pose = 'idle',
 }: GirlFigureProps) {
-  const outfitLabel = OUTFITS[outfit]?.name ?? '黄雨衣';
+  const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
+  const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat].name;
+  const bootsLabel = BOOTS[look.boots]?.name ?? '';
   const accessoryLabel =
     accessory === 'cat_ears'
       ? '猫耳'
@@ -28,10 +34,19 @@ export function GirlFigure({
             ? '蘑菇胸针'
             : '';
 
+  const aria = [
+    `穿${dressLabel}的女孩`,
+    hatLabel ? `戴${hatLabel}` : '',
+    bootsLabel ? bootsLabel : '',
+    accessoryLabel ? `（${accessoryLabel}）` : '',
+  ]
+    .filter(Boolean)
+    .join('·');
+
   return (
     <div
-      className={`girl-figure size-${size} outfit-${outfit} accessory-${accessory} pose-${pose}`}
-      aria-label={`穿${outfitLabel}的女孩${accessoryLabel ? `（${accessoryLabel}）` : ''}`}
+      className={`girl-figure size-${size} dress-${look.dress} hat-${look.hat} boots-${look.boots} accessory-${accessory} pose-${pose}`}
+      aria-label={aria}
     >
       <div className="gf-hat" aria-hidden />
       <div className="gf-crown" aria-hidden>
