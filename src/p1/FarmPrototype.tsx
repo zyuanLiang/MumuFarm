@@ -784,8 +784,18 @@ export function FarmPrototype() {
 
       {photoFlash && (
         <div className="photo-flash" aria-hidden>
-          <div className="photo-frame">
-            <span className="photo-caption">{VISTAS[activeVista].name} · 手帐</span>
+          <div
+            className={`photo-frame vista-${activeVista}${vistaBg ? ' has-vista-art' : ''}`}
+            style={vistaBg ? {['--photo-vista' as string]: `url("${vistaBg}")`} : undefined}
+          >
+            <div className="photo-frame-sky" />
+            <div className="photo-frame-stage">
+              <GirlFigure look={look} accessory={accessory} size="room" pose="showoff" />
+              <BlackCat size="room" />
+            </div>
+            <span className="photo-caption">
+              {VISTAS[activeVista].name} · {outfitLabel} · 手帐
+            </span>
           </div>
         </div>
       )}

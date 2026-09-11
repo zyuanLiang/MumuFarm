@@ -305,3 +305,17 @@ test('P18 journal cards use theme vista stickers', () => {
   assert.match(css, /journal-card-sky\.has-art/);
   assert.match(doc, /手帐/);
 });
+
+test('P19 photo frame shows vista art and girl snapshot', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/20-p19-photo-frame-vista.md');
+  assert.match(farm, /photo-frame-sky/);
+  assert.match(farm, /photo-frame-stage/);
+  assert.match(farm, /has-vista-art/);
+  assert.match(farm, /--photo-vista/);
+  assert.match(css, /photo-frame-sky/);
+  assert.match(css, /photo-frame-stage/);
+  assert.match(css, /--photo-vista/);
+  assert.match(doc, /相框/);
+});

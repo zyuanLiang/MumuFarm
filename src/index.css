@@ -1695,15 +1695,64 @@ button {
   width: min(78%, 280px);
   aspect-ratio: 4 / 5;
   border-radius: 18px;
-  border: 12px solid #fff8ee;
+  border: 12px solid var(--cream, #fff8ee);
   box-shadow:
-    0 0 0 3px #e8d5b5,
+    0 0 0 3px color-mix(in srgb, var(--wood, #e8d5b5) 90%, transparent),
     0 18px 44px rgba(90, 74, 58, 0.28);
   background:
-    linear-gradient(180deg, rgba(247, 217, 196, 0.55), rgba(223, 233, 201, 0.62));
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--peach, #f7d9c4) 55%, transparent),
+      color-mix(in srgb, var(--sage, #dfe9c9) 55%, transparent)
+    );
   position: relative;
   z-index: 1;
+  overflow: hidden;
   animation: banner-in 0.25s ease-out, frame-hold 1.4s ease-out forwards;
+}
+
+.photo-frame-sky {
+  position: absolute;
+  inset: 0 0 38% 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--peach, #f7d9c4) 80%, #fff),
+    color-mix(in srgb, var(--sage, #dfe9c9) 70%, #fff)
+  );
+  pointer-events: none;
+}
+
+.photo-frame.has-vista-art .photo-frame-sky {
+  background-image: var(--photo-vista), linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sky, #b7d8f0) 40%, transparent),
+    transparent
+  );
+  background-size: cover, auto;
+  background-position: center top, center;
+}
+
+.photo-frame.vista-guilin:not(.has-vista-art) .photo-frame-sky {
+  background: linear-gradient(180deg, #b7d8f0, #9bc09a);
+}
+.photo-frame.vista-skycastle:not(.has-vista-art) .photo-frame-sky {
+  background: linear-gradient(180deg, #c9b8e8, #f0d9c4);
+}
+.photo-frame.vista-huangshan:not(.has-vista-art) .photo-frame-sky {
+  background: linear-gradient(180deg, #d7dee8, #c4b49a);
+}
+
+.photo-frame-stage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 44px;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  pointer-events: none;
 }
 
 @keyframes frame-hold {
@@ -1715,14 +1764,18 @@ button {
   position: absolute;
   left: 50%;
   bottom: 12px;
+  z-index: 2;
   transform: translateX(-50%);
+  max-width: calc(100% - 24px);
   padding: 5px 12px;
   border-radius: 999px;
-  background: rgba(255, 248, 238, 0.98);
-  font-size: 13px;
+  background: color-mix(in srgb, var(--cream, #fff8ee) 96%, transparent);
+  font-size: 12px;
   font-weight: 600;
-  color: #7a4e3a;
+  color: var(--ink, #7a4e3a);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   box-shadow: 0 2px 8px rgba(90, 74, 58, 0.12);
 }
 
