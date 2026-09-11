@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react';
 import type {AccessoryId} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
 import type {Look} from './pieces';
@@ -22,9 +23,24 @@ export function CottageView({
 }: CottageViewProps) {
   const {theme} = useThemeRuntime();
   const interiorArt = cottageArtUrl(theme);
+  const [catArrived, setCatArrived] = useState(!entering);
+
+  useEffect(() => {
+    if (!entering) {
+      setCatArrived(true);
+      return;
+    }
+    setCatArrived(false);
+    const id = window.setTimeout(() => setCatArrived(true), 420);
+    return () => window.clearTimeout(id);
+  }, [entering]);
 
   return (
-    <div className={`p2-cottage mushroom-echo ${entering ? 'is-entering' : ''}`}>
+    <div
+      className={`p2-cottage mushroom-echo ${entering ? 'is-entering' : ''} ${
+        catArrived ? 'cat-arrived' : 'cat-trailing'
+      }`}
+    >
       <header className="p1-topbar">
         <button type="button" className="p1-chip" onClick={onBack} aria-label="回农场">
           ←
@@ -66,11 +82,15 @@ export function CottageView({
 
         <div className="cottage-actors">
           <GirlFigure look={look} accessory={accessory} size="room" />
-          <BlackCat size="room" />
+          <BlackCat size="room" pose={catArrived ? 'idle' : 'follow'} />
         </div>
       </div>
 
-      <p className="p1-feedback">推开蘑菇门，屋里暖暖的——像走进菌盖里</p>
+      <p className="p1-feedback">
+        {entering || !catArrived
+          ? '黑猫踮脚跟进来了——屋里暖暖的'
+          : '推开蘑菇门，屋里暖暖的——像走进菌盖里'}
+      </p>
 
       <footer className="p1-dock">
         <button type="button" className="p1-primary" onClick={onOpenWardrobe}>

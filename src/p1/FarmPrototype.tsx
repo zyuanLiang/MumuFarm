@@ -152,6 +152,7 @@ export function FarmPrototype() {
   const [mushroomPinGifted, setMushroomPinGifted] = useState(Boolean(meta.mushroomPinGifted));
   const [visitor, setVisitor] = useState<VisitorKind>(null);
   const [cottageEntering, setCottageEntering] = useState(false);
+  const [catPose, setCatPose] = useState<'idle' | 'look-up'>('idle');
   const [journalEntries, setJournalEntries] = useState<JournalEntry[]>(meta.journalEntries ?? []);
   const [tipDismissed, setTipDismissed] = useState(false);
   const [dailyTip, setDailyTip] = useState<DailyTip | null>(null);
@@ -451,6 +452,8 @@ export function FarmPrototype() {
     }
 
     playSfx('harvest');
+    setCatPose('look-up');
+    window.setTimeout(() => setCatPose('idle'), 900);
     farm.clearLastHarvest();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- harvest burst only
   }, [farm.lastHarvestCrop, sunflowerCelebrated, starPumpkinGifted]);
@@ -513,7 +516,7 @@ export function FarmPrototype() {
     setShowoff(false);
     setCottageEntering(true);
     setScene('cottage');
-    farm.setFeedback('推开蘑菇门，屋里暖暖的');
+    farm.setFeedback('黑猫踮脚跟进来了');
     playSfx('tap');
     window.setTimeout(() => setCottageEntering(false), 900);
     if (!mushroomPinGifted) {
@@ -880,7 +883,7 @@ export function FarmPrototype() {
               size="farm"
               pose={showoff ? 'showoff' : 'idle'}
             />
-            <BlackCat size="farm" onAssist={catAssist} />
+            <BlackCat size="farm" onAssist={catAssist} pose={catPose} />
           </div>
         </section>
 

@@ -319,3 +319,20 @@ test('P19 photo frame shows vista art and girl snapshot', () => {
   assert.match(css, /--photo-vista/);
   assert.match(doc, /相框/);
 });
+
+test('P20 black cat follows into cottage and looks up on harvest', () => {
+  const cottage = readUtf8('src/p1/CottageView.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/21-p20-cat-cottage-follow.md');
+  assert.match(cottage, /pose=\{catArrived \? 'idle' : 'follow'\}/);
+  assert.match(cottage, /黑猫踮脚/);
+  assert.match(cottage, /cat-trailing/);
+  assert.match(girl, /pose\?: 'idle' \| 'follow' \| 'look-up'/);
+  assert.match(farm, /setCatPose\('look-up'\)/);
+  assert.match(farm, /pose=\{catPose\}/);
+  assert.match(css, /cat-trot-in/);
+  assert.match(css, /cat-look-up/);
+  assert.match(doc, /跟进/);
+});

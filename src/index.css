@@ -455,6 +455,43 @@ button {
 .black-cat.size-room { width: 42px; height: 38px; }
 .black-cat.size-wardrobe { width: 52px; height: 46px; }
 
+.black-cat.pose-follow {
+  animation: cat-trot-in 0.55s ease-out both;
+}
+.black-cat.pose-look-up .cat-head {
+  animation: cat-look-up 0.9s ease-out;
+}
+.black-cat.pose-look-up .cat-crescent {
+  animation: cat-bell-ting 0.9s ease-out;
+}
+
+@keyframes cat-trot-in {
+  0% { opacity: 0; transform: translate(28px, 8px) scale(0.92); }
+  55% { opacity: 1; transform: translate(6px, -2px) scale(1.04); }
+  100% { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes cat-look-up {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-18%); }
+  60% { transform: translateY(-10%); }
+}
+@keyframes cat-bell-ting {
+  0%, 100% { transform: rotate(-30deg); }
+  40% { transform: rotate(-50deg); }
+  70% { transform: rotate(-18deg); }
+}
+
+.p2-cottage.cat-trailing .cottage-actors .black-cat {
+  animation: cat-trot-in 0.55s ease-out both;
+}
+.p2-cottage.is-entering .cottage-actors .girl-figure {
+  animation: girl-enter-cottage 0.55s ease-out both;
+}
+@keyframes girl-enter-cottage {
+  0% { opacity: 0.4; transform: translateX(18px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
 .cat-body {
   position: absolute;
   left: 8%;

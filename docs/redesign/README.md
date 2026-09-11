@@ -23,7 +23,8 @@
 - **P17 小屋呼应蘑菇屋**：[18-p17-cottage-mushroom-echo.md](./18-p17-cottage-mushroom-echo.md)（菌盖室内结构 + 可贴图）
 - **P18 手帐远景贴纸**：[19-p18-journal-vista-stickers.md](./19-p18-journal-vista-stickers.md)（手帐卡挂主题远景）
 - **P19 拍照相框远景**：[20-p19-photo-frame-vista.md](./20-p19-photo-frame-vista.md)（咔嚓预览挂远景+合影）
+- **P20 黑猫跟进小屋**：[21-p20-cat-cottage-follow.md](./21-p20-cat-cottage-follow.md)（进门跟随 + 收获抬头）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题热换 + 蘑菇屋 + 手帐/拍照远景贴。
+当前实现：`src/p1/` — 玩法闭环 + 主题热换 + 手帐/拍照贴图 + **黑猫陪伴动作**。
 

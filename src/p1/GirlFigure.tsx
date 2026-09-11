@@ -116,9 +116,11 @@ export function GirlFigure({
 export function BlackCat({
   size = 'farm',
   onAssist,
+  pose = 'idle',
 }: {
   size?: 'farm' | 'room' | 'wardrobe';
   onAssist?: () => void;
+  pose?: 'idle' | 'follow' | 'look-up';
 }) {
   const body = (
     <>
@@ -127,9 +129,12 @@ export function BlackCat({
       <div className="cat-crescent" />
     </>
   );
+  const cls = ['black-cat', `size-${size}`, `pose-${pose}`, onAssist ? 'is-helper' : '']
+    .filter(Boolean)
+    .join(' ');
   if (!onAssist) {
     return (
-      <div className={`black-cat size-${size}`} aria-hidden>
+      <div className={cls} aria-hidden>
         {body}
       </div>
     );
@@ -137,7 +142,7 @@ export function BlackCat({
   return (
     <button
       type="button"
-      className={`black-cat size-${size} is-helper`}
+      className={cls}
       aria-label="黑猫帮忙浇一格"
       title="黑猫帮忙浇一格"
       onClick={onAssist}
