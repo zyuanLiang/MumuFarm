@@ -33,6 +33,7 @@ export const sampleArtTheme: ThemePack = {
       huangshan: '/themes/sample-v1/vista-huangshan.svg',
     },
     mushroomHouse: '/themes/sample-v1/mushroom-house.svg',
+    cottageInterior: '/themes/sample-v1/cottage-interior.svg',
     dress: {
       raincoat: '/skins/sample-v1/wardrobe/dress-raincoat.svg',
       witch: '/skins/sample-v1/wardrobe/dress-witch.svg',

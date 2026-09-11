@@ -273,3 +273,20 @@ test('P16 seasonal packs ship spring crops and rainy lilac art', () => {
   assert.match(doc, /换季/);
   assert.match(doc, /春日作物/);
 });
+
+test('P17 cottage mushroom echo and interior art slot', () => {
+  const cottage = readUtf8('src/p1/CottageView.tsx');
+  const css = readUtf8('src/index.css');
+  const sample = readUtf8('src/p1/themes/packs/sampleArt.ts');
+  const registry = readUtf8('src/p1/themes/index.ts');
+  const doc = readUtf8('docs/redesign/18-p17-cottage-mushroom-echo.md');
+  assert.match(cottage, /mushroom-echo/);
+  assert.match(cottage, /cottageArtUrl/);
+  assert.match(cottage, /cottage-cap-band/);
+  assert.match(cottage, /cw-glow/);
+  assert.match(css, /cottage-cap-band/);
+  assert.match(css, /cottage-art/);
+  assert.match(sample, /cottage-interior/);
+  assert.match(registry, /cottageArtUrl/);
+  assert.match(doc, /菌盖/);
+});

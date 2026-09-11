@@ -30,5 +30,6 @@ export const rainyLilacTheme: ThemePack = {
       huangshan: '/themes/rainy-lilac/vista-huangshan.svg',
     },
     mushroomHouse: '/themes/rainy-lilac/mushroom-house.svg',
+    cottageInterior: '/themes/rainy-lilac/cottage-interior.svg',
   },
 };

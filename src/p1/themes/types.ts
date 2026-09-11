@@ -31,6 +31,8 @@ export interface ThemeAssets {
   hat?: Partial<Record<HatId, string>>;
   boots?: Partial<Record<BootsId, string>>;
   mushroomHouse?: string;
+  /** Optional cottage wallpaper / interior panel behind CSS mushroom structure */
+  cottageInterior?: string;
   uiChip?: string;
 }
 

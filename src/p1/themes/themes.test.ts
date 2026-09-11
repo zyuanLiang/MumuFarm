@@ -15,6 +15,7 @@ import {
   bootsArtUrl,
   hatArtUrl,
   houseArtUrl,
+  cottageArtUrl,
 } from './index.ts';
 
 describe('p14 theme / skin packs', () => {
@@ -76,5 +77,11 @@ describe('p14 theme / skin packs', () => {
     assert.ok(cropArtUrl(spring, 'carrot', 'sprout')?.includes('spring-crops/sprout'));
     assert.ok(skinsUnlockedBy(6, 'crops').includes('spring_crops'));
     assert.ok(!skinsUnlockedBy(5, 'crops').includes('spring_crops'));
+  });
+
+  it('p17 cottage interior art slots echo the mushroom house', () => {
+    assert.ok(cottageArtUrl(getTheme('sample_art'))?.includes('cottage-interior'));
+    assert.ok(cottageArtUrl(getTheme('rainy_lilac'))?.includes('rainy-lilac/cottage-interior'));
+    assert.equal(cottageArtUrl(getTheme('cottage_cream')), undefined);
   });
 });

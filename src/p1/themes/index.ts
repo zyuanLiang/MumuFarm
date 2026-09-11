@@ -101,4 +101,8 @@ export function houseArtUrl(theme: ThemePack): string | undefined {
   return theme.assets?.mushroomHouse;
 }
 
+export function cottageArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.cottageInterior;
+}
+
 export type {ThemePack, SkinPack, ThemeId, SkinId, ThemeTokens, ThemeAssets} from './types';
