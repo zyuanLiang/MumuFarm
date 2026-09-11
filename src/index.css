@@ -1461,17 +1461,16 @@ button {
   transform: rotate(-20deg);
 }
 
-/* vista layers — only the active vista shows extras */
-.vista-guilin,
-.vista-castle,
-.vista-huangshan {
+/* vista layers — only the active vista shows extras (do NOT put these classes on .p1-shell) */
+.p1-sky .vista-guilin,
+.p1-sky .vista-castle,
+.p1-sky .vista-huangshan {
   display: none;
   position: absolute;
   pointer-events: none;
 }
 
-.vista-guilin .vista-guilin,
-.p1-shell.vista-guilin .vista-guilin {
+.p1-shell.vista-guilin .p1-sky .vista-guilin {
   display: block;
   left: 8%;
   right: 8%;
@@ -1488,7 +1487,7 @@ button {
   opacity: 0.15;
 }
 
-.p1-shell.vista-skycastle .vista-castle {
+.p1-shell.vista-skycastle .p1-sky .vista-castle {
   display: block;
   right: 12%;
   top: 10%;
@@ -1501,7 +1500,7 @@ button {
 }
 .p1-shell.vista-skycastle .wl-pagoda { opacity: 0.2; }
 
-.p1-shell.vista-huangshan .vista-huangshan {
+.p1-shell.vista-huangshan .p1-sky .vista-huangshan {
   display: block;
   left: 5%;
   right: 5%;
@@ -1515,6 +1514,13 @@ button {
 .p1-shell.vista-huangshan .wl-pagoda,
 .p1-shell.vista-huangshan .wl-bridge {
   opacity: 0.12;
+}
+
+/* Real vista art replaces CSS silhouette extras */
+.p1-shell.has-vista-art .p1-sky .vista-guilin,
+.p1-shell.has-vista-art .p1-sky .vista-castle,
+.p1-shell.has-vista-art .p1-sky .vista-huangshan {
+  display: none !important;
 }
 
 .bloom-celebrate {

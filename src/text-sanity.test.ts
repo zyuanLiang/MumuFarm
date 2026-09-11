@@ -256,5 +256,6 @@ test('P15 girl master sticker anchors and full sample wardrobe', () => {
   assert.match(sample, /vista-huangshan/);
   assert.match(css, /gf-boots-art/);
   assert.match(css, /master-v1/);
+  assert.match(css, /\.p1-sky \.vista-guilin/);
   assert.match(doc, /母版锚点/);
 });
