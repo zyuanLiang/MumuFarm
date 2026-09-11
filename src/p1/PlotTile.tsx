@@ -2,6 +2,8 @@ import {CropSprite} from './CropSprite';
 import {CROPS} from './crops';
 import type {CropId, GrowthStage} from './types';
 
+export type PlotFxKind = 'plant' | 'water' | 'harvest';
+
 interface PlotTileProps {
   id: number;
   selected: boolean;
@@ -9,6 +11,8 @@ interface PlotTileProps {
   cropId: CropId | null;
   stage: GrowthStage;
   progress: number;
+  fx?: PlotFxKind | null;
+  fxKey?: number;
   onSelect: (id: number) => void;
 }
 
@@ -19,6 +23,8 @@ export function PlotTile({
   cropId,
   stage,
   progress,
+  fx = null,
+  fxKey = 0,
   onSelect,
 }: PlotTileProps) {
   const label =
@@ -37,6 +43,7 @@ export function PlotTile({
         watered ? 'is-watered' : 'is-dry',
         selected ? 'is-selected' : '',
         stage === 'mature' ? 'is-mature' : '',
+        fx ? `fx-${fx}` : '',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -49,6 +56,25 @@ export function PlotTile({
           <CropSprite cropId={cropId} stage={stage} />
         ) : (
           <span className="plot-empty-hint" />
+        )}
+        {fx && (
+          <span key={fxKey} className={`plot-fx plot-fx-${fx}`} aria-hidden>
+            {fx === 'water' && (
+              <>
+                <i className="drop a" />
+                <i className="drop b" />
+                <i className="drop c" />
+              </>
+            )}
+            {fx === 'plant' && <i className="seed-drop" />}
+            {fx === 'harvest' && (
+              <>
+                <i className="spark a" />
+                <i className="spark b" />
+                <i className="spark c" />
+              </>
+            )}
+          </span>
         )}
       </div>
       {stage === 'mature' && <span className="plot-ready-dot" />}

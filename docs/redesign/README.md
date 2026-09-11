@@ -14,7 +14,8 @@
 - **P8 手帐本**：[09-p8-scrapbook-journal.md](./09-p8-scrapbook-journal.md)（拍照入册、回看小日子）
 - **P9 混搭衣橱**：[10-p9-mix-wardrobe.md](./10-p9-mix-wardrobe.md)（帽/衣/靴可拼，约 12–16 件）
 - **P10 今日轻智能**：[11-p10-daily-tips.md](./11-p10-daily-tips.md)（今天穿什么、丰收小记）
+- **P11 首屏呼吸**：[12-p11-visual-breath.md](./12-p11-visual-breath.md)（场景动效、种地微反馈）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 种地心跳 → 粘手/滑动 → 混搭换装 → 蘑菇屋 → 拍照手帐 → 今日轻提示。
+当前实现：`src/p1/` — 种地心跳 → 粘手/滑动 → 混搭换装 → 蘑菇屋 → 拍照手帐 → 今日轻提示 → 首屏呼吸。
 

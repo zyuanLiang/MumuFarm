@@ -94,9 +94,11 @@ button {
   height: 90px;
   background: radial-gradient(circle at 50% 20%, rgba(110, 140, 100, 0.35), transparent 60%);
   opacity: 0.7;
+  transform-origin: top center;
+  animation: willow-sway 5.5s ease-in-out infinite;
 }
 .wl-left { left: 6%; }
-.wl-right { right: 4%; top: 16%; }
+.wl-right { right: 4%; top: 16%; animation-delay: -2.2s; }
 
 .wl-mist {
   position: absolute;
@@ -310,6 +312,18 @@ button {
   border-radius: 50%;
 }
 
+.gf-blush {
+  position: absolute;
+  top: 58%;
+  width: 18%;
+  height: 12%;
+  border-radius: 50%;
+  background: rgba(240, 140, 130, 0.35);
+  z-index: 1;
+}
+.gf-blush.left { left: 12%; }
+.gf-blush.right { right: 12%; }
+
 .gf-hair {
   position: absolute;
   left: 14%;
@@ -319,6 +333,9 @@ button {
   border-radius: 40% 40% 20% 20%;
   background: #6b4a32;
   z-index: 1;
+  box-shadow:
+    -10px 14px 0 -2px #6b4a32,
+    10px 14px 0 -2px #6b4a32;
 }
 
 .gf-hat {
@@ -716,26 +733,44 @@ button {
   clip-path: polygon(15% 35%, 85% 35%, 75% 90%, 25% 90%);
 }
 
-.harvest-pop {
+.harvest-burst {
   position: absolute;
   left: 50%;
   top: 46%;
   z-index: 5;
-  width: 18px;
-  height: 18px;
-  margin-left: -9px;
-  border-radius: 2px;
-  background: var(--honey);
-  transform: rotate(45deg);
-  animation: harvest-fly 0.7s ease-out forwards;
+  width: 0;
+  height: 0;
   pointer-events: none;
 }
 
-@keyframes harvest-fly {
-  0% { opacity: 0; transform: rotate(45deg) translateY(8px) scale(0.6); }
-  30% { opacity: 1; }
-  100% { opacity: 0; transform: rotate(45deg) translateY(-48px) scale(1.1); }
+.harvest-pop {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 3px;
+  background: var(--honey);
+  transform: rotate(45deg);
+  animation: harvest-fly 0.75s ease-out forwards;
 }
+
+.harvest-pop.b {
+  background: #f3a989;
+  animation-delay: 0.05s;
+}
+.harvest-pop.c {
+  background: #9bc09a;
+  animation-delay: 0.1s;
+}
+
+@keyframes harvest-fly {
+  0% { opacity: 0; transform: rotate(45deg) translate(0, 8px) scale(0.55); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(45deg) translate(var(--dx, 0), -52px) scale(1.05); }
+}
+.harvest-pop.a { --dx: -18px; }
+.harvest-pop.b { --dx: 0px; }
+.harvest-pop.c { --dx: 18px; }
 
 /* —— P2 cottage + wardrobe —— */
 .p2-cottage,
@@ -1739,3 +1774,200 @@ button {
 .thumb-boots-check { background: linear-gradient(180deg, #fff8ee 0 55%, #c4785a 55%); }
 .thumb-boots-moon { background: linear-gradient(180deg, #fff8ee 0 55%, #6d7fa8 55%); }
 .thumb-boots-moss { background: linear-gradient(180deg, #fff8ee 0 55%, #6f8f62 55%); }
+
+
+/* —— P11 visual breath + plot micro-feedback —— */
+.p1-shell.has-paper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.045;
+  background-image:
+    radial-gradient(circle at 20% 30%, #5a4a3a 0.6px, transparent 0.7px),
+    radial-gradient(circle at 70% 60%, #5a4a3a 0.5px, transparent 0.6px),
+    radial-gradient(circle at 40% 80%, #5a4a3a 0.55px, transparent 0.65px);
+  background-size: 18px 18px, 22px 22px, 16px 16px;
+}
+
+.p1-sky.is-breathing {
+  animation: sky-breath 8s ease-in-out infinite;
+}
+
+@keyframes sky-breath {
+  0%, 100% { transform: scale(1) translateY(0); opacity: 1; }
+  50% { transform: scale(1.02) translateY(-4px); opacity: 0.96; }
+}
+
+@keyframes willow-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.yard-meadow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42px;
+  border-radius: 40% 40% 0 0;
+  background:
+    radial-gradient(ellipse 18px 10px at 12% 70%, rgba(120, 160, 100, 0.35), transparent 70%),
+    radial-gradient(ellipse 22px 12px at 38% 60%, rgba(140, 175, 110, 0.4), transparent 70%),
+    radial-gradient(ellipse 20px 11px at 68% 72%, rgba(120, 160, 100, 0.35), transparent 70%),
+    radial-gradient(ellipse 24px 12px at 90% 58%, rgba(150, 180, 120, 0.38), transparent 70%),
+    linear-gradient(180deg, transparent, rgba(170, 200, 140, 0.35));
+  animation: meadow-breath 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes meadow-breath {
+  0%, 100% { transform: scaleY(1); opacity: 0.9; }
+  50% { transform: scaleY(1.06); opacity: 1; }
+}
+
+.mh-window {
+  position: absolute;
+  left: 30px;
+  top: 58px;
+  width: 16px;
+  height: 16px;
+  border-radius: 6px 6px 4px 4px;
+  background: linear-gradient(180deg, #ffe9b0, #f3a989);
+  box-shadow: inset 0 0 0 2px rgba(196, 160, 122, 0.55);
+  animation: window-glow 3.4s ease-in-out infinite;
+  z-index: 2;
+}
+
+.mh-glow {
+  animation: house-halo 3.4s ease-in-out infinite;
+}
+
+@keyframes window-glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.18); }
+}
+
+@keyframes house-halo {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+}
+
+.crop-seed {
+  animation: seed-land 0.45s ease-out;
+}
+
+.crop-sprout {
+  animation: sprout-pop 0.5s ease-out;
+}
+
+.crop-sprite.stage-mature {
+  animation: crop-bob 1.8s ease-in-out infinite;
+}
+
+@keyframes seed-land {
+  0% { transform: translateY(-14px) scale(0.4); opacity: 0; }
+  70% { transform: translateY(2px) scale(1.08); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes sprout-pop {
+  0% { transform: scaleY(0.2) translateY(8px); opacity: 0.2; }
+  100% { transform: scaleY(1) translateY(0); opacity: 1; }
+}
+
+@keyframes crop-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+.plot-soil {
+  position: relative;
+  overflow: hidden;
+}
+
+.plot-fx {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.plot-fx .seed-drop {
+  position: absolute;
+  left: 50%;
+  top: 18%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background: #7a5a3a;
+  animation: seed-drop 0.5s ease-out forwards;
+}
+
+@keyframes seed-drop {
+  0% { transform: translateY(-18px) scale(0.5); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(18px) scale(1); opacity: 0; }
+}
+
+.plot-fx .drop {
+  position: absolute;
+  width: 8px;
+  height: 10px;
+  border-radius: 40% 40% 50% 50%;
+  background: rgba(140, 190, 220, 0.85);
+  animation: water-drop 0.55s ease-out forwards;
+}
+.plot-fx .drop.a { left: 30%; top: 12%; animation-delay: 0s; }
+.plot-fx .drop.b { left: 48%; top: 6%; animation-delay: 0.06s; }
+.plot-fx .drop.c { left: 64%; top: 14%; animation-delay: 0.12s; }
+
+@keyframes water-drop {
+  0% { transform: translateY(-8px) scale(0.6); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateY(28px) scale(0.85); opacity: 0; }
+}
+
+.plot-tile.fx-water .plot-soil {
+  animation: soil-wet-flash 0.55s ease-out;
+}
+
+@keyframes soil-wet-flash {
+  0% { filter: brightness(1); }
+  40% { filter: brightness(1.08) saturate(1.15); }
+  100% { filter: brightness(1); }
+}
+
+.plot-fx .spark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--honey);
+  transform: rotate(45deg);
+  animation: spark-up 0.6s ease-out forwards;
+}
+.plot-fx .spark.a { left: 28%; top: 40%; --sx: -12px; background: #f0c75e; }
+.plot-fx .spark.b { left: 48%; top: 34%; --sx: 0; background: #f3a989; }
+.plot-fx .spark.c { left: 66%; top: 42%; --sx: 12px; background: #9bc09a; }
+
+@keyframes spark-up {
+  0% { opacity: 0; transform: rotate(45deg) translate(0, 6px) scale(0.5); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(45deg) translate(var(--sx), -28px) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p1-sky.is-breathing,
+  .wl-willow,
+  .yard-meadow,
+  .mh-window,
+  .mh-glow,
+  .girl-figure,
+  .crop-sprite.stage-mature,
+  .plot-tile.is-mature .plot-soil {
+    animation: none !important;
+  }
+}

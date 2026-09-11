@@ -61,6 +61,8 @@ export function GirlFigure({
       <div className="gf-scarf" aria-hidden />
       <div className="gf-mushroom-pin" aria-hidden />
       <div className="gf-head" aria-hidden>
+        <span className="gf-blush left" />
+        <span className="gf-blush right" />
         <span className="gf-eye left" />
         <span className="gf-eye right" />
         <span className="gf-smile" />

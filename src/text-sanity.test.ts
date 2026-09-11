@@ -152,3 +152,23 @@ test('P10 daily tips suggest outfit and harvest notes', () => {
   assert.match(farm, /今天穿什么/);
   assert.match(farm, /丰收小记/);
 });
+
+test('P11 visual breath and plot micro-feedback', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const plot = readUtf8('src/p1/PlotTile.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const html = readUtf8('index.html');
+  assert.match(farm, /flashPlot/);
+  assert.match(farm, /yard-meadow/);
+  assert.match(farm, /has-paper/);
+  assert.match(plot, /plot-fx/);
+  assert.match(plot, /fx-plant|PlotFxKind/);
+  assert.match(girl, /gf-blush/);
+  assert.match(css, /sky-breath/);
+  assert.match(css, /willow-sway/);
+  assert.match(css, /seed-drop/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(html, /蘑菇屋里的小魔女/);
+  assert.match(html, /Nunito/);
+});

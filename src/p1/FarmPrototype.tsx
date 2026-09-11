@@ -35,7 +35,7 @@ import {
   suggestTodayLook,
   type DailyTip,
 } from './dailyTips';
-import {PlotTile} from './PlotTile';
+import {PlotTile, type PlotFxKind} from './PlotTile';
 import {loadSave, writeSave} from './save';
 import {playSfx, resumeAudio} from './sfx';
 import {useFarmPrototype} from './useFarmPrototype';
@@ -135,6 +135,9 @@ export function FarmPrototype() {
   const [tipDismissed, setTipDismissed] = useState(false);
   const [dailyTip, setDailyTip] = useState<DailyTip | null>(null);
   const sessionHarvestsRef = useRef(0);
+  const [plotFx, setPlotFx] = useState<{id: number; kind: PlotFxKind; key: number} | null>(
+    null,
+  );
 
   const brushModeRef = useRef<Exclude<PrimaryKind, 'noop'> | null>(null);
   const brushedRef = useRef<Set<number>>(new Set());
@@ -169,6 +172,16 @@ export function FarmPrototype() {
     return Number.isFinite(id) ? id : null;
   };
 
+  const flashPlot = useCallback((plotId: number, kind: PlotFxKind) => {
+    setPlotFx({id: plotId, kind, key: Date.now()});
+  }, []);
+
+  useEffect(() => {
+    if (!plotFx) return;
+    const id = window.setTimeout(() => setPlotFx(null), 620);
+    return () => window.clearTimeout(id);
+  }, [plotFx]);
+
   const brushPlot = useCallback(
     (plotId: number, isStart: boolean) => {
       if (brushedRef.current.has(plotId)) return;
@@ -190,6 +203,7 @@ export function FarmPrototype() {
         brushModeRef.current = kind;
         brushedRef.current = new Set([plotId]);
         farm.onApplyPlot(plotId, kind);
+        flashPlot(plotId, kind);
         if (kind === 'plant') playSfx('plant');
         if (kind === 'water') playSfx('water');
         if (kind === 'harvest') playSfx('harvest');
@@ -199,11 +213,12 @@ export function FarmPrototype() {
       if (!mode) return;
       brushedRef.current.add(plotId);
       farm.onApplyPlot(plotId, mode);
+      flashPlot(plotId, mode);
       if (mode === 'plant') playSfx('plant');
       if (mode === 'water') playSfx('water');
       if (mode === 'harvest') playSfx('harvest');
     },
-    [farm],
+    [farm, flashPlot],
   );
 
   const onPlotsPointerDown = useCallback(
@@ -234,7 +249,6 @@ export function FarmPrototype() {
     brushModeRef.current = null;
     brushedRef.current = new Set();
   }, []);
-
 
   useEffect(() => {
     const unlockAudio = () => resumeAudio();
@@ -535,11 +549,14 @@ export function FarmPrototype() {
 
   const onPrimaryWithSfx = useCallback(() => {
     const kind = farm.primaryKind;
+    if (kind === 'plant' || kind === 'water' || kind === 'harvest') {
+      flashPlot(farm.selectedPlotId, kind);
+    }
     farm.onPrimary();
     if (kind === 'plant') playSfx('plant');
     if (kind === 'water') playSfx('water');
     // harvest SFX played when lastHarvestCrop effect runs
-  }, [farm]);
+  }, [farm, flashPlot]);
 
   const cycleAtmosphere = useCallback(() => {
     setAtmosphere((prev) => {
@@ -617,8 +634,8 @@ export function FarmPrototype() {
   }
 
   return (
-    <div className={`p1-shell ${atm.skyClass} vista-${activeVista}`}>
-      <div className="p1-sky" aria-hidden>
+    <div className={`p1-shell has-paper ${atm.skyClass} vista-${activeVista}`}>
+      <div className="p1-sky is-breathing" aria-hidden>
         <div className="p1-westlake">
           <div className="wl-pagoda" />
           <div className="wl-bridge" />
@@ -666,6 +683,7 @@ export function FarmPrototype() {
 
       <main className="p1-stage">
         <section className="p1-homestead" aria-label="蘑菇屋小院">
+          <div className="yard-meadow" aria-hidden />
           <button
             type="button"
             className="mushroom-house is-button"
@@ -675,6 +693,7 @@ export function FarmPrototype() {
             <div className="mh-cap" />
             <div className="mh-stem" />
             <div className="mh-door" />
+            <div className="mh-window" />
             <div className="mh-glow" />
           </button>
 
@@ -756,6 +775,8 @@ export function FarmPrototype() {
               cropId={plot.cropId}
               stage={plot.stage}
               progress={plot.progress}
+              fx={plotFx?.id === plot.id ? plotFx.kind : null}
+              fxKey={plotFx?.id === plot.id ? plotFx.key : 0}
               onSelect={farm.onSelectPlot}
             />
           ))}
@@ -811,7 +832,11 @@ export function FarmPrototype() {
       </footer>
 
       {farm.harvestBurstId > 0 && (
-        <div key={farm.harvestBurstId} className="harvest-pop" aria-hidden />
+        <div key={farm.harvestBurstId} className="harvest-burst" aria-hidden>
+          <span className="harvest-pop a" />
+          <span className="harvest-pop b" />
+          <span className="harvest-pop c" />
+        </div>
       )}
     </div>
   );
