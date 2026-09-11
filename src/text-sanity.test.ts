@@ -362,3 +362,17 @@ test('P22 black cat shelters under mushroom eaves in soft rain', () => {
   assert.match(css, /cat-shelter-tuck/);
   assert.match(doc, /躲檐/);
 });
+
+test('P23 rainy lilac theme fills wardrobe sticker slots', () => {
+  const pack = readUtf8('src/p1/themes/packs/rainyLilac.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const doc = readUtf8('docs/redesign/24-p23-rainy-lilac-wardrobe.md');
+  assert.match(pack, /rainy-lilac\/wardrobe\/dress-witch/);
+  assert.match(pack, /rainy-lilac\/wardrobe\/hat-witch/);
+  assert.match(pack, /rainy-lilac\/wardrobe\/boots-yellow/);
+  assert.match(farm, /雨紫庭院：衣柜贴也换上了/);
+  assert.match(doc, /衣柜/);
+  assert.match(readUtf8('public/themes/rainy-lilac/wardrobe/dress-witch.svg'), /viewBox="0 0 80 100"/);
+  assert.match(readUtf8('public/themes/rainy-lilac/wardrobe/hat-rain-hood.svg'), /viewBox="0 0 80 48"/);
+  assert.match(readUtf8('public/themes/rainy-lilac/wardrobe/boots-moon.svg'), /viewBox="0 0 80 28"/);
+});

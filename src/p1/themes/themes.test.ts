@@ -84,4 +84,16 @@ describe('p14 theme / skin packs', () => {
     assert.ok(cottageArtUrl(getTheme('rainy_lilac'))?.includes('rainy-lilac/cottage-interior'));
     assert.equal(cottageArtUrl(getTheme('cottage_cream')), undefined);
   });
+
+  it('p23 rainy lilac fills wardrobe sticker slots', () => {
+    const lilac = getTheme('rainy_lilac');
+    assert.ok(dressArtUrl(lilac, 'witch')?.includes('rainy-lilac/wardrobe/dress-witch'));
+    assert.ok(dressArtUrl(lilac, 'raincoat')?.includes('rainy-lilac/wardrobe/dress-raincoat'));
+    assert.ok(dressArtUrl(lilac, 'spore')?.includes('rainy-lilac/wardrobe/dress-spore'));
+    assert.ok(hatArtUrl(lilac, 'witch_hat')?.includes('rainy-lilac/wardrobe/hat-witch'));
+    assert.ok(hatArtUrl(lilac, 'rain_hood')?.includes('rainy-lilac/wardrobe/hat-rain-hood'));
+    assert.ok(bootsArtUrl(lilac, 'yellow')?.includes('rainy-lilac/wardrobe/boots-yellow'));
+    assert.ok(bootsArtUrl(lilac, 'moon')?.includes('rainy-lilac/wardrobe/boots-moon'));
+    assert.equal(dressArtUrl(getTheme('cottage_cream'), 'witch'), undefined);
+  });
 });

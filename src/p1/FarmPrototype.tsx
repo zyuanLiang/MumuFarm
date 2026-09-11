@@ -673,7 +673,11 @@ export function FarmPrototype() {
     const idx = unlockedThemes.indexOf(activeTheme);
     const next = unlockedThemes[(idx + 1) % unlockedThemes.length];
     setActiveTheme(next);
-    farm.setFeedback(`主题切换：${getTheme(next).name}`);
+    if (next === 'rainy_lilac') {
+      farm.setFeedback('雨紫庭院：衣柜贴也换上了～');
+    } else {
+      farm.setFeedback(`主题切换：${getTheme(next).name}`);
+    }
     playSfx('tap');
   }, [unlockedThemes, activeTheme, farm]);
 
