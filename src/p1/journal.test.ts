@@ -30,6 +30,7 @@ describe('p8 scrapbook journal', () => {
       accessory: 'none',
       atmosphere: 'clear',
       now: 1000,
+      themeId: 'sample_art',
     });
     const second = createJournalEntry({
       vista: 'guilin',
@@ -37,11 +38,14 @@ describe('p8 scrapbook journal', () => {
       accessory: 'flower_crown',
       atmosphere: 'soft_rain',
       now: 2000,
+      themeId: 'rainy_lilac',
     });
     const pages = prependJournalEntry([first], second, 2);
     assert.equal(pages[0].id, second.id);
     assert.equal(pages.length, 2);
     assert.ok(pages[0].look);
+    assert.equal(pages[0].themeId, 'rainy_lilac');
+    assert.equal(pages[1].themeId, 'sample_art');
 
     let many = [];
     for (let i = 0; i < JOURNAL_MAX + 3; i += 1) {

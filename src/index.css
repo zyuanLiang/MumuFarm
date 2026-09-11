@@ -1992,12 +1992,17 @@ button {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #fff8ee;
-  background-image: linear-gradient(180deg, #f7e8d4 0%, #fff8ee 45%, #f0e4d2 100%);
+  background-color: var(--cream, #fff8ee);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--wood, #e8d5b5) 55%, var(--cream, #fff8ee)) 0%,
+    var(--cream, #fff8ee) 45%,
+    color-mix(in srgb, var(--wood, #e8d5b5) 40%, var(--cream, #fff8ee)) 100%
+  );
 }
 
 .journal-chip {
-  border-color: #e8c27a !important;
+  border-color: color-mix(in srgb, var(--honey, #e8c27a) 80%, #c4a07a) !important;
 }
 
 .journal-list {
@@ -2014,24 +2019,35 @@ button {
   position: relative;
   border-radius: 22px;
   overflow: hidden;
-  background: #fff8ee;
+  background: var(--cream, #fff8ee);
   box-shadow:
-    0 0 0 2px rgba(232, 213, 181, 0.95),
+    0 0 0 2px color-mix(in srgb, var(--wood, #e8d5b5) 90%, transparent),
     0 10px 24px rgba(90, 74, 58, 0.12);
 }
 
 .journal-card-sky {
-  height: 72px;
-  background: linear-gradient(180deg, #f7d9c4, #dfe9c9);
+  height: 88px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--peach, #f7d9c4) 80%, #fff) ,
+    color-mix(in srgb, var(--sage, #dfe9c9) 70%, #fff)
+  );
+  background-size: cover;
+  background-position: center top;
 }
 
-.journal-card.vista-guilin .journal-card-sky {
+.journal-card-sky.has-art {
+  background-color: color-mix(in srgb, var(--sky, #b7d8f0) 40%, #fff8ee);
+  background-repeat: no-repeat;
+}
+
+.journal-card.vista-guilin .journal-card-sky:not(.has-art) {
   background: linear-gradient(180deg, #b7d8f0, #9bc09a);
 }
-.journal-card.vista-skycastle .journal-card-sky {
+.journal-card.vista-skycastle .journal-card-sky:not(.has-art) {
   background: linear-gradient(180deg, #c9b8e8, #f0d9c4);
 }
-.journal-card.vista-huangshan .journal-card-sky {
+.journal-card.vista-huangshan .journal-card-sky:not(.has-art) {
   background: linear-gradient(180deg, #d7dee8, #c4b49a);
 }
 
@@ -2042,7 +2058,7 @@ button {
   align-items: flex-end;
   justify-content: center;
   gap: 12px;
-  margin-top: -28px;
+  margin-top: -36px;
   min-height: 128px;
   padding-bottom: 8px;
 }
@@ -2056,19 +2072,19 @@ button {
 
 .journal-card-meta strong {
   font-size: 14px;
-  color: #7a4e3a;
+  color: var(--ink, #7a4e3a);
 }
 
 .journal-card-meta span {
   font-size: 12px;
-  color: #8a6a55;
+  color: color-mix(in srgb, var(--ink, #5a4a3a) 70%, #fff);
 }
 
 .journal-card-meta p {
   margin: 4px 0 0;
   font-size: 13px;
   line-height: 1.45;
-  color: #5a4a3a;
+  color: var(--ink, #5a4a3a);
 }
 
 .journal-card-meta time {

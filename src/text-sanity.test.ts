@@ -290,3 +290,18 @@ test('P17 cottage mushroom echo and interior art slot', () => {
   assert.match(registry, /cottageArtUrl/);
   assert.match(doc, /菌盖/);
 });
+
+test('P18 journal cards use theme vista stickers', () => {
+  const journalView = readUtf8('src/p1/JournalView.tsx');
+  const journal = readUtf8('src/p1/journal.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/19-p18-journal-vista-stickers.md');
+  assert.match(journalView, /vistaArtUrl/);
+  assert.match(journalView, /has-vista-art/);
+  assert.match(journalView, /journal-card-sky/);
+  assert.match(journal, /themeId/);
+  assert.match(farm, /themeId: activeTheme/);
+  assert.match(css, /journal-card-sky\.has-art/);
+  assert.match(doc, /手帐/);
+});

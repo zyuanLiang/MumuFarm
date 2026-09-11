@@ -22,6 +22,8 @@ export interface JournalEntry {
   accessory: AccessoryId;
   atmosphere: AtmosphereId;
   caption: string;
+  /** Theme at capture time — journal sky prefers this pack's vista art */
+  themeId?: string;
 }
 
 export const JOURNAL_MAX = 12;
@@ -75,6 +77,7 @@ export function createJournalEntry(input: {
   now?: number;
   /** Override caption (e.g. 丰收小记) */
   caption?: string;
+  themeId?: string;
 }): JournalEntry {
   const now = input.now ?? Date.now();
   return {
@@ -85,6 +88,7 @@ export function createJournalEntry(input: {
     look: input.look,
     accessory: input.accessory,
     atmosphere: input.atmosphere,
+    themeId: input.themeId,
     caption:
       input.caption ??
       makeJournalCaption(

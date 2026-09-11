@@ -21,7 +21,8 @@
 - **P15 女孩母版贴纸**：[16-p15-girl-master-stickers.md](./16-p15-girl-master-stickers.md)（锚点锁定、靴层、示例贴齐全）
 - **P16 换季皮肤包**：[17-p16-seasonal-packs.md](./17-p16-seasonal-packs.md)（春日作物 + 雨紫主题整包）
 - **P17 小屋呼应蘑菇屋**：[18-p17-cottage-mushroom-echo.md](./18-p17-cottage-mushroom-echo.md)（菌盖室内结构 + 可贴图）
+- **P18 手帐远景贴纸**：[19-p18-journal-vista-stickers.md](./19-p18-journal-vista-stickers.md)（手帐卡挂主题远景）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题/皮肤热换 + **蘑菇屋室内呼应**。
+当前实现：`src/p1/` — 玩法闭环 + 主题/皮肤热换 + 蘑菇屋室内 + **手帐远景贴**。
 

@@ -443,6 +443,7 @@ export function FarmPrototype() {
         look,
         accessory,
         atmosphere,
+        themeId: activeTheme,
         caption: `丰收小记 · ${note}`,
       });
       setJournalEntries((prev) => prependJournalEntry(prev, entry));
@@ -621,13 +622,14 @@ export function FarmPrototype() {
       look,
       accessory,
       atmosphere,
+      themeId: activeTheme,
     });
     setJournalEntries((prev) => prependJournalEntry(prev, entry));
     setPhotoFlash(true);
     playSfx('photo');
     farm.setFeedback(`咔嚓，${VISTAS[activeVista].name}风景收进手帐了`);
     setToast('手帐又多了一页');
-  }, [farm, activeVista, look, accessory, atmosphere]);
+  }, [farm, activeVista, look, accessory, atmosphere, activeTheme]);
 
   const onPrimaryWithSfx = useCallback(() => {
     const kind = farm.primaryKind;
