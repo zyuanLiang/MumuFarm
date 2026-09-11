@@ -1,185 +1,207 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {existsSync, readFileSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import path from 'node:path';
 
 const readUtf8 = (relativePath: string) =>
   readFileSync(path.join(process.cwd(), relativePath), 'utf8');
 
-test('App.tsx still contains key gameplay hooks', () => {
-  const content = readUtf8('src/App.tsx');
-
-  assert.ok(content.includes('showLottery'));
-  assert.ok(content.includes('showLevelUp'));
-  assert.ok(content.includes('window.alert('));
-  assert.ok(content.includes('onDraw={handleDraw}'));
-  assert.ok(content.includes('handleHarvestAllClick'));
-  assert.ok(content.includes('handlePlantAllClick'));
-  assert.ok(content.includes('activeBulkAction'));
-  assert.ok(content.includes('bulkHarvestFlights'));
-  assert.ok(content.includes('bulkPlantFlights'));
-  assert.ok(content.includes('一键收取'));
-  assert.ok(content.includes('一键播种'));
-  assert.ok(content.includes('aria-label="一键收取"'));
-  assert.ok(content.includes('aria-label="一键播种"'));
+test('P1 App mounts the six-plot farm prototype', () => {
+  const app = readUtf8('src/App.tsx');
+  assert.ok(app.includes('FarmPrototype'));
+  assert.ok(!app.includes('showLottery'));
 });
 
-test('App routes the backpack button into the immersive inventory modal', () => {
-  const content = readUtf8('src/App.tsx');
-
-  assert.ok(content.includes("openInventory('items')"));
-  assert.ok(content.includes('isInventoryOpen'));
-  assert.ok(content.includes('activeInventoryTab'));
-  assert.ok(content.includes('<InventoryModal'));
-  assert.ok(!content.includes('<SkinToggle'));
-  assert.ok(!content.includes("from './components/SkinToggle'"));
+test('P1 prototype exposes selectable plots and contextual primary action', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('p1-plots'));
+  assert.ok(farm.includes('onPrimary'));
+  assert.ok(farm.includes('mushroom-house'));
+  assert.ok(farm.includes('GirlFigure'));
 });
 
-test('Inventory modal and skin wardrobe components exist with tabbed wardrobe hooks', () => {
-  const inventoryModalContent = readUtf8('src/components/InventoryModal.tsx');
-  const skinWardrobeContent = readUtf8('src/components/SkinWardrobe.tsx');
+test('P2 wires cottage wardrobe and return-to-farm showoff', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('equipAndShowOff'));
+  assert.ok(farm.includes('openCottage'));
+  assert.ok(farm.includes('WardrobeView'));
+  assert.ok(farm.includes('穿上了'));
 
-  assert.ok(inventoryModalContent.includes('fixed inset-0 z-[50] flex flex-col justify-end'));
-  assert.ok(inventoryModalContent.includes('backdrop-blur-lg bg-slate-900/80'));
-  assert.ok(inventoryModalContent.includes("[{id: 'items', label: '背包/种子'}"));
-  assert.ok(inventoryModalContent.includes("{id: 'skins', label: '皮肤/衣橱'}"));
-  assert.ok(inventoryModalContent.includes("initial={{y: '100%'}}"));
-  assert.ok(skinWardrobeContent.includes('SKINS'));
-  assert.ok(skinWardrobeContent.includes('装备'));
-  assert.ok(skinWardrobeContent.includes('ownedSkinIds.includes'));
-  assert.ok(skinWardrobeContent.includes('Lock'));
+  const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
+  assert.ok(wardrobe.includes('穿上并回农场'));
+
+  const outfits = readUtf8('src/p1/outfits.ts');
+  assert.ok(outfits.includes('小魔女'));
+  assert.ok(outfits.includes('黄雨衣'));
 });
 
-test('LotteryModal.tsx still contains key lottery UI hooks', () => {
-  const content = readUtf8('src/components/LotteryModal.tsx');
+test('P3 records light surprises and day-feel hooks', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('claimVisitorGift'));
+  assert.ok(farm.includes('takePhoto'));
+  assert.ok(farm.includes('cycleAtmosphere'));
+  assert.ok(farm.includes('writeSave'));
 
-  assert.ok(content.includes('RewardDisplay'));
-  assert.ok(content.includes('RewardGridDisplay'));
-  assert.ok(content.includes('LOTTERY_COST'));
-  assert.ok(content.includes('LOTTERY_TEN_COST'));
-  assert.ok(content.includes('PRIZE_POOL.map'));
+  const doc = readUtf8('docs/redesign/04-p3-day-feel.md');
+  assert.ok(doc.includes('不做毁田'));
+  assert.ok(doc.includes('猫耳'));
 });
 
-test('LotteryModal theme background is driven by activeSkin', () => {
-  const appContent = readUtf8('src/App.tsx');
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
+test('P4 content loop unlocks vistas and denim by harvest', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('cycleVista'));
+  assert.ok(farm.includes('sunflowerCelebrated'));
+  assert.ok(farm.includes('SongBird'));
 
-  assert.ok(appContent.includes('activeSkin={gameState.activeSkin}'));
-  assert.ok(modalContent.includes('activeSkin: SkinId'));
-  assert.ok(modalContent.includes('backgroundTheme.bgImage'));
-  assert.ok(modalContent.includes('brightnessSpike'));
-  assert.ok(modalContent.includes('legendaryFlash'));
+  const doc = readUtf8('docs/redesign/05-p4-content-loop.md');
+  assert.ok(doc.includes('牛仔日常装'));
+  assert.ok(doc.includes('向日葵首开'));
 });
 
-test('LotteryModal uses shrine-style nested UI layout', () => {
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
+test('P5 polish adds sfx wardrobe pieces and photo frame', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.ok(farm.includes('playSfx'));
+  assert.ok(farm.includes('onPrimaryWithSfx'));
+  assert.ok(farm.includes('photo-frame'));
+  assert.ok(farm.includes('starPumpkinGifted'));
 
-  assert.ok(modalContent.includes("backgroundPosition: 'center center'"));
-  assert.ok(modalContent.includes('h-[35%]'));
-  assert.ok(modalContent.includes('sacred shrine base'));
-  assert.ok(modalContent.includes('getThemeGlyph(reward, activeSkin)'));
+  const sfx = readUtf8('src/p1/sfx.ts');
+  assert.ok(sfx.includes("case 'harvest'"));
+
+  const doc = readUtf8('docs/redesign/06-p5-polish.md');
+  assert.ok(doc.includes('花园背带装'));
+  assert.ok(doc.includes('拍照相框'));
 });
 
-test('LotteryModal button polish and ten-draw markers exist', () => {
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
 
-  assert.ok(modalContent.includes('cursor-not-allowed'));
-  assert.ok(modalContent.includes('hover:brightness-110'));
-  assert.ok(modalContent.includes('active:scale-95'));
-  assert.ok(modalContent.includes('opacity-50'));
-  assert.ok(modalContent.includes('grayscale-[0.4]'));
-  assert.ok(!modalContent.includes('text-slate-400'));
-  assert.ok(!modalContent.includes('text-rose-400/90'));
-  assert.ok(!modalContent.includes('gold < LOTTERY_COST ?'));
-  assert.ok(!modalContent.includes('gold < LOTTERY_TEN_COST ?'));
-  assert.ok(modalContent.includes('String.fromCodePoint(0x89e6, 0x78b0, 0x795e, 0x5723, 0x4e4b, 0x6e90)'));
-  assert.ok(modalContent.includes("'10 ' + String.fromCodePoint(0x91cd, 0x7948, 0x613f)"));
-  assert.ok(modalContent.includes('String.fromCodePoint(0x7acb, 0x7701, 0x20, 0x35, 0x30)'));
-  assert.ok(modalContent.includes('staggerChildren'));
+
+test('P6 sticky seed swipe helpers and soft rain/cat assist', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const crops = readUtf8('src/p1/crops.ts');
+  const hook = readUtf8('src/p1/useFarmPrototype.ts');
+  assert.match(farm, /touch-hint/);
+  assert.match(farm, /onPlotsPointerDown/);
+  assert.match(farm, /onAssist=\{catAssist\}/);
+  assert.match(farm, /软雨替你润了一块地/);
+  assert.match(farm, /黑猫踮脚浇了一格/);
+  assert.match(crops, /applyPlotAction/);
+  assert.match(crops, /helpWaterPlots/);
+  assert.match(hook, /apply_plot/);
+  assert.match(hook, /help_water/);
+  assert.match(hook, /onApplyPlot/);
+  assert.match(hook, /onHelpWater/);
 });
 
-test('Skin backgrounds still point at the expected assets', () => {
-  const constantsContent = readUtf8('src/constants.ts');
 
-  assert.ok(constantsContent.includes('/assets/backgrounds/bg_sacred_spring.png'));
-  assert.ok(constantsContent.includes("export type SkinId = 'default' | 'sacred_spring'"));
-  assert.ok(constantsContent.includes('LOTTERY_TEN_COST = 450'));
+test('P7 wardrobe expansion and mushroom cottage enter', () => {
+  const outfits = readUtf8('src/p1/outfits.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const cottage = readUtf8('src/p1/CottageView.tsx');
+  const day = readUtf8('src/p1/dayFeel.ts');
+  assert.match(outfits, /picnic/);
+  assert.match(outfits, /moonlight/);
+  assert.match(outfits, /野餐格裙/);
+  assert.match(outfits, /月夜裙/);
+  assert.match(day, /mushroom_pin/);
+  assert.match(farm, /cottageEntering/);
+  assert.match(farm, /mushroomPinGifted/);
+  assert.match(farm, /蘑菇屋里找到一枚蘑菇胸针|蘑菇屋里找到一枚蘑菇胸针|蘑菇胸针/);
+  assert.match(cottage, /推开蘑菇门/);
+  assert.match(cottage, /cottage-enter-veil/);
 });
 
-test('Prize art assets exist for every configured sacred spring reward', () => {
-  const prizeAssetPaths = [
-    'public/assets/prizes/skin_sacred_spring.png',
-    'public/assets/prizes/prop_golden_bell.png',
-    'public/assets/prizes/seed_magic_bean.png',
-    'public/assets/prizes/prop_ancient_fertilizer.png',
-    'public/assets/prizes/fragment_cyber.png',
-    'public/assets/prizes/prop_magic_water.png',
-    'public/assets/prizes/gold_pack_small.png',
-  ];
 
-  for (const assetPath of prizeAssetPaths) {
-    assert.ok(existsSync(path.join(process.cwd(), assetPath)), `${assetPath} should exist`);
-  }
+test('P8 scrapbook journal saves photo moments', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const journal = readUtf8('src/p1/journal.ts');
+  const view = readUtf8('src/p1/JournalView.tsx');
+  const save = readUtf8('src/p1/save.ts');
+  assert.match(farm, /openJournal/);
+  assert.match(farm, /createJournalEntry/);
+  assert.match(farm, /手帐/);
+  assert.match(journal, /JOURNAL_MAX/);
+  assert.match(view, /手帐本/);
+  assert.match(save, /journalEntries/);
 });
 
-test('Seed and lottery copy hooks remain wired through the UI', () => {
-  const seedSelectorContent = readUtf8('src/components/SeedSelector.tsx');
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
-
-  assert.ok(seedSelectorContent.includes('种子收纳'));
-  assert.ok(seedSelectorContent.includes('解锁'));
-  assert.ok(!seedSelectorContent.includes('鐟佸懎顦粔宥呯摍'));
-  assert.ok(!seedSelectorContent.includes('鐟欙綁鏀'));
-  assert.ok(modalContent.includes('handleDraw(10)'));
+test('P9 mix wardrobe exposes hat dress boots slots', () => {
+  const pieces = readUtf8('src/p1/pieces.ts');
+  const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  assert.match(pieces, /LOOK_PRESETS/);
+  assert.match(pieces, /straw_hat/);
+  assert.match(pieces, /sweater/);
+  assert.match(pieces, /spore/);
+  assert.match(wardrobe, /onPreviewHat/);
+  assert.match(wardrobe, /onPreviewBoots/);
+  assert.match(wardrobe, /套装（一键穿上，再混搭）/);
+  assert.match(farm, /onApplyPreset/);
+  assert.match(farm, /unlockedHats/);
+  assert.match(girl, /dress-\$\{look\.dress\}/);
+  assert.match(girl, /hat-\$\{look\.hat\}/);
 });
 
-test('Plot bulk action props and phase hooks remain available', () => {
-  const plotContent = readUtf8('src/components/Plot.tsx');
-
-  assert.ok(plotContent.includes('isBulkLocked?: boolean'));
-  assert.ok(
-    plotContent.includes("bulkPhase?: 'idle' | 'plant-target' | 'plant-impact' | 'harvest-lift' | 'harvest-cleared'"),
-  );
-  assert.ok(plotContent.includes('sequenceIndex?: number'));
-  assert.ok(plotContent.includes('isBulkHighlighted?: boolean'));
+test('P10 daily tips suggest outfit and harvest notes', () => {
+  const tips = readUtf8('src/p1/dailyTips.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  assert.match(tips, /suggestTodayLook/);
+  assert.match(tips, /makeHarvestNote/);
+  assert.match(tips, /shouldPinHarvestNote/);
+  assert.match(farm, /applyDailyTip/);
+  assert.match(farm, /今天穿什么/);
+  assert.match(farm, /丰收小记/);
 });
 
-test('Plot crops can grow beyond the tile bounds for 2.5D overlap', () => {
-  const plotContent = readUtf8('src/components/Plot.tsx');
-
-  assert.ok(!plotContent.includes('aspect-square overflow-hidden cursor-pointer'));
-  assert.ok(plotContent.includes('absolute bottom-[18%] left-1/2 z-20'));
-  assert.ok(plotContent.includes('-translate-x-1/2 origin-bottom text-7xl'));
+test('P11 visual breath and plot micro-feedback', () => {
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const plot = readUtf8('src/p1/PlotTile.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const html = readUtf8('index.html');
+  assert.match(farm, /flashPlot/);
+  assert.match(farm, /yard-meadow/);
+  assert.match(farm, /has-paper/);
+  assert.match(plot, /plot-fx/);
+  assert.match(plot, /fx-plant|PlotFxKind/);
+  assert.match(girl, /gf-blush/);
+  assert.match(css, /sky-breath/);
+  assert.match(css, /willow-sway/);
+  assert.match(css, /seed-drop/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(html, /蘑菇屋里的小魔女/);
+  assert.match(html, /Nunito/);
 });
 
-test('LotteryModal result layout is compressed for mobile reward reveals', () => {
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
-
-  assert.ok(modalContent.includes('pt-10'));
-  assert.ok(modalContent.includes('!featuredReward && ('));
-  assert.ok(modalContent.includes('h-40 w-40'));
-  assert.ok(modalContent.includes('w-[18.5%]'));
+test('P12 paper-cut crops and warmer empty plots', () => {
+  const crop = readUtf8('src/p1/CropSprite.tsx');
+  const plot = readUtf8('src/p1/PlotTile.tsx');
+  const css = readUtf8('src/index.css');
+  assert.match(crop, /crop-mature/);
+  assert.match(crop, /star_pumpkin/);
+  assert.match(crop, /ear a/);
+  assert.match(crop, /petals/);
+  assert.match(plot, /plot-furrow/);
+  assert.match(plot, /plot-plantable/);
+  assert.match(plot, /可种/);
+  assert.match(css, /star-twinkle/);
+  assert.match(css, /crop-wheat \.ear/);
+  assert.match(css, /plot-empty-hint \.ridge/);
 });
 
-test('LotteryModal reveal shell and batch cards preserve effects without heavy blur', () => {
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
-
-  assert.ok(modalContent.includes("rgba(7,12,24,0.4) 0%, rgba(10,18,34,0.3) 34%, rgba(6,11,23,0.4) 100%"));
-  assert.ok(modalContent.includes("w-[18.5%] min-w-[60px] flex-col transform-gpu will-change-transform"));
-  assert.ok(!modalContent.includes("z-[-1]"));
-  assert.ok(modalContent.includes("mix-blend-screen"));
-  assert.ok(modalContent.includes("bg-slate-900/95 p-1.5 shadow-xl"));
-  assert.ok(!modalContent.includes("bg-slate-900/95 p-1.5 shadow-xl backdrop-blur"));
-});
-
-test('LotteryModal reward cards use separated effect and content layers', () => {
-  const modalContent = readUtf8('src/components/LotteryModal.tsx');
-
-  assert.ok(modalContent.includes('absolute -inset-12 z-0 flex items-center justify-center transform-gpu'));
-  assert.ok(modalContent.includes('rounded-full blur-2xl mix-blend-screen'));
-  assert.ok(modalContent.includes('relative z-10 flex flex-col items-center justify-center overflow-hidden rounded-[28px] border-2 bg-slate-900/95 p-4 shadow-2xl'));
-  assert.ok(modalContent.includes('className="relative flex w-[18.5%] min-w-[60px] flex-col transform-gpu will-change-transform"'));
-  assert.ok(modalContent.includes('className="pointer-events-none absolute -inset-6 z-0 flex items-center justify-center transform-gpu"'));
-  assert.ok(modalContent.includes('animate={{rotate: 360}}'));
-  assert.ok(!modalContent.includes('z-[-1]'));
+test('P13 yard summary and paper seed icons', () => {
+  const summary = readUtf8('src/p1/yardSummary.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const icon = readUtf8('src/p1/SeedIcon.tsx');
+  const css = readUtf8('src/index.css');
+  assert.match(summary, /summarizeYard/);
+  assert.match(summary, /readyIds/);
+  assert.match(summary, /thirstyIds/);
+  assert.match(farm, /actOnYardFocus/);
+  assert.match(farm, /yard-tip/);
+  assert.match(farm, /SeedIcon/);
+  assert.match(icon, /seed-icon-\$\{cropId\}/);
+  assert.match(icon, /seed-icon/);
+  assert.match(css, /yard-tip-go/);
+  assert.match(css, /seed-icon-star_pumpkin/);
 });
