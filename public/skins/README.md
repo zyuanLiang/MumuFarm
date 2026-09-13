@@ -11,12 +11,13 @@ public/skins/png-portrait/mushroom-house.png
 public/themes/rainy-lilac/vista-westlake.webp
 ```
 
-### PNG portrait wardrobe (P24)
+### PNG portrait pack (P24–P25)
 
 - Theme id: `png_portrait`
-- Dress: `160×200` transparent PNG
-- Hat: `160×96` transparent PNG
-- Boots: `160×56` transparent PNG
-- Same piece ids as SVG sample (`dress-witch.png`, `hat-witch.png`, …)
+- Wardrobe: dress `160×200`, hat `160×96`, boots `160×56` transparent PNG
+- House: `mushroom-house.png`
+- Vistas: `vistas/vista-{westlake,guilin,skycastle,huangshan}.png` (~720×405)
+- Cottage: `cottage-interior.png`
+- Same piece / vista ids as SVG sample packs
 
 Gameplay code does not need to change when files are added — only the pack registry URLs.

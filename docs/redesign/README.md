@@ -28,7 +28,8 @@
 - **P22 细雨躲檐**：[23-p22-cat-rain-shelter.md](./23-p22-cat-rain-shelter.md)（软雨时猫躲蘑菇檐下）
 - **P23 雨紫衣柜补齐**：[24-p23-rainy-lilac-wardrobe.md](./24-p23-rainy-lilac-wardrobe.md)（雨紫主题帽衣靴贴纸整包）
 - **P24 真 PNG 立绘包**：[25-p24-png-portrait-wardrobe.md](./25-p24-png-portrait-wardrobe.md)（水彩 PNG 帽衣靴 + 蘑菇屋）
+- **P25 立绘包世界图**：[26-p25-png-portrait-world.md](./26-p25-png-portrait-world.md)（水彩远景 + 小屋内景）
 - 概念图：[concepts/](./concepts/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题热换（SVG 示例/雨紫 + **PNG 立绘包**）+ 手帐/拍照 + 黑猫陪伴四拍。
+当前实现：`src/p1/` — 玩法闭环 + 主题热换（SVG 示例/雨紫 + **PNG 立绘整包：衣柜/屋/远景/内景**）+ 手帐/拍照 + 黑猫陪伴四拍。
 

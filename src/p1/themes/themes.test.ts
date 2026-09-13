@@ -108,4 +108,13 @@ describe('p14 theme / skin packs', () => {
     assert.ok(bootsArtUrl(png, 'yellow')?.includes('png-portrait/wardrobe/boots-yellow.png'));
     assert.ok(houseArtUrl(png)?.includes('png-portrait/mushroom-house.png'));
   });
+
+  it('p25 png portrait theme fills vistas and cottage interior', () => {
+    const png = getTheme('png_portrait');
+    assert.ok(vistaArtUrl(png, 'westlake')?.includes('png-portrait/vistas/vista-westlake.png'));
+    assert.ok(vistaArtUrl(png, 'guilin')?.includes('png-portrait/vistas/vista-guilin.png'));
+    assert.ok(vistaArtUrl(png, 'skycastle')?.includes('png-portrait/vistas/vista-skycastle.png'));
+    assert.ok(vistaArtUrl(png, 'huangshan')?.includes('png-portrait/vistas/vista-huangshan.png'));
+    assert.ok(cottageArtUrl(png)?.includes('png-portrait/cottage-interior.png'));
+  });
 });

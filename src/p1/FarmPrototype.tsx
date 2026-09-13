@@ -676,7 +676,7 @@ export function FarmPrototype() {
     if (next === 'rainy_lilac') {
       farm.setFeedback('雨紫庭院：衣柜贴也换上了～');
     } else if (next === 'png_portrait') {
-      farm.setFeedback('水彩立绘包穿上了～');
+      farm.setFeedback('水彩立绘包穿上了：远景和小屋也一起换～');
     } else {
       farm.setFeedback(`主题切换：${getTheme(next).name}`);
     }

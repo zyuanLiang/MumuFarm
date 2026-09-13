@@ -396,3 +396,21 @@ test('P24 png portrait theme ships real PNG wardrobe stickers', () => {
   assert.equal(witch[2], 0x4e); // N
   assert.equal(witch[3], 0x47); // G
 });
+
+test('P25 png portrait theme ships vista and cottage world art', () => {
+  const pack = readUtf8('src/p1/themes/packs/pngPortrait.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const doc = readUtf8('docs/redesign/26-p25-png-portrait-world.md');
+  assert.match(pack, /png-portrait\/vistas\/vista-westlake\.png/);
+  assert.match(pack, /png-portrait\/vistas\/vista-guilin\.png/);
+  assert.match(pack, /png-portrait\/vistas\/vista-skycastle\.png/);
+  assert.match(pack, /png-portrait\/vistas\/vista-huangshan\.png/);
+  assert.match(pack, /png-portrait\/cottage-interior\.png/);
+  assert.match(farm, /远景和小屋也一起换/);
+  assert.match(doc, /远景/);
+  const vista = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/vistas/vista-westlake.png'));
+  assert.equal(vista[0], 0x89);
+  assert.equal(vista[1], 0x50);
+  const cottage = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/cottage-interior.png'));
+  assert.equal(cottage[0], 0x89);
+});

@@ -7,7 +7,7 @@ import type {ThemePack} from '../types';
 export const pngPortraitTheme: ThemePack = {
   id: 'png_portrait',
   name: '水彩立绘',
-  blurb: '真 PNG 帽衣靴贴纸；母版脸固定，只换立绘层',
+  blurb: '真 PNG 立绘包：帽衣靴 + 远景 + 小屋内景；母版脸固定',
   unlockAtHarvests: 5,
   tokens: {
     cream: '#fff6ec',
@@ -26,7 +26,14 @@ export const pngPortraitTheme: ThemePack = {
       'radial-gradient(ellipse 80% 45% at 70% 18%, rgba(255, 210, 168, 0.58), transparent 60%), linear-gradient(180deg, #f2c4ae 0%, #e6d2c0 45%, transparent 100%)',
   },
   assets: {
+    vistaBg: {
+      westlake: '/skins/png-portrait/vistas/vista-westlake.png',
+      guilin: '/skins/png-portrait/vistas/vista-guilin.png',
+      skycastle: '/skins/png-portrait/vistas/vista-skycastle.png',
+      huangshan: '/skins/png-portrait/vistas/vista-huangshan.png',
+    },
     mushroomHouse: '/skins/png-portrait/mushroom-house.png',
+    cottageInterior: '/skins/png-portrait/cottage-interior.png',
     dress: {
       raincoat: '/skins/png-portrait/wardrobe/dress-raincoat.png',
       witch: '/skins/png-portrait/wardrobe/dress-witch.png',
