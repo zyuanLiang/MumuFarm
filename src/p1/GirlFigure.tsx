@@ -5,7 +5,7 @@ import {
   HATS,
   type Look,
 } from './pieces';
-import {bootsArtUrl, dressArtUrl, hatArtUrl} from './themes';
+import {bootsArtUrl, dressArtUrl, girlHeadArtUrl, hatArtUrl} from './themes';
 import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface GirlFigureProps {
@@ -16,8 +16,8 @@ interface GirlFigureProps {
 }
 
 /**
- * Fixed girl master (CSS face/hair) + optional ThemePack stickers.
- * Anchor slots are shared across farm / room / wardrobe sizes — only scale the figure.
+ * Girl master: CSS face/hair by default; ThemePack may supply a PNG head.
+ * Wardrobe stickers (hat/dress/boots) layer on the same shared anchors.
  */
 export function GirlFigure({
   look,
@@ -29,6 +29,7 @@ export function GirlFigure({
   const dressArt = dressArtUrl(theme, look.dress);
   const hatArt = look.hat === 'bare' ? undefined : hatArtUrl(theme, look.hat);
   const bootsArt = bootsArtUrl(theme, look.boots);
+  const headArt = girlHeadArtUrl(theme);
 
   const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
   const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat]?.name ?? '';
@@ -67,6 +68,7 @@ export function GirlFigure({
         dressArt ? 'has-dress-art' : '',
         hatArt ? 'has-hat-art' : '',
         bootsArt ? 'has-boots-art' : '',
+        headArt ? 'has-head-art' : '',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -88,14 +90,20 @@ export function GirlFigure({
       </div>
       <div className="gf-scarf" aria-hidden />
       <div className="gf-mushroom-pin" aria-hidden />
-      <div className="gf-hair" aria-hidden />
-      <div className="gf-head" aria-hidden>
-        <span className="gf-blush left" />
-        <span className="gf-blush right" />
-        <span className="gf-eye left" />
-        <span className="gf-eye right" />
-        <span className="gf-smile" />
-      </div>
+      {headArt ? (
+        <img className="gf-head-art" src={headArt} alt="" draggable={false} aria-hidden />
+      ) : (
+        <>
+          <div className="gf-hair" aria-hidden />
+          <div className="gf-head" aria-hidden>
+            <span className="gf-blush left" />
+            <span className="gf-blush right" />
+            <span className="gf-eye left" />
+            <span className="gf-eye right" />
+            <span className="gf-smile" />
+          </div>
+        </>
+      )}
       {dressArt ? (
         <img className="gf-dress-art" src={dressArt} alt="" draggable={false} aria-hidden />
       ) : (

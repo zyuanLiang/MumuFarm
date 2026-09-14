@@ -406,11 +406,33 @@ test('P25 png portrait theme ships vista and cottage world art', () => {
   assert.match(pack, /png-portrait\/vistas\/vista-skycastle\.png/);
   assert.match(pack, /png-portrait\/vistas\/vista-huangshan\.png/);
   assert.match(pack, /png-portrait\/cottage-interior\.png/);
-  assert.match(farm, /远景和小屋也一起换/);
   assert.match(doc, /远景/);
   const vista = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/vistas/vista-westlake.png'));
   assert.equal(vista[0], 0x89);
   assert.equal(vista[1], 0x50);
   const cottage = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/cottage-interior.png'));
   assert.equal(cottage[0], 0x89);
+});
+
+test('P26 girl head master PNG replaces CSS face on portrait theme', () => {
+  const pack = readUtf8('src/p1/themes/packs/pngPortrait.ts');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const types = readUtf8('src/p1/themes/types.ts');
+  const index = readUtf8('src/p1/themes/index.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/27-p26-girl-master-png.md');
+  assert.match(types, /girlHead\?:/);
+  assert.match(index, /girlHeadArtUrl/);
+  assert.match(pack, /girlHead: '\/skins\/png-portrait\/girl\/girl-head\.png'/);
+  assert.match(girl, /girlHeadArtUrl/);
+  assert.match(girl, /has-head-art/);
+  assert.match(girl, /gf-head-art/);
+  assert.match(css, /gf-head-art/);
+  assert.match(css, /has-head-art/);
+  assert.match(farm, /女孩头像也换真了/);
+  assert.match(doc, /头像母版/);
+  const head = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/girl/girl-head.png'));
+  assert.equal(head[0], 0x89);
+  assert.equal(head[1], 0x50);
 });

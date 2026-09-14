@@ -16,6 +16,7 @@ import {
   hatArtUrl,
   houseArtUrl,
   cottageArtUrl,
+  girlHeadArtUrl,
 } from './index.ts';
 
 describe('p14 theme / skin packs', () => {
@@ -116,5 +117,12 @@ describe('p14 theme / skin packs', () => {
     assert.ok(vistaArtUrl(png, 'skycastle')?.includes('png-portrait/vistas/vista-skycastle.png'));
     assert.ok(vistaArtUrl(png, 'huangshan')?.includes('png-portrait/vistas/vista-huangshan.png'));
     assert.ok(cottageArtUrl(png)?.includes('png-portrait/cottage-interior.png'));
+  });
+
+  it('p26 png portrait theme supplies girl head master art', () => {
+    const png = getTheme('png_portrait');
+    assert.ok(girlHeadArtUrl(png)?.includes('png-portrait/girl/girl-head.png'));
+    assert.equal(girlHeadArtUrl(getTheme('sample_art')), undefined);
+    assert.equal(girlHeadArtUrl(getTheme('cottage_cream')), undefined);
   });
 });

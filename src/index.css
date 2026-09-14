@@ -2674,6 +2674,19 @@ button {
   pointer-events: none;
 }
 
+.gf-head-art {
+  position: absolute;
+  left: 12%;
+  top: 6%;
+  width: 76%;
+  height: 42%;
+  object-fit: contain;
+  object-position: center top;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 0 rgba(90, 74, 58, 0.12));
+}
+
 .girl-figure.has-dress-art .gf-body,
 .girl-figure.has-dress-art .gf-apron {
   display: none;
@@ -2684,6 +2697,11 @@ button {
 }
 
 .girl-figure.has-boots-art .gf-boots {
+  display: none;
+}
+
+.girl-figure.has-head-art .gf-hair,
+.girl-figure.has-head-art .gf-head {
   display: none;
 }
 

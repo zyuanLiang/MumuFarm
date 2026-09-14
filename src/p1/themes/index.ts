@@ -108,4 +108,8 @@ export function cottageArtUrl(theme: ThemePack): string | undefined {
   return theme.assets?.cottageInterior;
 }
 
+export function girlHeadArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.girlHead;
+}
+
 export type {ThemePack, SkinPack, ThemeId, SkinId, ThemeTokens, ThemeAssets} from './types';

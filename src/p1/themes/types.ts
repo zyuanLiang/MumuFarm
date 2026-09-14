@@ -33,6 +33,8 @@ export interface ThemeAssets {
   mushroomHouse?: string;
   /** Optional cottage wallpaper / interior panel behind CSS mushroom structure */
   cottageInterior?: string;
+  /** Optional PNG head master (face + hair); missing = CSS paper-cut face/hair */
+  girlHead?: string;
   uiChip?: string;
 }
 
