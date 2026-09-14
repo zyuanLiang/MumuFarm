@@ -1,0 +1,2763 @@
+{
+  "kit": "cozy-kit",
+  "sheets": {
+    "01-ui-nav": {
+      "sheet": "01-ui-nav",
+      "source": "/skins/cozy-kit/sheets/01-ui-nav.png",
+      "detected": 26,
+      "named": 24,
+      "unmatchedExtra": 2,
+      "missingNames": 0,
+      "icons": [
+        {
+          "id": "menu",
+          "sheet": "01-ui-nav",
+          "index": 0,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/menu.png",
+          "w": 163,
+          "h": 142,
+          "bbox": [
+            62,
+            156,
+            216,
+            289
+          ]
+        },
+        {
+          "id": "back",
+          "sheet": "01-ui-nav",
+          "index": 1,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/back.png",
+          "w": 169,
+          "h": 150,
+          "bbox": [
+            285,
+            148,
+            447,
+            292
+          ]
+        },
+        {
+          "id": "settings",
+          "sheet": "01-ui-nav",
+          "index": 2,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/settings.png",
+          "w": 197,
+          "h": 180,
+          "bbox": [
+            510,
+            134,
+            699,
+            308
+          ]
+        },
+        {
+          "id": "map",
+          "sheet": "01-ui-nav",
+          "index": 3,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/map.png",
+          "w": 198,
+          "h": 180,
+          "bbox": [
+            748,
+            133,
+            937,
+            306
+          ]
+        },
+        {
+          "id": "quest",
+          "sheet": "01-ui-nav",
+          "index": 4,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/quest.png",
+          "w": 181,
+          "h": 197,
+          "bbox": [
+            991,
+            130,
+            1164,
+            320
+          ]
+        },
+        {
+          "id": "codex",
+          "sheet": "01-ui-nav",
+          "index": 5,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/codex.png",
+          "w": 211,
+          "h": 157,
+          "bbox": [
+            1212,
+            154,
+            1417,
+            306
+          ]
+        },
+        {
+          "id": "task_notify",
+          "sheet": "01-ui-nav",
+          "index": 6,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/task_notify.png",
+          "w": 175,
+          "h": 196,
+          "bbox": [
+            59,
+            362,
+            226,
+            551
+          ]
+        },
+        {
+          "id": "shop",
+          "sheet": "01-ui-nav",
+          "index": 7,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/shop.png",
+          "w": 220,
+          "h": 184,
+          "bbox": [
+            260,
+            381,
+            473,
+            556
+          ]
+        },
+        {
+          "id": "storage",
+          "sheet": "01-ui-nav",
+          "index": 8,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/storage.png",
+          "w": 183,
+          "h": 167,
+          "bbox": [
+            517,
+            386,
+            693,
+            545
+          ]
+        },
+        {
+          "id": "friends",
+          "sheet": "01-ui-nav",
+          "index": 9,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/friends.png",
+          "w": 229,
+          "h": 153,
+          "bbox": [
+            726,
+            421,
+            950,
+            567
+          ]
+        },
+        {
+          "id": "calendar",
+          "sheet": "01-ui-nav",
+          "index": 10,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/calendar.png",
+          "w": 59,
+          "h": 52,
+          "bbox": [
+            817,
+            391,
+            867,
+            435
+          ]
+        },
+        {
+          "id": "home_mushroom",
+          "sheet": "01-ui-nav",
+          "index": 11,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/home_mushroom.png",
+          "w": 197,
+          "h": 186,
+          "bbox": [
+            988,
+            379,
+            1177,
+            558
+          ]
+        },
+        {
+          "id": "wardrobe",
+          "sheet": "01-ui-nav",
+          "index": 12,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/wardrobe.png",
+          "w": 209,
+          "h": 195,
+          "bbox": [
+            1211,
+            377,
+            1412,
+            563
+          ]
+        },
+        {
+          "id": "furniture",
+          "sheet": "01-ui-nav",
+          "index": 13,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/furniture.png",
+          "w": 175,
+          "h": 220,
+          "bbox": [
+            46,
+            610,
+            214,
+            824
+          ]
+        },
+        {
+          "id": "craft",
+          "sheet": "01-ui-nav",
+          "index": 14,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/craft.png",
+          "w": 210,
+          "h": 219,
+          "bbox": [
+            260,
+            610,
+            463,
+            820
+          ]
+        },
+        {
+          "id": "folder_cat",
+          "sheet": "01-ui-nav",
+          "index": 15,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/folder_cat.png",
+          "w": 200,
+          "h": 206,
+          "bbox": [
+            504,
+            625,
+            697,
+            823
+          ]
+        },
+        {
+          "id": "market",
+          "sheet": "01-ui-nav",
+          "index": 16,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/market.png",
+          "w": 193,
+          "h": 175,
+          "bbox": [
+            748,
+            653,
+            933,
+            819
+          ]
+        },
+        {
+          "id": "gallery",
+          "sheet": "01-ui-nav",
+          "index": 17,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/gallery.png",
+          "w": 228,
+          "h": 205,
+          "bbox": [
+            975,
+            627,
+            1196,
+            825
+          ]
+        },
+        {
+          "id": "coin",
+          "sheet": "01-ui-nav",
+          "index": 18,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/coin.png",
+          "w": 184,
+          "h": 179,
+          "bbox": [
+            1226,
+            644,
+            1401,
+            816
+          ]
+        },
+        {
+          "id": "save",
+          "sheet": "01-ui-nav",
+          "index": 19,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/save.png",
+          "w": 163,
+          "h": 165,
+          "bbox": [
+            38,
+            876,
+            192,
+            1032
+          ]
+        },
+        {
+          "id": "add",
+          "sheet": "01-ui-nav",
+          "index": 20,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/add.png",
+          "w": 47,
+          "h": 58,
+          "bbox": [
+            197,
+            916,
+            235,
+            965
+          ]
+        },
+        {
+          "id": "record",
+          "sheet": "01-ui-nav",
+          "index": 21,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/record.png",
+          "w": 158,
+          "h": 158,
+          "bbox": [
+            281,
+            878,
+            431,
+            1027
+          ]
+        },
+        {
+          "id": "chat",
+          "sheet": "01-ui-nav",
+          "index": 22,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/chat.png",
+          "w": 163,
+          "h": 164,
+          "bbox": [
+            528,
+            877,
+            685,
+            1035
+          ]
+        },
+        {
+          "id": "info",
+          "sheet": "01-ui-nav",
+          "index": 23,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/info.png",
+          "w": 110,
+          "h": 112,
+          "bbox": [
+            798,
+            908,
+            901,
+            1012
+          ]
+        },
+        {
+          "id": "item_24",
+          "sheet": "01-ui-nav",
+          "index": 24,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/item_24.png",
+          "w": 184,
+          "h": 155,
+          "bbox": [
+            997,
+            886,
+            1173,
+            1035
+          ]
+        },
+        {
+          "id": "item_25",
+          "sheet": "01-ui-nav",
+          "index": 25,
+          "src": "/skins/cozy-kit/icons/01-ui-nav/item_25.png",
+          "w": 162,
+          "h": 163,
+          "bbox": [
+            1244,
+            877,
+            1398,
+            1034
+          ]
+        }
+      ]
+    },
+    "02-stats-growth": {
+      "sheet": "02-stats-growth",
+      "source": "/skins/cozy-kit/sheets/02-stats-growth.png",
+      "detected": 25,
+      "named": 23,
+      "unmatchedExtra": 2,
+      "missingNames": 0,
+      "icons": [
+        {
+          "id": "coin_mushroom",
+          "sheet": "02-stats-growth",
+          "index": 0,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/coin_mushroom.png",
+          "w": 194,
+          "h": 192,
+          "bbox": [
+            51,
+            136,
+            238,
+            319
+          ]
+        },
+        {
+          "id": "star_gem",
+          "sheet": "02-stats-growth",
+          "index": 1,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/star_gem.png",
+          "w": 182,
+          "h": 178,
+          "bbox": [
+            273,
+            136,
+            446,
+            307
+          ]
+        },
+        {
+          "id": "heart",
+          "sheet": "02-stats-growth",
+          "index": 2,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/heart.png",
+          "w": 194,
+          "h": 162,
+          "bbox": [
+            490,
+            153,
+            676,
+            308
+          ]
+        },
+        {
+          "id": "level_leaf",
+          "sheet": "02-stats-growth",
+          "index": 3,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/level_leaf.png",
+          "w": 172,
+          "h": 195,
+          "bbox": [
+            718,
+            129,
+            883,
+            317
+          ]
+        },
+        {
+          "id": "mood_smile",
+          "sheet": "02-stats-growth",
+          "index": 4,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/mood_smile.png",
+          "w": 173,
+          "h": 171,
+          "bbox": [
+            924,
+            143,
+            1088,
+            307
+          ]
+        },
+        {
+          "id": "exp_bar",
+          "sheet": "02-stats-growth",
+          "index": 5,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/exp_bar.png",
+          "w": 316,
+          "h": 132,
+          "bbox": [
+            1112,
+            164,
+            1419,
+            289
+          ]
+        },
+        {
+          "id": "clock",
+          "sheet": "02-stats-growth",
+          "index": 6,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/clock.png",
+          "w": 213,
+          "h": 207,
+          "bbox": [
+            46,
+            368,
+            252,
+            568
+          ]
+        },
+        {
+          "id": "hourglass",
+          "sheet": "02-stats-growth",
+          "index": 7,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/hourglass.png",
+          "w": 170,
+          "h": 213,
+          "bbox": [
+            299,
+            363,
+            462,
+            568
+          ]
+        },
+        {
+          "id": "sparkle",
+          "sheet": "02-stats-growth",
+          "index": 8,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/sparkle.png",
+          "w": 144,
+          "h": 169,
+          "bbox": [
+            521,
+            386,
+            656,
+            547
+          ]
+        },
+        {
+          "id": "sprout",
+          "sheet": "02-stats-growth",
+          "index": 9,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/sprout.png",
+          "w": 58,
+          "h": 67,
+          "bbox": [
+            625,
+            384,
+            675,
+            442
+          ]
+        },
+        {
+          "id": "lock_closed",
+          "sheet": "02-stats-growth",
+          "index": 10,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/lock_closed.png",
+          "w": 212,
+          "h": 181,
+          "bbox": [
+            738,
+            389,
+            941,
+            562
+          ]
+        },
+        {
+          "id": "lock_open",
+          "sheet": "02-stats-growth",
+          "index": 11,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/lock_open.png",
+          "w": 212,
+          "h": 212,
+          "bbox": [
+            975,
+            365,
+            1180,
+            570
+          ]
+        },
+        {
+          "id": "check",
+          "sheet": "02-stats-growth",
+          "index": 12,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/check.png",
+          "w": 213,
+          "h": 218,
+          "bbox": [
+            1208,
+            358,
+            1413,
+            569
+          ]
+        },
+        {
+          "id": "slot_empty",
+          "sheet": "02-stats-growth",
+          "index": 13,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/slot_empty.png",
+          "w": 168,
+          "h": 165,
+          "bbox": [
+            59,
+            627,
+            218,
+            784
+          ]
+        },
+        {
+          "id": "sale_tag",
+          "sheet": "02-stats-growth",
+          "index": 14,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/sale_tag.png",
+          "w": 169,
+          "h": 168,
+          "bbox": [
+            276,
+            626,
+            437,
+            785
+          ]
+        },
+        {
+          "id": "heart_up",
+          "sheet": "02-stats-growth",
+          "index": 15,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/heart_up.png",
+          "w": 195,
+          "h": 225,
+          "bbox": [
+            499,
+            587,
+            688,
+            804
+          ]
+        },
+        {
+          "id": "coin_up",
+          "sheet": "02-stats-growth",
+          "index": 16,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/coin_up.png",
+          "w": 197,
+          "h": 159,
+          "bbox": [
+            743,
+            631,
+            933,
+            783
+          ]
+        },
+        {
+          "id": "seed_bag",
+          "sheet": "02-stats-growth",
+          "index": 17,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/seed_bag.png",
+          "w": 223,
+          "h": 177,
+          "bbox": [
+            982,
+            623,
+            1196,
+            792
+          ]
+        },
+        {
+          "id": "water_meter",
+          "sheet": "02-stats-growth",
+          "index": 18,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/water_meter.png",
+          "w": 197,
+          "h": 187,
+          "bbox": [
+            1226,
+            617,
+            1417,
+            798
+          ]
+        },
+        {
+          "id": "soil",
+          "sheet": "02-stats-growth",
+          "index": 19,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/soil.png",
+          "w": 192,
+          "h": 190,
+          "bbox": [
+            59,
+            844,
+            242,
+            1027
+          ]
+        },
+        {
+          "id": "seedling",
+          "sheet": "02-stats-growth",
+          "index": 20,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/seedling.png",
+          "w": 84,
+          "h": 110,
+          "bbox": [
+            114,
+            884,
+            189,
+            985
+          ]
+        },
+        {
+          "id": "plant_young",
+          "sheet": "02-stats-growth",
+          "index": 21,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/plant_young.png",
+          "w": 236,
+          "h": 107,
+          "bbox": [
+            326,
+            920,
+            555,
+            1022
+          ]
+        },
+        {
+          "id": "harvest_carrot",
+          "sheet": "02-stats-growth",
+          "index": 22,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/harvest_carrot.png",
+          "w": 220,
+          "h": 146,
+          "bbox": [
+            605,
+            888,
+            819,
+            1027
+          ]
+        },
+        {
+          "id": "item_23",
+          "sheet": "02-stats-growth",
+          "index": 23,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/item_23.png",
+          "w": 223,
+          "h": 201,
+          "bbox": [
+            878,
+            829,
+            1097,
+            1024
+          ]
+        },
+        {
+          "id": "item_24",
+          "sheet": "02-stats-growth",
+          "index": 24,
+          "src": "/skins/cozy-kit/icons/02-stats-growth/item_24.png",
+          "w": 244,
+          "h": 219,
+          "bbox": [
+            1156,
+            814,
+            1395,
+            1027
+          ]
+        }
+      ]
+    },
+    "03-farm-tools-crops": {
+      "sheet": "03-farm-tools-crops",
+      "source": "/skins/cozy-kit/sheets/03-farm-tools-crops.png",
+      "detected": 23,
+      "named": 23,
+      "unmatchedExtra": 0,
+      "missingNames": 0,
+      "icons": [
+        {
+          "id": "tool_can",
+          "sheet": "03-farm-tools-crops",
+          "index": 0,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/tool_can.png",
+          "w": 258,
+          "h": 195,
+          "bbox": [
+            46,
+            59,
+            296,
+            247
+          ]
+        },
+        {
+          "id": "tool_trowel",
+          "sheet": "03-farm-tools-crops",
+          "index": 1,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/tool_trowel.png",
+          "w": 172,
+          "h": 234,
+          "bbox": [
+            317,
+            31,
+            482,
+            258
+          ]
+        },
+        {
+          "id": "tool_hoe",
+          "sheet": "03-farm-tools-crops",
+          "index": 2,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/tool_hoe.png",
+          "w": 190,
+          "h": 219,
+          "bbox": [
+            509,
+            47,
+            694,
+            260
+          ]
+        },
+        {
+          "id": "basket_empty",
+          "sheet": "03-farm-tools-crops",
+          "index": 3,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/basket_empty.png",
+          "w": 211,
+          "h": 220,
+          "bbox": [
+            741,
+            42,
+            945,
+            254
+          ]
+        },
+        {
+          "id": "seed_sack",
+          "sheet": "03-farm-tools-crops",
+          "index": 4,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/seed_sack.png",
+          "w": 234,
+          "h": 199,
+          "bbox": [
+            979,
+            63,
+            1206,
+            255
+          ]
+        },
+        {
+          "id": "seed_packet",
+          "sheet": "03-farm-tools-crops",
+          "index": 5,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/seed_packet.png",
+          "w": 167,
+          "h": 185,
+          "bbox": [
+            1245,
+            76,
+            1403,
+            254
+          ]
+        },
+        {
+          "id": "plot_empty",
+          "sheet": "03-farm-tools-crops",
+          "index": 6,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_empty.png",
+          "w": 311,
+          "h": 201,
+          "bbox": [
+            53,
+            275,
+            356,
+            467
+          ]
+        },
+        {
+          "id": "plot_wet",
+          "sheet": "03-farm-tools-crops",
+          "index": 7,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_wet.png",
+          "w": 307,
+          "h": 200,
+          "bbox": [
+            402,
+            276,
+            700,
+            467
+          ]
+        },
+        {
+          "id": "plot_sprout",
+          "sheet": "03-farm-tools-crops",
+          "index": 8,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_sprout.png",
+          "w": 313,
+          "h": 198,
+          "bbox": [
+            744,
+            278,
+            1048,
+            467
+          ]
+        },
+        {
+          "id": "plot_leafy",
+          "sheet": "03-farm-tools-crops",
+          "index": 9,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_leafy.png",
+          "w": 311,
+          "h": 209,
+          "bbox": [
+            1089,
+            268,
+            1391,
+            468
+          ]
+        },
+        {
+          "id": "crop_carrot",
+          "sheet": "03-farm-tools-crops",
+          "index": 10,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_carrot.png",
+          "w": 239,
+          "h": 189,
+          "bbox": [
+            10,
+            482,
+            240,
+            662
+          ]
+        },
+        {
+          "id": "crop_strawberry",
+          "sheet": "03-farm-tools-crops",
+          "index": 11,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_strawberry.png",
+          "w": 232,
+          "h": 182,
+          "bbox": [
+            251,
+            489,
+            474,
+            662
+          ]
+        },
+        {
+          "id": "crop_pumpkin",
+          "sheet": "03-farm-tools-crops",
+          "index": 12,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_pumpkin.png",
+          "w": 242,
+          "h": 190,
+          "bbox": [
+            475,
+            481,
+            708,
+            662
+          ]
+        },
+        {
+          "id": "crop_sunflower",
+          "sheet": "03-farm-tools-crops",
+          "index": 13,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_sunflower.png",
+          "w": 235,
+          "h": 189,
+          "bbox": [
+            719,
+            482,
+            945,
+            662
+          ]
+        },
+        {
+          "id": "crop_mushroom",
+          "sheet": "03-farm-tools-crops",
+          "index": 14,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_mushroom.png",
+          "w": 243,
+          "h": 171,
+          "bbox": [
+            959,
+            500,
+            1193,
+            662
+          ]
+        },
+        {
+          "id": "crop_daisy",
+          "sheet": "03-farm-tools-crops",
+          "index": 15,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_daisy.png",
+          "w": 243,
+          "h": 182,
+          "bbox": [
+            1207,
+            488,
+            1441,
+            662
+          ]
+        },
+        {
+          "id": "pot_plant",
+          "sheet": "03-farm-tools-crops",
+          "index": 16,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/pot_plant.png",
+          "w": 164,
+          "h": 225,
+          "bbox": [
+            30,
+            680,
+            186,
+            898
+          ]
+        },
+        {
+          "id": "basket_full",
+          "sheet": "03-farm-tools-crops",
+          "index": 17,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/basket_full.png",
+          "w": 239,
+          "h": 214,
+          "bbox": [
+            214,
+            696,
+            444,
+            903
+          ]
+        },
+        {
+          "id": "cat_black",
+          "sheet": "03-farm-tools-crops",
+          "index": 18,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/cat_black.png",
+          "w": 216,
+          "h": 223,
+          "bbox": [
+            468,
+            686,
+            678,
+            903
+          ]
+        },
+        {
+          "id": "house_mushroom",
+          "sheet": "03-farm-tools-crops",
+          "index": 19,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/house_mushroom.png",
+          "w": 275,
+          "h": 244,
+          "bbox": [
+            698,
+            680,
+            964,
+            915
+          ]
+        },
+        {
+          "id": "fence",
+          "sheet": "03-farm-tools-crops",
+          "index": 20,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/fence.png",
+          "w": 259,
+          "h": 162,
+          "bbox": [
+            980,
+            742,
+            1230,
+            896
+          ]
+        },
+        {
+          "id": "sign_mushroom",
+          "sheet": "03-farm-tools-crops",
+          "index": 21,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/sign_mushroom.png",
+          "w": 176,
+          "h": 232,
+          "bbox": [
+            1256,
+            686,
+            1423,
+            909
+          ]
+        },
+        {
+          "id": "btn_water",
+          "sheet": "03-farm-tools-crops",
+          "index": 22,
+          "src": "/skins/cozy-kit/icons/03-farm-tools-crops/btn_water.png",
+          "w": 463,
+          "h": 149,
+          "bbox": [
+            492,
+            927,
+            949,
+            1067
+          ]
+        }
+      ]
+    },
+    "04-wardrobe-furniture": {
+      "sheet": "04-wardrobe-furniture",
+      "source": "/skins/cozy-kit/sheets/04-wardrobe-furniture.png",
+      "detected": 24,
+      "named": 23,
+      "unmatchedExtra": 1,
+      "missingNames": 0,
+      "icons": [
+        {
+          "id": "hat_yellow_polka",
+          "sheet": "04-wardrobe-furniture",
+          "index": 0,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/hat_yellow_polka.png",
+          "w": 284,
+          "h": 186,
+          "bbox": [
+            58,
+            62,
+            337,
+            239
+          ]
+        },
+        {
+          "id": "hat_witch",
+          "sheet": "04-wardrobe-furniture",
+          "index": 1,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/hat_witch.png",
+          "w": 256,
+          "h": 193,
+          "bbox": [
+            365,
+            51,
+            615,
+            239
+          ]
+        },
+        {
+          "id": "hat_straw",
+          "sheet": "04-wardrobe-furniture",
+          "index": 2,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/hat_straw.png",
+          "w": 282,
+          "h": 182,
+          "bbox": [
+            635,
+            61,
+            911,
+            237
+          ]
+        },
+        {
+          "id": "clip_daisy",
+          "sheet": "04-wardrobe-furniture",
+          "index": 3,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/clip_daisy.png",
+          "w": 218,
+          "h": 175,
+          "bbox": [
+            930,
+            69,
+            1142,
+            237
+          ]
+        },
+        {
+          "id": "bag_satchel",
+          "sheet": "04-wardrobe-furniture",
+          "index": 4,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/bag_satchel.png",
+          "w": 214,
+          "h": 245,
+          "bbox": [
+            1180,
+            36,
+            1386,
+            273
+          ]
+        },
+        {
+          "id": "coat_raincoat",
+          "sheet": "04-wardrobe-furniture",
+          "index": 5,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/coat_raincoat.png",
+          "w": 286,
+          "h": 228,
+          "bbox": [
+            50,
+            263,
+            329,
+            484
+          ]
+        },
+        {
+          "id": "dress_floral",
+          "sheet": "04-wardrobe-furniture",
+          "index": 6,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/dress_floral.png",
+          "w": 249,
+          "h": 224,
+          "bbox": [
+            345,
+            275,
+            585,
+            492
+          ]
+        },
+        {
+          "id": "skirt_denim",
+          "sheet": "04-wardrobe-furniture",
+          "index": 7,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/skirt_denim.png",
+          "w": 250,
+          "h": 174,
+          "bbox": [
+            606,
+            312,
+            849,
+            479
+          ]
+        },
+        {
+          "id": "boots_yellow",
+          "sheet": "04-wardrobe-furniture",
+          "index": 8,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/boots_yellow.png",
+          "w": 245,
+          "h": 190,
+          "bbox": [
+            894,
+            309,
+            1130,
+            490
+          ]
+        },
+        {
+          "id": "boots_red_polka",
+          "sheet": "04-wardrobe-furniture",
+          "index": 9,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/boots_red_polka.png",
+          "w": 121,
+          "h": 170,
+          "bbox": [
+            1166,
+            320,
+            1278,
+            483
+          ]
+        },
+        {
+          "id": "boots_brown",
+          "sheet": "04-wardrobe-furniture",
+          "index": 10,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/boots_brown.png",
+          "w": 122,
+          "h": 175,
+          "bbox": [
+            1282,
+            319,
+            1396,
+            486
+          ]
+        },
+        {
+          "id": "shoes_bow",
+          "sheet": "04-wardrobe-furniture",
+          "index": 11,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/shoes_bow.png",
+          "w": 226,
+          "h": 194,
+          "bbox": [
+            58,
+            521,
+            277,
+            708
+          ]
+        },
+        {
+          "id": "bed",
+          "sheet": "04-wardrobe-furniture",
+          "index": 12,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/bed.png",
+          "w": 240,
+          "h": 177,
+          "bbox": [
+            316,
+            548,
+            548,
+            716
+          ]
+        },
+        {
+          "id": "table_cafe",
+          "sheet": "04-wardrobe-furniture",
+          "index": 13,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/table_cafe.png",
+          "w": 277,
+          "h": 247,
+          "bbox": [
+            583,
+            503,
+            852,
+            744
+          ]
+        },
+        {
+          "id": "chair",
+          "sheet": "04-wardrobe-furniture",
+          "index": 14,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/chair.png",
+          "w": 248,
+          "h": 256,
+          "bbox": [
+            895,
+            489,
+            1134,
+            736
+          ]
+        },
+        {
+          "id": "wardrobe_cabinet",
+          "sheet": "04-wardrobe-furniture",
+          "index": 15,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/wardrobe_cabinet.png",
+          "w": 199,
+          "h": 249,
+          "bbox": [
+            1193,
+            505,
+            1384,
+            745
+          ]
+        },
+        {
+          "id": "rug_daisy",
+          "sheet": "04-wardrobe-furniture",
+          "index": 16,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/rug_daisy.png",
+          "w": 234,
+          "h": 291,
+          "bbox": [
+            69,
+            727,
+            294,
+            1011
+          ]
+        },
+        {
+          "id": "frame_daisy",
+          "sheet": "04-wardrobe-furniture",
+          "index": 17,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/frame_daisy.png",
+          "w": 260,
+          "h": 157,
+          "bbox": [
+            329,
+            780,
+            581,
+            929
+          ]
+        },
+        {
+          "id": "vase_daisy",
+          "sheet": "04-wardrobe-furniture",
+          "index": 18,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/vase_daisy.png",
+          "w": 129,
+          "h": 198,
+          "bbox": [
+            616,
+            754,
+            736,
+            943
+          ]
+        },
+        {
+          "id": "lamp_mushroom",
+          "sheet": "04-wardrobe-furniture",
+          "index": 19,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/lamp_mushroom.png",
+          "w": 175,
+          "h": 207,
+          "bbox": [
+            775,
+            757,
+            941,
+            955
+          ]
+        },
+        {
+          "id": "window_curtain",
+          "sheet": "04-wardrobe-furniture",
+          "index": 20,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/window_curtain.png",
+          "w": 186,
+          "h": 217,
+          "bbox": [
+            963,
+            767,
+            1142,
+            975
+          ]
+        },
+        {
+          "id": "shelf_books",
+          "sheet": "04-wardrobe-furniture",
+          "index": 21,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/shelf_books.png",
+          "w": 243,
+          "h": 248,
+          "bbox": [
+            1165,
+            744,
+            1401,
+            983
+          ]
+        },
+        {
+          "id": "btn_hanger",
+          "sheet": "04-wardrobe-furniture",
+          "index": 22,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/btn_hanger.png",
+          "w": 281,
+          "h": 133,
+          "bbox": [
+            317,
+            944,
+            592,
+            1070
+          ]
+        },
+        {
+          "id": "item_23",
+          "sheet": "04-wardrobe-furniture",
+          "index": 23,
+          "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/item_23.png",
+          "w": 316,
+          "h": 115,
+          "bbox": [
+            662,
+            961,
+            971,
+            1067
+          ]
+        }
+      ]
+    }
+  },
+  "byId": {
+    "menu": {
+      "id": "menu",
+      "sheet": "01-ui-nav",
+      "index": 0,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/menu.png",
+      "w": 163,
+      "h": 142,
+      "bbox": [
+        62,
+        156,
+        216,
+        289
+      ]
+    },
+    "back": {
+      "id": "back",
+      "sheet": "01-ui-nav",
+      "index": 1,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/back.png",
+      "w": 169,
+      "h": 150,
+      "bbox": [
+        285,
+        148,
+        447,
+        292
+      ]
+    },
+    "settings": {
+      "id": "settings",
+      "sheet": "01-ui-nav",
+      "index": 2,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/settings.png",
+      "w": 197,
+      "h": 180,
+      "bbox": [
+        510,
+        134,
+        699,
+        308
+      ]
+    },
+    "map": {
+      "id": "map",
+      "sheet": "01-ui-nav",
+      "index": 3,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/map.png",
+      "w": 198,
+      "h": 180,
+      "bbox": [
+        748,
+        133,
+        937,
+        306
+      ]
+    },
+    "quest": {
+      "id": "quest",
+      "sheet": "01-ui-nav",
+      "index": 4,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/quest.png",
+      "w": 181,
+      "h": 197,
+      "bbox": [
+        991,
+        130,
+        1164,
+        320
+      ]
+    },
+    "codex": {
+      "id": "codex",
+      "sheet": "01-ui-nav",
+      "index": 5,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/codex.png",
+      "w": 211,
+      "h": 157,
+      "bbox": [
+        1212,
+        154,
+        1417,
+        306
+      ]
+    },
+    "task_notify": {
+      "id": "task_notify",
+      "sheet": "01-ui-nav",
+      "index": 6,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/task_notify.png",
+      "w": 175,
+      "h": 196,
+      "bbox": [
+        59,
+        362,
+        226,
+        551
+      ]
+    },
+    "shop": {
+      "id": "shop",
+      "sheet": "01-ui-nav",
+      "index": 7,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/shop.png",
+      "w": 220,
+      "h": 184,
+      "bbox": [
+        260,
+        381,
+        473,
+        556
+      ]
+    },
+    "storage": {
+      "id": "storage",
+      "sheet": "01-ui-nav",
+      "index": 8,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/storage.png",
+      "w": 183,
+      "h": 167,
+      "bbox": [
+        517,
+        386,
+        693,
+        545
+      ]
+    },
+    "friends": {
+      "id": "friends",
+      "sheet": "01-ui-nav",
+      "index": 9,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/friends.png",
+      "w": 229,
+      "h": 153,
+      "bbox": [
+        726,
+        421,
+        950,
+        567
+      ]
+    },
+    "calendar": {
+      "id": "calendar",
+      "sheet": "01-ui-nav",
+      "index": 10,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/calendar.png",
+      "w": 59,
+      "h": 52,
+      "bbox": [
+        817,
+        391,
+        867,
+        435
+      ]
+    },
+    "home_mushroom": {
+      "id": "home_mushroom",
+      "sheet": "01-ui-nav",
+      "index": 11,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/home_mushroom.png",
+      "w": 197,
+      "h": 186,
+      "bbox": [
+        988,
+        379,
+        1177,
+        558
+      ]
+    },
+    "wardrobe": {
+      "id": "wardrobe",
+      "sheet": "01-ui-nav",
+      "index": 12,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/wardrobe.png",
+      "w": 209,
+      "h": 195,
+      "bbox": [
+        1211,
+        377,
+        1412,
+        563
+      ]
+    },
+    "furniture": {
+      "id": "furniture",
+      "sheet": "01-ui-nav",
+      "index": 13,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/furniture.png",
+      "w": 175,
+      "h": 220,
+      "bbox": [
+        46,
+        610,
+        214,
+        824
+      ]
+    },
+    "craft": {
+      "id": "craft",
+      "sheet": "01-ui-nav",
+      "index": 14,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/craft.png",
+      "w": 210,
+      "h": 219,
+      "bbox": [
+        260,
+        610,
+        463,
+        820
+      ]
+    },
+    "folder_cat": {
+      "id": "folder_cat",
+      "sheet": "01-ui-nav",
+      "index": 15,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/folder_cat.png",
+      "w": 200,
+      "h": 206,
+      "bbox": [
+        504,
+        625,
+        697,
+        823
+      ]
+    },
+    "market": {
+      "id": "market",
+      "sheet": "01-ui-nav",
+      "index": 16,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/market.png",
+      "w": 193,
+      "h": 175,
+      "bbox": [
+        748,
+        653,
+        933,
+        819
+      ]
+    },
+    "gallery": {
+      "id": "gallery",
+      "sheet": "01-ui-nav",
+      "index": 17,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/gallery.png",
+      "w": 228,
+      "h": 205,
+      "bbox": [
+        975,
+        627,
+        1196,
+        825
+      ]
+    },
+    "coin": {
+      "id": "coin",
+      "sheet": "01-ui-nav",
+      "index": 18,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/coin.png",
+      "w": 184,
+      "h": 179,
+      "bbox": [
+        1226,
+        644,
+        1401,
+        816
+      ]
+    },
+    "save": {
+      "id": "save",
+      "sheet": "01-ui-nav",
+      "index": 19,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/save.png",
+      "w": 163,
+      "h": 165,
+      "bbox": [
+        38,
+        876,
+        192,
+        1032
+      ]
+    },
+    "add": {
+      "id": "add",
+      "sheet": "01-ui-nav",
+      "index": 20,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/add.png",
+      "w": 47,
+      "h": 58,
+      "bbox": [
+        197,
+        916,
+        235,
+        965
+      ]
+    },
+    "record": {
+      "id": "record",
+      "sheet": "01-ui-nav",
+      "index": 21,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/record.png",
+      "w": 158,
+      "h": 158,
+      "bbox": [
+        281,
+        878,
+        431,
+        1027
+      ]
+    },
+    "chat": {
+      "id": "chat",
+      "sheet": "01-ui-nav",
+      "index": 22,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/chat.png",
+      "w": 163,
+      "h": 164,
+      "bbox": [
+        528,
+        877,
+        685,
+        1035
+      ]
+    },
+    "info": {
+      "id": "info",
+      "sheet": "01-ui-nav",
+      "index": 23,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/info.png",
+      "w": 110,
+      "h": 112,
+      "bbox": [
+        798,
+        908,
+        901,
+        1012
+      ]
+    },
+    "item_24": {
+      "id": "item_24",
+      "sheet": "02-stats-growth",
+      "index": 24,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/item_24.png",
+      "w": 244,
+      "h": 219,
+      "bbox": [
+        1156,
+        814,
+        1395,
+        1027
+      ]
+    },
+    "item_25": {
+      "id": "item_25",
+      "sheet": "01-ui-nav",
+      "index": 25,
+      "src": "/skins/cozy-kit/icons/01-ui-nav/item_25.png",
+      "w": 162,
+      "h": 163,
+      "bbox": [
+        1244,
+        877,
+        1398,
+        1034
+      ]
+    },
+    "coin_mushroom": {
+      "id": "coin_mushroom",
+      "sheet": "02-stats-growth",
+      "index": 0,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/coin_mushroom.png",
+      "w": 194,
+      "h": 192,
+      "bbox": [
+        51,
+        136,
+        238,
+        319
+      ]
+    },
+    "star_gem": {
+      "id": "star_gem",
+      "sheet": "02-stats-growth",
+      "index": 1,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/star_gem.png",
+      "w": 182,
+      "h": 178,
+      "bbox": [
+        273,
+        136,
+        446,
+        307
+      ]
+    },
+    "heart": {
+      "id": "heart",
+      "sheet": "02-stats-growth",
+      "index": 2,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/heart.png",
+      "w": 194,
+      "h": 162,
+      "bbox": [
+        490,
+        153,
+        676,
+        308
+      ]
+    },
+    "level_leaf": {
+      "id": "level_leaf",
+      "sheet": "02-stats-growth",
+      "index": 3,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/level_leaf.png",
+      "w": 172,
+      "h": 195,
+      "bbox": [
+        718,
+        129,
+        883,
+        317
+      ]
+    },
+    "mood_smile": {
+      "id": "mood_smile",
+      "sheet": "02-stats-growth",
+      "index": 4,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/mood_smile.png",
+      "w": 173,
+      "h": 171,
+      "bbox": [
+        924,
+        143,
+        1088,
+        307
+      ]
+    },
+    "exp_bar": {
+      "id": "exp_bar",
+      "sheet": "02-stats-growth",
+      "index": 5,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/exp_bar.png",
+      "w": 316,
+      "h": 132,
+      "bbox": [
+        1112,
+        164,
+        1419,
+        289
+      ]
+    },
+    "clock": {
+      "id": "clock",
+      "sheet": "02-stats-growth",
+      "index": 6,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/clock.png",
+      "w": 213,
+      "h": 207,
+      "bbox": [
+        46,
+        368,
+        252,
+        568
+      ]
+    },
+    "hourglass": {
+      "id": "hourglass",
+      "sheet": "02-stats-growth",
+      "index": 7,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/hourglass.png",
+      "w": 170,
+      "h": 213,
+      "bbox": [
+        299,
+        363,
+        462,
+        568
+      ]
+    },
+    "sparkle": {
+      "id": "sparkle",
+      "sheet": "02-stats-growth",
+      "index": 8,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/sparkle.png",
+      "w": 144,
+      "h": 169,
+      "bbox": [
+        521,
+        386,
+        656,
+        547
+      ]
+    },
+    "sprout": {
+      "id": "sprout",
+      "sheet": "02-stats-growth",
+      "index": 9,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/sprout.png",
+      "w": 58,
+      "h": 67,
+      "bbox": [
+        625,
+        384,
+        675,
+        442
+      ]
+    },
+    "lock_closed": {
+      "id": "lock_closed",
+      "sheet": "02-stats-growth",
+      "index": 10,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/lock_closed.png",
+      "w": 212,
+      "h": 181,
+      "bbox": [
+        738,
+        389,
+        941,
+        562
+      ]
+    },
+    "lock_open": {
+      "id": "lock_open",
+      "sheet": "02-stats-growth",
+      "index": 11,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/lock_open.png",
+      "w": 212,
+      "h": 212,
+      "bbox": [
+        975,
+        365,
+        1180,
+        570
+      ]
+    },
+    "check": {
+      "id": "check",
+      "sheet": "02-stats-growth",
+      "index": 12,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/check.png",
+      "w": 213,
+      "h": 218,
+      "bbox": [
+        1208,
+        358,
+        1413,
+        569
+      ]
+    },
+    "slot_empty": {
+      "id": "slot_empty",
+      "sheet": "02-stats-growth",
+      "index": 13,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/slot_empty.png",
+      "w": 168,
+      "h": 165,
+      "bbox": [
+        59,
+        627,
+        218,
+        784
+      ]
+    },
+    "sale_tag": {
+      "id": "sale_tag",
+      "sheet": "02-stats-growth",
+      "index": 14,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/sale_tag.png",
+      "w": 169,
+      "h": 168,
+      "bbox": [
+        276,
+        626,
+        437,
+        785
+      ]
+    },
+    "heart_up": {
+      "id": "heart_up",
+      "sheet": "02-stats-growth",
+      "index": 15,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/heart_up.png",
+      "w": 195,
+      "h": 225,
+      "bbox": [
+        499,
+        587,
+        688,
+        804
+      ]
+    },
+    "coin_up": {
+      "id": "coin_up",
+      "sheet": "02-stats-growth",
+      "index": 16,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/coin_up.png",
+      "w": 197,
+      "h": 159,
+      "bbox": [
+        743,
+        631,
+        933,
+        783
+      ]
+    },
+    "seed_bag": {
+      "id": "seed_bag",
+      "sheet": "02-stats-growth",
+      "index": 17,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/seed_bag.png",
+      "w": 223,
+      "h": 177,
+      "bbox": [
+        982,
+        623,
+        1196,
+        792
+      ]
+    },
+    "water_meter": {
+      "id": "water_meter",
+      "sheet": "02-stats-growth",
+      "index": 18,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/water_meter.png",
+      "w": 197,
+      "h": 187,
+      "bbox": [
+        1226,
+        617,
+        1417,
+        798
+      ]
+    },
+    "soil": {
+      "id": "soil",
+      "sheet": "02-stats-growth",
+      "index": 19,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/soil.png",
+      "w": 192,
+      "h": 190,
+      "bbox": [
+        59,
+        844,
+        242,
+        1027
+      ]
+    },
+    "seedling": {
+      "id": "seedling",
+      "sheet": "02-stats-growth",
+      "index": 20,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/seedling.png",
+      "w": 84,
+      "h": 110,
+      "bbox": [
+        114,
+        884,
+        189,
+        985
+      ]
+    },
+    "plant_young": {
+      "id": "plant_young",
+      "sheet": "02-stats-growth",
+      "index": 21,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/plant_young.png",
+      "w": 236,
+      "h": 107,
+      "bbox": [
+        326,
+        920,
+        555,
+        1022
+      ]
+    },
+    "harvest_carrot": {
+      "id": "harvest_carrot",
+      "sheet": "02-stats-growth",
+      "index": 22,
+      "src": "/skins/cozy-kit/icons/02-stats-growth/harvest_carrot.png",
+      "w": 220,
+      "h": 146,
+      "bbox": [
+        605,
+        888,
+        819,
+        1027
+      ]
+    },
+    "item_23": {
+      "id": "item_23",
+      "sheet": "04-wardrobe-furniture",
+      "index": 23,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/item_23.png",
+      "w": 316,
+      "h": 115,
+      "bbox": [
+        662,
+        961,
+        971,
+        1067
+      ]
+    },
+    "tool_can": {
+      "id": "tool_can",
+      "sheet": "03-farm-tools-crops",
+      "index": 0,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/tool_can.png",
+      "w": 258,
+      "h": 195,
+      "bbox": [
+        46,
+        59,
+        296,
+        247
+      ]
+    },
+    "tool_trowel": {
+      "id": "tool_trowel",
+      "sheet": "03-farm-tools-crops",
+      "index": 1,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/tool_trowel.png",
+      "w": 172,
+      "h": 234,
+      "bbox": [
+        317,
+        31,
+        482,
+        258
+      ]
+    },
+    "tool_hoe": {
+      "id": "tool_hoe",
+      "sheet": "03-farm-tools-crops",
+      "index": 2,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/tool_hoe.png",
+      "w": 190,
+      "h": 219,
+      "bbox": [
+        509,
+        47,
+        694,
+        260
+      ]
+    },
+    "basket_empty": {
+      "id": "basket_empty",
+      "sheet": "03-farm-tools-crops",
+      "index": 3,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/basket_empty.png",
+      "w": 211,
+      "h": 220,
+      "bbox": [
+        741,
+        42,
+        945,
+        254
+      ]
+    },
+    "seed_sack": {
+      "id": "seed_sack",
+      "sheet": "03-farm-tools-crops",
+      "index": 4,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/seed_sack.png",
+      "w": 234,
+      "h": 199,
+      "bbox": [
+        979,
+        63,
+        1206,
+        255
+      ]
+    },
+    "seed_packet": {
+      "id": "seed_packet",
+      "sheet": "03-farm-tools-crops",
+      "index": 5,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/seed_packet.png",
+      "w": 167,
+      "h": 185,
+      "bbox": [
+        1245,
+        76,
+        1403,
+        254
+      ]
+    },
+    "plot_empty": {
+      "id": "plot_empty",
+      "sheet": "03-farm-tools-crops",
+      "index": 6,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_empty.png",
+      "w": 311,
+      "h": 201,
+      "bbox": [
+        53,
+        275,
+        356,
+        467
+      ]
+    },
+    "plot_wet": {
+      "id": "plot_wet",
+      "sheet": "03-farm-tools-crops",
+      "index": 7,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_wet.png",
+      "w": 307,
+      "h": 200,
+      "bbox": [
+        402,
+        276,
+        700,
+        467
+      ]
+    },
+    "plot_sprout": {
+      "id": "plot_sprout",
+      "sheet": "03-farm-tools-crops",
+      "index": 8,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_sprout.png",
+      "w": 313,
+      "h": 198,
+      "bbox": [
+        744,
+        278,
+        1048,
+        467
+      ]
+    },
+    "plot_leafy": {
+      "id": "plot_leafy",
+      "sheet": "03-farm-tools-crops",
+      "index": 9,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/plot_leafy.png",
+      "w": 311,
+      "h": 209,
+      "bbox": [
+        1089,
+        268,
+        1391,
+        468
+      ]
+    },
+    "crop_carrot": {
+      "id": "crop_carrot",
+      "sheet": "03-farm-tools-crops",
+      "index": 10,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_carrot.png",
+      "w": 239,
+      "h": 189,
+      "bbox": [
+        10,
+        482,
+        240,
+        662
+      ]
+    },
+    "crop_strawberry": {
+      "id": "crop_strawberry",
+      "sheet": "03-farm-tools-crops",
+      "index": 11,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_strawberry.png",
+      "w": 232,
+      "h": 182,
+      "bbox": [
+        251,
+        489,
+        474,
+        662
+      ]
+    },
+    "crop_pumpkin": {
+      "id": "crop_pumpkin",
+      "sheet": "03-farm-tools-crops",
+      "index": 12,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_pumpkin.png",
+      "w": 242,
+      "h": 190,
+      "bbox": [
+        475,
+        481,
+        708,
+        662
+      ]
+    },
+    "crop_sunflower": {
+      "id": "crop_sunflower",
+      "sheet": "03-farm-tools-crops",
+      "index": 13,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_sunflower.png",
+      "w": 235,
+      "h": 189,
+      "bbox": [
+        719,
+        482,
+        945,
+        662
+      ]
+    },
+    "crop_mushroom": {
+      "id": "crop_mushroom",
+      "sheet": "03-farm-tools-crops",
+      "index": 14,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_mushroom.png",
+      "w": 243,
+      "h": 171,
+      "bbox": [
+        959,
+        500,
+        1193,
+        662
+      ]
+    },
+    "crop_daisy": {
+      "id": "crop_daisy",
+      "sheet": "03-farm-tools-crops",
+      "index": 15,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/crop_daisy.png",
+      "w": 243,
+      "h": 182,
+      "bbox": [
+        1207,
+        488,
+        1441,
+        662
+      ]
+    },
+    "pot_plant": {
+      "id": "pot_plant",
+      "sheet": "03-farm-tools-crops",
+      "index": 16,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/pot_plant.png",
+      "w": 164,
+      "h": 225,
+      "bbox": [
+        30,
+        680,
+        186,
+        898
+      ]
+    },
+    "basket_full": {
+      "id": "basket_full",
+      "sheet": "03-farm-tools-crops",
+      "index": 17,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/basket_full.png",
+      "w": 239,
+      "h": 214,
+      "bbox": [
+        214,
+        696,
+        444,
+        903
+      ]
+    },
+    "cat_black": {
+      "id": "cat_black",
+      "sheet": "03-farm-tools-crops",
+      "index": 18,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/cat_black.png",
+      "w": 216,
+      "h": 223,
+      "bbox": [
+        468,
+        686,
+        678,
+        903
+      ]
+    },
+    "house_mushroom": {
+      "id": "house_mushroom",
+      "sheet": "03-farm-tools-crops",
+      "index": 19,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/house_mushroom.png",
+      "w": 275,
+      "h": 244,
+      "bbox": [
+        698,
+        680,
+        964,
+        915
+      ]
+    },
+    "fence": {
+      "id": "fence",
+      "sheet": "03-farm-tools-crops",
+      "index": 20,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/fence.png",
+      "w": 259,
+      "h": 162,
+      "bbox": [
+        980,
+        742,
+        1230,
+        896
+      ]
+    },
+    "sign_mushroom": {
+      "id": "sign_mushroom",
+      "sheet": "03-farm-tools-crops",
+      "index": 21,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/sign_mushroom.png",
+      "w": 176,
+      "h": 232,
+      "bbox": [
+        1256,
+        686,
+        1423,
+        909
+      ]
+    },
+    "btn_water": {
+      "id": "btn_water",
+      "sheet": "03-farm-tools-crops",
+      "index": 22,
+      "src": "/skins/cozy-kit/icons/03-farm-tools-crops/btn_water.png",
+      "w": 463,
+      "h": 149,
+      "bbox": [
+        492,
+        927,
+        949,
+        1067
+      ]
+    },
+    "hat_yellow_polka": {
+      "id": "hat_yellow_polka",
+      "sheet": "04-wardrobe-furniture",
+      "index": 0,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/hat_yellow_polka.png",
+      "w": 284,
+      "h": 186,
+      "bbox": [
+        58,
+        62,
+        337,
+        239
+      ]
+    },
+    "hat_witch": {
+      "id": "hat_witch",
+      "sheet": "04-wardrobe-furniture",
+      "index": 1,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/hat_witch.png",
+      "w": 256,
+      "h": 193,
+      "bbox": [
+        365,
+        51,
+        615,
+        239
+      ]
+    },
+    "hat_straw": {
+      "id": "hat_straw",
+      "sheet": "04-wardrobe-furniture",
+      "index": 2,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/hat_straw.png",
+      "w": 282,
+      "h": 182,
+      "bbox": [
+        635,
+        61,
+        911,
+        237
+      ]
+    },
+    "clip_daisy": {
+      "id": "clip_daisy",
+      "sheet": "04-wardrobe-furniture",
+      "index": 3,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/clip_daisy.png",
+      "w": 218,
+      "h": 175,
+      "bbox": [
+        930,
+        69,
+        1142,
+        237
+      ]
+    },
+    "bag_satchel": {
+      "id": "bag_satchel",
+      "sheet": "04-wardrobe-furniture",
+      "index": 4,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/bag_satchel.png",
+      "w": 214,
+      "h": 245,
+      "bbox": [
+        1180,
+        36,
+        1386,
+        273
+      ]
+    },
+    "coat_raincoat": {
+      "id": "coat_raincoat",
+      "sheet": "04-wardrobe-furniture",
+      "index": 5,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/coat_raincoat.png",
+      "w": 286,
+      "h": 228,
+      "bbox": [
+        50,
+        263,
+        329,
+        484
+      ]
+    },
+    "dress_floral": {
+      "id": "dress_floral",
+      "sheet": "04-wardrobe-furniture",
+      "index": 6,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/dress_floral.png",
+      "w": 249,
+      "h": 224,
+      "bbox": [
+        345,
+        275,
+        585,
+        492
+      ]
+    },
+    "skirt_denim": {
+      "id": "skirt_denim",
+      "sheet": "04-wardrobe-furniture",
+      "index": 7,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/skirt_denim.png",
+      "w": 250,
+      "h": 174,
+      "bbox": [
+        606,
+        312,
+        849,
+        479
+      ]
+    },
+    "boots_yellow": {
+      "id": "boots_yellow",
+      "sheet": "04-wardrobe-furniture",
+      "index": 8,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/boots_yellow.png",
+      "w": 245,
+      "h": 190,
+      "bbox": [
+        894,
+        309,
+        1130,
+        490
+      ]
+    },
+    "boots_red_polka": {
+      "id": "boots_red_polka",
+      "sheet": "04-wardrobe-furniture",
+      "index": 9,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/boots_red_polka.png",
+      "w": 121,
+      "h": 170,
+      "bbox": [
+        1166,
+        320,
+        1278,
+        483
+      ]
+    },
+    "boots_brown": {
+      "id": "boots_brown",
+      "sheet": "04-wardrobe-furniture",
+      "index": 10,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/boots_brown.png",
+      "w": 122,
+      "h": 175,
+      "bbox": [
+        1282,
+        319,
+        1396,
+        486
+      ]
+    },
+    "shoes_bow": {
+      "id": "shoes_bow",
+      "sheet": "04-wardrobe-furniture",
+      "index": 11,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/shoes_bow.png",
+      "w": 226,
+      "h": 194,
+      "bbox": [
+        58,
+        521,
+        277,
+        708
+      ]
+    },
+    "bed": {
+      "id": "bed",
+      "sheet": "04-wardrobe-furniture",
+      "index": 12,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/bed.png",
+      "w": 240,
+      "h": 177,
+      "bbox": [
+        316,
+        548,
+        548,
+        716
+      ]
+    },
+    "table_cafe": {
+      "id": "table_cafe",
+      "sheet": "04-wardrobe-furniture",
+      "index": 13,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/table_cafe.png",
+      "w": 277,
+      "h": 247,
+      "bbox": [
+        583,
+        503,
+        852,
+        744
+      ]
+    },
+    "chair": {
+      "id": "chair",
+      "sheet": "04-wardrobe-furniture",
+      "index": 14,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/chair.png",
+      "w": 248,
+      "h": 256,
+      "bbox": [
+        895,
+        489,
+        1134,
+        736
+      ]
+    },
+    "wardrobe_cabinet": {
+      "id": "wardrobe_cabinet",
+      "sheet": "04-wardrobe-furniture",
+      "index": 15,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/wardrobe_cabinet.png",
+      "w": 199,
+      "h": 249,
+      "bbox": [
+        1193,
+        505,
+        1384,
+        745
+      ]
+    },
+    "rug_daisy": {
+      "id": "rug_daisy",
+      "sheet": "04-wardrobe-furniture",
+      "index": 16,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/rug_daisy.png",
+      "w": 234,
+      "h": 291,
+      "bbox": [
+        69,
+        727,
+        294,
+        1011
+      ]
+    },
+    "frame_daisy": {
+      "id": "frame_daisy",
+      "sheet": "04-wardrobe-furniture",
+      "index": 17,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/frame_daisy.png",
+      "w": 260,
+      "h": 157,
+      "bbox": [
+        329,
+        780,
+        581,
+        929
+      ]
+    },
+    "vase_daisy": {
+      "id": "vase_daisy",
+      "sheet": "04-wardrobe-furniture",
+      "index": 18,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/vase_daisy.png",
+      "w": 129,
+      "h": 198,
+      "bbox": [
+        616,
+        754,
+        736,
+        943
+      ]
+    },
+    "lamp_mushroom": {
+      "id": "lamp_mushroom",
+      "sheet": "04-wardrobe-furniture",
+      "index": 19,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/lamp_mushroom.png",
+      "w": 175,
+      "h": 207,
+      "bbox": [
+        775,
+        757,
+        941,
+        955
+      ]
+    },
+    "window_curtain": {
+      "id": "window_curtain",
+      "sheet": "04-wardrobe-furniture",
+      "index": 20,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/window_curtain.png",
+      "w": 186,
+      "h": 217,
+      "bbox": [
+        963,
+        767,
+        1142,
+        975
+      ]
+    },
+    "shelf_books": {
+      "id": "shelf_books",
+      "sheet": "04-wardrobe-furniture",
+      "index": 21,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/shelf_books.png",
+      "w": 243,
+      "h": 248,
+      "bbox": [
+        1165,
+        744,
+        1401,
+        983
+      ]
+    },
+    "btn_hanger": {
+      "id": "btn_hanger",
+      "sheet": "04-wardrobe-furniture",
+      "index": 22,
+      "src": "/skins/cozy-kit/icons/04-wardrobe-furniture/btn_hanger.png",
+      "w": 281,
+      "h": 133,
+      "bbox": [
+        317,
+        944,
+        592,
+        1070
+      ]
+    }
+  }
+}

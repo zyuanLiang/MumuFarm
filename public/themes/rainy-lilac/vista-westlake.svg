@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 360" fill="none">
+  <defs>
+    <linearGradient id="rsky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b8a8d0"/>
+      <stop offset="55%" stop-color="#c8c0d8"/>
+      <stop offset="100%" stop-color="#d0dce8"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="360" fill="url(#rsky)"/>
+  <ellipse cx="300" cy="70" rx="48" ry="18" fill="#e8d8f8" opacity=".55"/>
+  <path d="M0 210 C80 190 140 230 200 215 C260 200 320 225 390 210 L390 360 L0 360 Z" fill="#a8b8d8" opacity=".45"/>
+  <path d="M280 120 L292 150 H308 L296 150 L310 190 H270 L284 150 H268 Z" fill="#9b7ec8" opacity=".5"/>
+  <path d="M70 130 Q90 90 100 140 Q110 100 125 145" stroke="#8fb3a8" stroke-width="8" stroke-linecap="round" opacity=".4" fill="none"/>
+  <path d="M120 230 Q160 210 200 230" stroke="#7a5a8a" stroke-width="4" fill="none" opacity=".35"/>
+</svg>
