@@ -2725,12 +2725,23 @@ button {
 }
 
 /* ===== P27 v1-complete north-star skin ===== */
-.p1-shell.has-farm-bg .p1-sky {
+/* Full-bleed farm vista on the shell (not just the sky strip). */
+.p1-shell.has-farm-bg {
   background-image: var(--farm-bg-image);
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
+  background-color: #e8f0d8;
+}
+.p1-shell.has-farm-bg .p1-sky {
+  background: transparent !important;
+  inset: 0;
   opacity: 1;
+}
+.p1-shell.has-farm-bg.atm-soft-rain .p1-sky,
+.p1-shell.has-farm-bg.atm-dusk .p1-sky,
+.p1-shell.has-farm-bg.atm-clear .p1-sky {
+  background: transparent !important;
 }
 .p1-shell.has-farm-bg .p1-westlake,
 .p1-shell.has-farm-bg .yard-meadow {
@@ -2741,17 +2752,34 @@ button {
 }
 .p1-shell.has-farm-bg .p1-sky .rain-layer {
   display: block;
+  opacity: 0.28;
 }
 
 .p1-shell.has-wardrobe-bg .p2-wardrobe {
-  background-image: var(--wardrobe-bg-image);
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.18) 0%, rgba(255, 248, 236, 0.55) 55%, rgba(255, 248, 236, 0.88) 100%),
+    var(--wardrobe-bg-image) center top / cover no-repeat !important;
 }
 .p1-shell.has-wardrobe-bg .wardrobe-stage {
   background: transparent;
-  min-height: 280px;
+  min-height: 300px;
+  margin-top: 4px;
+}
+.p1-shell.has-wardrobe-bg .p2-wardrobe .p1-topbar {
+  position: relative;
+  z-index: 4;
+}
+.p1-shell.has-wardrobe-bg .p2-wardrobe .p1-feedback,
+.p1-shell.has-wardrobe-bg .p2-wardrobe .wardrobe-slot-label,
+.p1-shell.has-wardrobe-bg .p2-wardrobe .outfit-row {
+  position: relative;
+  z-index: 2;
+  background: rgba(255, 248, 236, 0.82);
+  border-radius: 14px;
+  padding: 6px 10px;
+}
+.p1-shell.has-wardrobe-bg .p2-wardrobe .outfit-row {
+  background: rgba(255, 248, 236, 0.9);
 }
 
 .girl-figure.has-full-art {
@@ -2830,25 +2858,52 @@ button {
   box-shadow: 0 2px 0 rgba(200, 140, 40, 0.35);
 }
 .p1-shell.skin-v1-complete .p1-homestead {
-  height: 190px;
+  height: 220px;
+  margin-top: 4px;
 }
-.p1-shell.skin-v1-complete .mushroom-house {
-  width: 130px;
-  height: 140px;
-  left: 8px;
-  top: 8px;
+/* House is already painted into farm-bg — keep a clear hit target only. */
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only {
+  width: 120px;
+  height: 130px;
+  left: 10px;
+  top: 18px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only .mh-art,
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only .mh-cap,
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only .mh-stem,
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only .mh-door,
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only .mh-window,
+.p1-shell.skin-v1-complete .mushroom-house.is-hit-only .mh-glow {
+  display: none;
 }
 .p1-shell.skin-v1-complete .p1-actors {
-  right: 12px;
-  bottom: 8px;
-  gap: 4px;
+  left: 50%;
+  right: auto;
+  bottom: 4px;
+  transform: translateX(-12%);
+  gap: 6px;
   align-items: flex-end;
+  z-index: 2;
+}
+.p1-shell.skin-v1-complete .girl-figure.has-full-art.size-farm {
+  width: 118px;
+  height: 168px;
+  filter: drop-shadow(0 6px 8px rgba(70, 50, 30, 0.18));
+}
+.p1-shell.skin-v1-complete .black-cat.has-cat-art.size-farm {
+  width: 56px;
+  height: 56px;
 }
 .p1-shell.skin-v1-complete .p1-plots {
-  background: rgba(255, 248, 236, 0.72);
+  background: rgba(255, 248, 236, 0.78);
   border-radius: 18px;
   padding: 8px;
   backdrop-filter: blur(2px);
+  box-shadow: 0 8px 20px rgba(90, 60, 30, 0.12);
 }
 .p1-shell.skin-v1-complete .seed-chip.cottage-chip {
   background: linear-gradient(180deg, #fff3d0, #ffe8a8);
@@ -2856,4 +2911,12 @@ button {
 }
 .p1-shell.skin-v1-complete .wardrobe-title {
   font-weight: 700;
+}
+.p1-shell.skin-v1-complete .day-bubble {
+  background: rgba(255, 248, 236, 0.88);
+  border-radius: 14px;
+  max-width: 86%;
+}
+.p1-shell.skin-v1-complete .daily-tip {
+  background: rgba(255, 248, 236, 0.94);
 }

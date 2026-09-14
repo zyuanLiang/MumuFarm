@@ -62,8 +62,16 @@ export function WardrobeView({
   return (
     <div className="p2-wardrobe">
       <header className="p1-topbar">
-        <button type="button" className="p1-chip" onClick={onBack} aria-label="返回农场">
-          ←
+        <button
+          type="button"
+          className="p1-chip wardrobe-back"
+          onClick={() => {
+            playSfx('tap');
+            onBack();
+          }}
+          aria-label="回小院"
+        >
+          ← 回小院
         </button>
         <div className="p1-chip wardrobe-title">换装</div>
       </header>

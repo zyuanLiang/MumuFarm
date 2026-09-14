@@ -863,11 +863,11 @@ export function FarmPrototype() {
           <div className="yard-meadow" aria-hidden />
           <button
             type="button"
-            className={`mushroom-house is-button${houseArt ? ' has-art' : ''}`}
+            className={`mushroom-house is-button${farmBg ? ' is-hit-only' : houseArt ? ' has-art' : ''}`}
             onClick={openWardrobe}
             aria-label="去换装"
           >
-            {houseArt ? (
+            {farmBg ? null : houseArt ? (
               <img className="mh-art" src={houseArt} alt="" draggable={false} />
             ) : (
               <>
