@@ -2,7 +2,7 @@ import type {ThemePack} from '../types';
 
 /**
  * North-star visual pack from user v1-complete mockups.
- * Farm + wardrobe only for this vertical slice.
+ * Character model: outfit → full-body PNG only (no CSS collage / sticker layers).
  */
 export const v1CompleteTheme: ThemePack = {
   id: 'v1_complete',
@@ -30,31 +30,11 @@ export const v1CompleteTheme: ThemePack = {
     wardrobeBg: '/skins/v1-complete/wardrobe/wardrobe-room.jpg',
     mushroomHouse: '/skins/v1-complete/farm/mushroom-house.png',
     girlFull: '/skins/v1-complete/girl/girl-raincoat-full.png',
+    girlFullBodies: {
+      raincoat: '/skins/v1-complete/girl/girl-raincoat-full.png',
+      witch: '/skins/v1-complete/girl/girl-witch-full.png',
+      denim: '/skins/v1-complete/girl/girl-denim-full.png',
+    },
     catArt: '/skins/v1-complete/girl/black-cat.png',
-    dress: {
-      raincoat: '/skins/png-portrait/wardrobe/dress-raincoat.png',
-      witch: '/skins/png-portrait/wardrobe/dress-witch.png',
-      denim: '/skins/png-portrait/wardrobe/dress-denim.png',
-      garden: '/skins/png-portrait/wardrobe/dress-garden.png',
-      picnic: '/skins/png-portrait/wardrobe/dress-picnic.png',
-      sweater: '/skins/png-portrait/wardrobe/dress-sweater.png',
-      moonlight: '/skins/png-portrait/wardrobe/dress-moonlight.png',
-      spore: '/skins/png-portrait/wardrobe/dress-spore.png',
-    },
-    hat: {
-      rain_hood: '/skins/png-portrait/wardrobe/hat-rain-hood.png',
-      witch_hat: '/skins/png-portrait/wardrobe/hat-witch.png',
-      straw_hat: '/skins/png-portrait/wardrobe/hat-straw.png',
-      beret: '/skins/png-portrait/wardrobe/hat-beret.png',
-    },
-    boots: {
-      yellow: '/skins/png-portrait/wardrobe/boots-yellow.png',
-      witch: '/skins/png-portrait/wardrobe/boots-witch.png',
-      denim: '/skins/png-portrait/wardrobe/boots-denim.png',
-      peach: '/skins/png-portrait/wardrobe/boots-peach.png',
-      moss: '/skins/png-portrait/wardrobe/boots-moss.png',
-      check: '/skins/png-portrait/wardrobe/boots-check.png',
-      moon: '/skins/png-portrait/wardrobe/boots-moon.png',
-    },
   },
 };

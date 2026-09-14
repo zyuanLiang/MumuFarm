@@ -35,8 +35,10 @@ export interface ThemeAssets {
   cottageInterior?: string;
   /** Optional PNG head master (face + hair); missing = CSS paper-cut face/hair */
   girlHead?: string;
-  /** Full-body girl sticker (used when look matches default raincoat set) */
+  /** @deprecated Prefer girlFullBodies. Legacy single full-body (raincoat). */
   girlFull?: string;
+  /** Correct character model: outfit id → full-body PNG (no CSS collage). */
+  girlFullBodies?: Partial<Record<import('../outfits').OutfitId, string>>;
   /** Companion cat sticker */
   catArt?: string;
   /** Full-bleed farm sky / meadow plate */

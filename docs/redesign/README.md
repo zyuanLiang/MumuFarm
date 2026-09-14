@@ -34,6 +34,7 @@
 - **Cozy Kit 1:1 资产管线**：[29-cozy-kit-1to1-pipeline.md](./29-cozy-kit-1to1-pipeline.md)（真图标裁切 + atlas，停 CSS 剪影路线）
 - **P28 Cozy UI 接线**：[30-p28-cozy-kit-ui-wire.md](./30-p28-cozy-kit-ui-wire.md)（农场+换装接 atlas，不再堆主题墙纸）
 - **根因：画风叠层**：[31-root-cause-art-stack.md](./31-root-cause-art-stack.md)（为什么会丑 / 禁止 CSS 拼脸）
+- **P29 全身立绘角色模型**：[32-p29-fullbody-character-model.md](./32-p29-fullbody-character-model.md)（一套衣服=一张全身图）
 - 概念图：[concepts/](./concepts/) · 定稿：[concepts/v1-complete/](./concepts/v1-complete/)
 
 当前实现：默认主题 **晴暖定稿 `v1_complete`**；下一步应用 cozy-kit 图标按定稿主屏复刻，不再堆主题皮。

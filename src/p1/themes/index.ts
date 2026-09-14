@@ -116,7 +116,11 @@ export function girlHeadArtUrl(theme: ThemePack): string | undefined {
 }
 
 export function girlFullArtUrl(theme: ThemePack): string | undefined {
-  return theme.assets?.girlFull;
+  return theme.assets?.girlFullBodies?.raincoat ?? theme.assets?.girlFull;
+}
+
+export function girlFullBodies(theme: ThemePack) {
+  return theme.assets?.girlFullBodies ?? {};
 }
 
 export function catArtUrl(theme: ThemePack): string | undefined {

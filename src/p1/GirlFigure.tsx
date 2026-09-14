@@ -5,7 +5,8 @@ import {
   HATS,
   type Look,
 } from './pieces';
-import {catArtUrl, girlFullArtUrl} from './themes';
+import {fullBodyArtForLook} from './character/fullBody';
+import {catArtUrl} from './themes';
 import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface GirlFigureProps {
@@ -16,8 +17,8 @@ interface GirlFigureProps {
 }
 
 /**
- * Only render a real full-body PNG. Never fall back to CSS silhouette collage —
- * that path produced the broken "monster" wardrobe preview.
+ * Character = full-body PNG for the closest outfit.
+ * Never composites CSS head + clothing stickers.
  */
 export function GirlFigure({
   look,
@@ -26,7 +27,7 @@ export function GirlFigure({
   pose = 'idle',
 }: GirlFigureProps) {
   const {theme} = useThemeRuntime();
-  const fullArt = girlFullArtUrl(theme);
+  const fullArt = fullBodyArtForLook(theme, look);
 
   const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
   const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat]?.name ?? '';

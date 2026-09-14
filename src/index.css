@@ -3170,8 +3170,30 @@ button {
 }
 .p2-wardrobe.cozy-kit .wardrobe-stage {
   flex: 0 0 auto;
-  min-height: 180px;
-  max-height: 38vh;
+  min-height: 220px;
+  max-height: 42vh;
+}
+.p2-wardrobe.fullbody-model .outfit-row-fullbody {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.p2-wardrobe.fullbody-model .outfit-card {
+  position: relative;
+  min-width: 96px;
+}
+.p2-wardrobe.fullbody-model .outfit-wearing {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  color: #fff;
+  background: #e07050;
+  border-radius: 8px;
+  padding: 1px 6px;
 }
 .p2-wardrobe.cozy-kit .wardrobe-scroll {
   flex: 1 1 auto;

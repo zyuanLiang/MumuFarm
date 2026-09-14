@@ -1,6 +1,6 @@
 import {OUTFIT_ORDER, OUTFITS, type OutfitId} from './outfits';
 
-/** Mixable wardrobe slots — same girl, sticker layers only. */
+/** Mixable wardrobe slots — gameplay ids. Visual character uses full-body PNGs per outfit. */
 export type HatId = 'bare' | 'rain_hood' | 'witch_hat' | 'straw_hat' | 'beret';
 export type DressId =
   | 'raincoat'

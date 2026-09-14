@@ -131,14 +131,12 @@ test('P9 mix wardrobe exposes hat dress boots slots', () => {
   assert.match(pieces, /straw_hat/);
   assert.match(pieces, /sweater/);
   assert.match(pieces, /spore/);
-  assert.match(wardrobe, /onPreviewHat/);
-  assert.match(wardrobe, /onPreviewBoots/);
-  assert.match(wardrobe, /套装/);
-  assert.match(wardrobe, /CozyIcon|btn_hanger/);
+  assert.match(wardrobe, /onApplyPreset|套装/);
+  assert.match(wardrobe, /CozyIcon|btn_hanger|fullbody|fullBody/);
   assert.match(farm, /onApplyPreset/);
   assert.match(farm, /unlockedHats/);
-  assert.match(girl, /girlFullArtUrl|gf-full-art/);
-  assert.match(girl, /Never fall back to CSS|is-missing-art/);
+  assert.match(girl, /fullBodyArtForLook|gf-full-art/);
+  assert.match(girl, /Never composites CSS|full-body/);
 });
 
 test('P10 daily tips suggest outfit and harvest notes', () => {
@@ -240,7 +238,7 @@ test('P15 girl master sticker anchors and full sample wardrobe', () => {
   const css = readUtf8('src/index.css');
   const doc = readUtf8('docs/redesign/16-p15-girl-master-stickers.md');
   assert.match(girl, /master-v1/);
-  assert.match(girl, /girlFullArtUrl/);
+  assert.match(girl, /fullBodyArtForLook|girlFullArtUrl/);
   assert.match(girl, /gf-full-art/);
   assert.match(sample, /boots-yellow/);
   assert.match(sample, /dress-denim/);
@@ -417,7 +415,7 @@ test('P26 girl head master PNG replaces CSS face on portrait theme', () => {
   assert.match(index, /girlHeadArtUrl/);
   assert.match(pack, /girlHead: '\/skins\/png-portrait\/girl\/girl-head\.png'/);
   // P29+: GirlFigure never composites CSS+sticker heads; full-body PNG only.
-  assert.match(girl, /girlFullArtUrl/);
+  assert.match(girl, /fullBodyArtForLook|girlFullArtUrl/);
   assert.match(girl, /gf-full-art|is-missing-art/);
   assert.match(css, /gf-full-art|gf-head-art/);
   assert.match(doc, /头像母版/);
@@ -437,7 +435,7 @@ test('P27 v1 complete visual is default farm and wardrobe skin', () => {
   assert.match(pack, /id: 'v1_complete'/);
   assert.match(pack, /v1-complete\/farm\/farm-bg/);
   assert.match(pack, /v1-complete\/girl\/girl-raincoat-full/);
-  assert.match(girl, /girlFullArtUrl/);
+  assert.match(girl, /fullBodyArtForLook|girlFullArtUrl/);
   assert.match(girl, /has-full-art/);
   assert.match(girl, /catArtUrl/);
   assert.match(farm, /skin-v1-complete/);
@@ -446,6 +444,7 @@ test('P27 v1 complete visual is default farm and wardrobe skin', () => {
   assert.match(css, /skin-v1-complete/);
   assert.match(css, /gf-full-art/);
   assert.match(doc, /两屏/);
+  assert.match(pack, /girlFullBodies|girl-witch-full/);
   const bg = readFileSync(path.join(process.cwd(), 'public/skins/v1-complete/farm/farm-bg.jpg'));
   assert.equal(bg[0], 0xff);
   assert.equal(bg[1], 0xd8);
@@ -467,10 +466,32 @@ test('P28 cozy-kit wires farm and wardrobe chrome', () => {
   assert.match(farm, /cozy-side-rail/);
   assert.match(farm, /btn_water/);
   assert.match(wardrobe, /btn_hanger/);
-  assert.match(wardrobe, /hatIconId|dressIconId/);
+  assert.match(wardrobe, /dressIconId|fullbody-model|fullBody/);
   assert.match(plot, /cozy-plot/);
   assert.match(css, /cozy-primary-art/);
   assert.match(doc, /atlas/);
   const water = readFileSync(path.join(process.cwd(), 'public/skins/cozy-kit/icons/03-farm-tools-crops/btn_water.png'));
   assert.equal(water[0], 0x89);
+});
+
+test('P29 full-body character model swaps outfit PNGs', () => {
+  const fullBody = readUtf8('src/p1/character/fullBody.ts');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
+  const pack = readUtf8('src/p1/themes/packs/v1Complete.ts');
+  const types = readUtf8('src/p1/themes/types.ts');
+  const doc = readUtf8('docs/redesign/32-p29-fullbody-character-model.md');
+  assert.match(types, /girlFullBodies/);
+  assert.match(fullBody, /fullBodyArtForLook/);
+  assert.match(fullBody, /closestOutfit/);
+  assert.match(girl, /fullBodyArtForLook/);
+  assert.doesNotMatch(girl, /dressArtUrl|gf-hair|gf-dress-art/);
+  assert.match(wardrobe, /fullbody-model|outfitsWithFullBody/);
+  assert.match(pack, /girl-witch-full/);
+  assert.match(pack, /girl-denim-full/);
+  assert.match(doc, /full-body PNG|一套衣服|girlFullBodies/);
+  const witch = readFileSync(path.join(process.cwd(), 'public/skins/v1-complete/girl/girl-witch-full.png'));
+  assert.equal(witch[0], 0x89);
+  const denim = readFileSync(path.join(process.cwd(), 'public/skins/v1-complete/girl/girl-denim-full.png'));
+  assert.equal(denim[0], 0x89);
 });

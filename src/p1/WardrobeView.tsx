@@ -1,10 +1,8 @@
+import {useMemo} from 'react';
 import type {AccessoryId} from './dayFeel';
 import {BlackCat, GirlFigure} from './GirlFigure';
 import {OUTFITS, type OutfitId} from './outfits';
 import {
-  BOOTS,
-  DRESSES,
-  HATS,
   lookLabel,
   looksEqual,
   type BootsId,
@@ -14,7 +12,9 @@ import {
 } from './pieces';
 import {playSfx} from './sfx';
 import {CozyIcon} from './cozy/CozyIcon';
-import {bootsIconId, dressIconId, hatIconId} from './cozy/mappings';
+import {dressIconId, hatIconId} from './cozy/mappings';
+import {outfitsWithFullBody} from './character/fullBody';
+import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface WardrobeViewProps {
   equipped: Look;
@@ -35,33 +35,29 @@ interface WardrobeViewProps {
   onBack: () => void;
 }
 
+/**
+ * Wardrobe UI for the full-body character model:
+ * picking a 套装 swaps the full-body PNG. No CSS sticker collage.
+ */
 export function WardrobeView({
   equipped,
   preview,
   accessory,
   previewAccessory,
   unlockedPresets,
-  unlockedHats,
-  unlockedDresses,
-  unlockedBoots,
-  unlockedAccessories,
   onApplyPreset,
-  onPreviewHat,
-  onPreviewDress,
-  onPreviewBoots,
-  onPreviewAccessory,
   onEquip,
   onBack,
 }: WardrobeViewProps) {
+  const {theme} = useThemeRuntime();
   const same = looksEqual(preview, equipped) && previewAccessory === accessory;
-  const hasEars = unlockedAccessories.includes('cat_ears');
-  const hasScarf = unlockedAccessories.includes('scarf');
-  const hasCrown = unlockedAccessories.includes('flower_crown');
-  const hasPin = unlockedAccessories.includes('mushroom_pin');
-  const hasAnyAccessory = hasEars || hasScarf || hasCrown || hasPin;
+  const bodyOutfits = useMemo(() => {
+    const withArt = new Set(outfitsWithFullBody(theme));
+    return unlockedPresets.filter((id) => withArt.has(id));
+  }, [theme, unlockedPresets]);
 
   return (
-    <div className="p2-wardrobe cozy-kit">
+    <div className="p2-wardrobe cozy-kit fullbody-model">
       <header className="p1-topbar">
         <button
           type="button"
@@ -87,162 +83,48 @@ export function WardrobeView({
       </div>
 
       <div className="wardrobe-scroll">
-      <p className="p1-feedback cozy-look-line">
-        {lookLabel(preview)}
-        {same ? ' · 穿着中' : ''}
-      </p>
+        <p className="p1-feedback cozy-look-line">
+          {lookLabel(preview)}
+          {same ? ' · 穿着中' : ''}
+        </p>
 
-      <p className="wardrobe-slot-label">套装</p>
-      <div className="outfit-row" role="listbox" aria-label="套装">
-        {unlockedPresets.map((id) => (
-          <button
-            key={id}
-            type="button"
-            role="option"
-            aria-selected={preview.dress === id}
-            className={`outfit-card ${preview.dress === id ? 'is-on' : ''} ${equipped.dress === id ? 'is-equipped' : ''}`}
-            onClick={() => {
-              playSfx('tap');
-              onApplyPreset(id);
-            }}
-          >
-            {dressIconId(id) ? (
-              <CozyIcon id={dressIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
-            ) : (
-              <span className={`outfit-thumb thumb-${id}`} />
-            )}
-            <span>{OUTFITS[id].name}</span>
-          </button>
-        ))}
-      </div>
-
-      <p className="wardrobe-slot-label">帽子</p>
-      <div className="outfit-row" role="listbox" aria-label="帽子">
-        {unlockedHats.map((id) => (
-          <button
-            key={id}
-            type="button"
-            role="option"
-            aria-selected={preview.hat === id}
-            className={`outfit-card ${preview.hat === id ? 'is-on' : ''}`}
-            onClick={() => {
-              playSfx('tap');
-              onPreviewHat(id);
-            }}
-          >
-            {hatIconId(id) ? (
-              <CozyIcon id={hatIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
-            ) : (
-              <span className={`outfit-thumb thumb-hat-${id}`} />
-            )}
-            <span>{HATS[id].name}</span>
-          </button>
-        ))}
-      </div>
-
-      <p className="wardrobe-slot-label">衣服</p>
-      <div className="outfit-row" role="listbox" aria-label="衣服">
-        {unlockedDresses.map((id) => (
-          <button
-            key={id}
-            type="button"
-            role="option"
-            aria-selected={preview.dress === id}
-            className={`outfit-card ${preview.dress === id ? 'is-on' : ''}`}
-            onClick={() => {
-              playSfx('tap');
-              onPreviewDress(id);
-            }}
-          >
-            {dressIconId(id) ? (
-              <CozyIcon id={dressIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
-            ) : (
-              <span className={`outfit-thumb thumb-${id}`} />
-            )}
-            <span>{DRESSES[id].name}</span>
-          </button>
-        ))}
-      </div>
-
-      <p className="wardrobe-slot-label">鞋子</p>
-      <div className="outfit-row" role="listbox" aria-label="鞋子">
-        {unlockedBoots.map((id) => (
-          <button
-            key={id}
-            type="button"
-            role="option"
-            aria-selected={preview.boots === id}
-            className={`outfit-card ${preview.boots === id ? 'is-on' : ''}`}
-            onClick={() => {
-              playSfx('tap');
-              onPreviewBoots(id);
-            }}
-          >
-            {bootsIconId(id) ? (
-              <CozyIcon id={bootsIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
-            ) : (
-              <span className={`outfit-thumb thumb-boots-${id}`} />
-            )}
-            <span>{BOOTS[id].name}</span>
-          </button>
-        ))}
-      </div>
-
-      {hasAnyAccessory && (
-        <>
-          <p className="wardrobe-slot-label">饰品</p>
-          <div className="outfit-row" role="listbox" aria-label="饰品">
-            <button
-              type="button"
-              className={`outfit-card ${previewAccessory === 'none' ? 'is-on' : ''}`}
-              onClick={() => onPreviewAccessory('none')}
-            >
-              <span className="outfit-thumb thumb-none" />
-              <span>无饰品</span>
-            </button>
-            {hasEars && (
+        <p className="wardrobe-slot-label">套装</p>
+        <div className="outfit-row outfit-row-fullbody" role="listbox" aria-label="套装">
+          {bodyOutfits.map((id) => {
+            const lookDress = id;
+            const selected = preview.dress === lookDress;
+            const wearing = equipped.dress === lookDress;
+            const thumb =
+              id === 'raincoat'
+                ? dressIconId('raincoat')
+                : id === 'witch'
+                  ? hatIconId('witch_hat') ?? dressIconId('witch')
+                  : id === 'denim'
+                    ? dressIconId('denim')
+                    : dressIconId(id);
+            return (
               <button
+                key={id}
                 type="button"
-                className={`outfit-card ${previewAccessory === 'cat_ears' ? 'is-on' : ''}`}
-                onClick={() => onPreviewAccessory('cat_ears')}
+                role="option"
+                aria-selected={selected}
+                className={`outfit-card ${selected ? 'is-on' : ''} ${wearing ? 'is-equipped' : ''}`}
+                onClick={() => {
+                  playSfx('tap');
+                  onApplyPreset(id);
+                }}
               >
-                <span className="outfit-thumb thumb-ears" />
-                <span>猫耳</span>
+                {thumb ? (
+                  <CozyIcon id={thumb} className="outfit-thumb cozy-thumb" alt="" />
+                ) : (
+                  <span className={`outfit-thumb thumb-${id}`} />
+                )}
+                <span>{OUTFITS[id].name}</span>
+                {wearing ? <em className="outfit-wearing">穿着</em> : null}
               </button>
-            )}
-            {hasScarf && (
-              <button
-                type="button"
-                className={`outfit-card ${previewAccessory === 'scarf' ? 'is-on' : ''}`}
-                onClick={() => onPreviewAccessory('scarf')}
-              >
-                <span className="outfit-thumb thumb-scarf" />
-                <span>围巾</span>
-              </button>
-            )}
-            {hasCrown && (
-              <button
-                type="button"
-                className={`outfit-card ${previewAccessory === 'flower_crown' ? 'is-on' : ''}`}
-                onClick={() => onPreviewAccessory('flower_crown')}
-              >
-                <span className="outfit-thumb thumb-crown" />
-                <span>花冠</span>
-              </button>
-            )}
-            {hasPin && (
-              <button
-                type="button"
-                className={`outfit-card ${previewAccessory === 'mushroom_pin' ? 'is-on' : ''}`}
-                onClick={() => onPreviewAccessory('mushroom_pin')}
-              >
-                <span className="outfit-thumb thumb-pin" />
-                <span>蘑菇胸针</span>
-              </button>
-            )}
-          </div>
-        </>
-      )}
+            );
+          })}
+        </div>
       </div>
 
       <footer className="p1-dock cozy-dock wardrobe-dock">
