@@ -31,7 +31,8 @@
 - **P25 立绘包世界图**：[26-p25-png-portrait-world.md](./26-p25-png-portrait-world.md)（水彩远景 + 小屋内景）
 - **P26 女孩头像母版**：[27-p26-girl-master-png.md](./27-p26-girl-master-png.md)（水彩 PNG 脸发母版）
 - **P27 回锁定稿两屏**：[28-p27-v1-complete-visual.md](./28-p27-v1-complete-visual.md)（按完整定稿重做农场+换装）
+- **Cozy Kit 1:1 资产管线**：[29-cozy-kit-1to1-pipeline.md](./29-cozy-kit-1to1-pipeline.md)（真图标裁切 + atlas，停 CSS 剪影路线）
 - 概念图：[concepts/](./concepts/) · 定稿：[concepts/v1-complete/](./concepts/v1-complete/)
 
-当前实现：默认主题 **晴暖定稿 `v1_complete`**（绘本农场底 + 全身雨衣女孩 + 黑猫 + 换装卧室）；小屋布置/创作工坊二期。
+当前实现：默认主题 **晴暖定稿 `v1_complete`**；下一步应用 cozy-kit 图标按定稿主屏复刻，不再堆主题皮。
 
