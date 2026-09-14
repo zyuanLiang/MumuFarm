@@ -86,6 +86,7 @@ export function WardrobeView({
         <BlackCat size="wardrobe" />
       </div>
 
+      <div className="wardrobe-scroll">
       <p className="p1-feedback cozy-look-line">
         {lookLabel(preview)}
         {same ? ' · 穿着中' : ''}
@@ -242,6 +243,7 @@ export function WardrobeView({
           </div>
         </>
       )}
+      </div>
 
       <footer className="p1-dock cozy-dock wardrobe-dock">
         <button
