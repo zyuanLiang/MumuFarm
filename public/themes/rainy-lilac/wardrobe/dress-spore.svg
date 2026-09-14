@@ -1,0 +1,9 @@
+<!-- rainy-lilac wardrobe sticker -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100" fill="none">
+  <path d="M24 16 C30 10 36 9 40 9 C44 9 50 10 56 16 L60 28 H20 Z" fill="#c8b0e0"/>
+  <path d="M18 28 H62 L66 76 C56 80 48 82 40 82 C32 82 24 80 14 76 Z" fill="#d8e8e0" stroke="#8fb3a8" stroke-width="1.4"/>
+  <ellipse cx="40" cy="22" rx="18" ry="10" fill="#c8b0e0" stroke="#a888d0" stroke-width="1.2"/>
+  <circle cx="32" cy="20" r="2.2" fill="#f4f0f8"/>
+  <circle cx="46" cy="18" r="1.8" fill="#f4f0f8"/>
+  <circle cx="40" cy="48" r="3" fill="#8fb3a8" opacity=".55"/>
+</svg>
