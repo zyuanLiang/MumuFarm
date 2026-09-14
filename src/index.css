@@ -2723,3 +2723,137 @@ button {
   outline-offset: 2px;
   border-radius: 4px;
 }
+
+/* ===== P27 v1-complete north-star skin ===== */
+.p1-shell.has-farm-bg .p1-sky {
+  background-image: var(--farm-bg-image);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+.p1-shell.has-farm-bg .p1-westlake,
+.p1-shell.has-farm-bg .yard-meadow {
+  display: none;
+}
+.p1-shell.has-farm-bg .p1-sky > * {
+  display: none;
+}
+.p1-shell.has-farm-bg .p1-sky .rain-layer {
+  display: block;
+}
+
+.p1-shell.has-wardrobe-bg .p2-wardrobe {
+  background-image: var(--wardrobe-bg-image);
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+.p1-shell.has-wardrobe-bg .wardrobe-stage {
+  background: transparent;
+  min-height: 280px;
+}
+
+.girl-figure.has-full-art {
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+.girl-figure.has-full-art.size-farm {
+  width: 88px;
+  height: 128px;
+}
+.girl-figure.has-full-art.size-room {
+  width: 120px;
+  height: 170px;
+}
+.girl-figure.has-full-art.size-wardrobe {
+  width: 180px;
+  height: 260px;
+}
+.gf-full-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(90, 64, 48, 0.18));
+}
+
+.black-cat.has-cat-art {
+  background: transparent;
+  overflow: visible;
+}
+.black-cat.has-cat-art.size-farm {
+  width: 42px;
+  height: 42px;
+}
+.black-cat.has-cat-art.size-room,
+.black-cat.has-cat-art.size-wardrobe {
+  width: 64px;
+  height: 64px;
+}
+.black-cat.has-cat-art .cat-body,
+.black-cat.has-cat-art .cat-head,
+.black-cat.has-cat-art .cat-crescent {
+  display: none;
+}
+.black-cat .cat-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  pointer-events: none;
+}
+
+.p1-shell.skin-v1-complete {
+  box-shadow: 0 18px 50px rgba(120, 80, 40, 0.18);
+}
+.p1-shell.skin-v1-complete .p1-chip {
+  background: rgba(255, 248, 236, 0.92);
+  border: 1px solid rgba(232, 200, 150, 0.7);
+  box-shadow: 0 2px 0 rgba(200, 150, 90, 0.15);
+  color: #6a4a32;
+  border-radius: 999px;
+}
+.p1-shell.skin-v1-complete .p1-primary {
+  background: linear-gradient(180deg, #ffe066, #f5c83a);
+  color: #5a3a20;
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 rgba(200, 140, 40, 0.35);
+  font-weight: 700;
+  min-height: 54px;
+}
+.p1-shell.skin-v1-complete .p1-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(200, 140, 40, 0.35);
+}
+.p1-shell.skin-v1-complete .p1-homestead {
+  height: 190px;
+}
+.p1-shell.skin-v1-complete .mushroom-house {
+  width: 130px;
+  height: 140px;
+  left: 8px;
+  top: 8px;
+}
+.p1-shell.skin-v1-complete .p1-actors {
+  right: 12px;
+  bottom: 8px;
+  gap: 4px;
+  align-items: flex-end;
+}
+.p1-shell.skin-v1-complete .p1-plots {
+  background: rgba(255, 248, 236, 0.72);
+  border-radius: 18px;
+  padding: 8px;
+  backdrop-filter: blur(2px);
+}
+.p1-shell.skin-v1-complete .seed-chip.cottage-chip {
+  background: linear-gradient(180deg, #fff3d0, #ffe8a8);
+  font-weight: 700;
+}
+.p1-shell.skin-v1-complete .wardrobe-title {
+  font-weight: 700;
+}

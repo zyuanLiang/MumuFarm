@@ -62,10 +62,10 @@ export function WardrobeView({
   return (
     <div className="p2-wardrobe">
       <header className="p1-topbar">
-        <button type="button" className="p1-chip" onClick={onBack} aria-label="返回小屋">
+        <button type="button" className="p1-chip" onClick={onBack} aria-label="返回农场">
           ←
         </button>
-        <div className="p1-chip">试衣间</div>
+        <div className="p1-chip wardrobe-title">换装</div>
       </header>
 
       <div className="wardrobe-stage">

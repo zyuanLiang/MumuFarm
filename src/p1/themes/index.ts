@@ -2,6 +2,7 @@ import {cottageCreamTheme} from './packs/cottageCream';
 import {pngPortraitTheme} from './packs/pngPortrait';
 import {rainyLilacTheme} from './packs/rainyLilac';
 import {sampleArtTheme} from './packs/sampleArt';
+import {v1CompleteTheme} from './packs/v1Complete';
 import {paperCropsSkin, sampleCropsSkin, springCropsSkin} from './packs/cropSkins';
 import type {SkinId, SkinPack, ThemeId, ThemePack, ThemeTokens} from './types';
 import type {CropId} from '../types';
@@ -10,6 +11,7 @@ import type {VistaId} from '../vistas';
 import type {BootsId, DressId, HatId} from '../pieces';
 
 export const THEME_PACKS: Record<string, ThemePack> = {
+  [v1CompleteTheme.id]: v1CompleteTheme,
   [cottageCreamTheme.id]: cottageCreamTheme,
   [sampleArtTheme.id]: sampleArtTheme,
   [rainyLilacTheme.id]: rainyLilacTheme,
@@ -17,6 +19,7 @@ export const THEME_PACKS: Record<string, ThemePack> = {
 };
 
 export const THEME_ORDER: ThemeId[] = [
+  v1CompleteTheme.id,
   cottageCreamTheme.id,
   sampleArtTheme.id,
   rainyLilacTheme.id,
@@ -29,7 +32,7 @@ export const SKIN_PACKS: Record<string, SkinPack> = {
   [springCropsSkin.id]: springCropsSkin,
 };
 
-export const DEFAULT_THEME_ID: ThemeId = sampleArtTheme.id;
+export const DEFAULT_THEME_ID: ThemeId = v1CompleteTheme.id;
 export const DEFAULT_CROP_SKIN_ID: SkinId = sampleCropsSkin.id;
 
 export function getTheme(id: ThemeId | undefined | null): ThemePack {
@@ -110,6 +113,22 @@ export function cottageArtUrl(theme: ThemePack): string | undefined {
 
 export function girlHeadArtUrl(theme: ThemePack): string | undefined {
   return theme.assets?.girlHead;
+}
+
+export function girlFullArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.girlFull;
+}
+
+export function catArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.catArt;
+}
+
+export function farmBgArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.farmBg;
+}
+
+export function wardrobeBgArtUrl(theme: ThemePack): string | undefined {
+  return theme.assets?.wardrobeBg;
 }
 
 export type {ThemePack, SkinPack, ThemeId, SkinId, ThemeTokens, ThemeAssets} from './types';

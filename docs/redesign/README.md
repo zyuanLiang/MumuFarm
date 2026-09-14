@@ -30,7 +30,8 @@
 - **P24 真 PNG 立绘包**：[25-p24-png-portrait-wardrobe.md](./25-p24-png-portrait-wardrobe.md)（水彩 PNG 帽衣靴 + 蘑菇屋）
 - **P25 立绘包世界图**：[26-p25-png-portrait-world.md](./26-p25-png-portrait-world.md)（水彩远景 + 小屋内景）
 - **P26 女孩头像母版**：[27-p26-girl-master-png.md](./27-p26-girl-master-png.md)（水彩 PNG 脸发母版）
-- 概念图：[concepts/](./concepts/)
+- **P27 回锁定稿两屏**：[28-p27-v1-complete-visual.md](./28-p27-v1-complete-visual.md)（按完整定稿重做农场+换装）
+- 概念图：[concepts/](./concepts/) · 定稿：[concepts/v1-complete/](./concepts/v1-complete/)
 
-当前实现：`src/p1/` — 玩法闭环 + 主题热换（含 **PNG 立绘：头像/衣柜/屋/远景/内景**）+ 手帐/拍照 + 黑猫陪伴四拍。
+当前实现：默认主题 **晴暖定稿 `v1_complete`**（绘本农场底 + 全身雨衣女孩 + 黑猫 + 换装卧室）；小屋布置/创作工坊二期。
 

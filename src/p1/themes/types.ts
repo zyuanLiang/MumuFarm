@@ -35,6 +35,14 @@ export interface ThemeAssets {
   cottageInterior?: string;
   /** Optional PNG head master (face + hair); missing = CSS paper-cut face/hair */
   girlHead?: string;
+  /** Full-body girl sticker (used when look matches default raincoat set) */
+  girlFull?: string;
+  /** Companion cat sticker */
+  catArt?: string;
+  /** Full-bleed farm sky / meadow plate */
+  farmBg?: string;
+  /** Wardrobe room plate (empty of character) */
+  wardrobeBg?: string;
   uiChip?: string;
 }
 

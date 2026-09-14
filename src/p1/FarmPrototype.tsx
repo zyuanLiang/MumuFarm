@@ -48,12 +48,14 @@ import {WardrobeView} from './WardrobeView';
 import {
   DEFAULT_CROP_SKIN_ID,
   DEFAULT_THEME_ID,
+  farmBgArtUrl,
   getSkin,
   getTheme,
   houseArtUrl,
   skinsUnlockedBy,
   themesUnlockedBy,
   vistaArtUrl,
+  wardrobeBgArtUrl,
   type ThemeId,
   type SkinId,
 } from './themes';
@@ -689,12 +691,24 @@ export function FarmPrototype() {
   const theme = getTheme(activeTheme);
   const cropSkin = getSkin(activeCropSkin);
   const vistaBg = vistaArtUrl(theme, activeVista);
+  const farmBg = farmBgArtUrl(theme);
   const houseArt = houseArtUrl(theme);
   const shellStyle = {
     ...themeStyle(theme),
     ...(vistaBg ? {['--vista-bg-image' as string]: `url("${vistaBg}")`} : {}),
+    ...(farmBg ? {['--farm-bg-image' as string]: `url("${farmBg}")`} : {}),
   };
-  const shellClass = `p1-shell has-paper ${atm.skyClass} vista-${activeVista}${vistaBg ? ' has-vista-art' : ''}`;
+  const shellClass = [
+    'p1-shell',
+    'has-paper',
+    atm.skyClass,
+    `vista-${activeVista}`,
+    vistaBg ? 'has-vista-art' : '',
+    farmBg ? 'has-farm-bg' : '',
+    theme.id === 'v1_complete' ? 'skin-v1-complete' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
   const shellProps = {
     className: shellClass,
     style: shellStyle,
@@ -736,7 +750,16 @@ export function FarmPrototype() {
   if (scene === 'wardrobe') {
     return (
       <ThemeRuntimeContext.Provider value={runtimeValue}>
-      <div {...shellProps}>
+      <div
+        {...shellProps}
+        className={`${shellProps.className}${wardrobeBgArtUrl(theme) ? ' has-wardrobe-bg' : ''}`}
+        style={{
+          ...shellProps.style,
+          ...(wardrobeBgArtUrl(theme)
+            ? {['--wardrobe-bg-image' as string]: `url("${wardrobeBgArtUrl(theme)}")`}
+            : {}),
+        }}
+      >
         <WardrobeView
           equipped={look}
           preview={preview}
@@ -753,7 +776,7 @@ export function FarmPrototype() {
           onPreviewBoots={(id) => setPreview((p) => ({...p, boots: id}))}
           onPreviewAccessory={setPreviewAccessory}
           onEquip={equipAndShowOff}
-          onBack={() => setScene('cottage')}
+          onBack={() => setScene('farm')}
         />
       </div>
       </ThemeRuntimeContext.Provider>
@@ -823,27 +846,16 @@ export function FarmPrototype() {
       )}
 
       <header className="p1-topbar">
-        <button type="button" className="p1-chip" onClick={cycleAtmosphere} aria-label="切换氛围天气">
-          {atm.name}
-        </button>
-        <button type="button" className="p1-chip" onClick={cycleVista} aria-label="切换远景">
-          {VISTAS[activeVista].name}
-          {unlockedVistas.length > 1 ? ` ·${unlockedVistas.length}` : ''}
-        </button>
-        <button
-          type="button"
-          className="p1-chip theme-chip"
-          onClick={cycleTheme}
-          aria-label="切换主题皮肤"
-          title={theme.blurb}
-        >
-          {theme.name}
-          {unlockedThemes.length > 1 ? ` ·${unlockedThemes.length}` : ''}
-        </button>
+        <div className="p1-chip p1-profile" aria-label="晴暖">
+          晴暖
+        </div>
         <div className="p1-chip p1-gold" aria-label={`金币 ${farm.gold}`}>
           <span className="p1-coin" />
           <span>{farm.gold}</span>
         </div>
+        <button type="button" className="p1-chip" onClick={cycleAtmosphere} aria-label="切换氛围天气">
+          {atm.name}
+        </button>
       </header>
 
       <main className="p1-stage">
@@ -852,8 +864,8 @@ export function FarmPrototype() {
           <button
             type="button"
             className={`mushroom-house is-button${houseArt ? ' has-art' : ''}`}
-            onClick={openCottage}
-            aria-label="进入蘑菇屋"
+            onClick={openWardrobe}
+            aria-label="去换装"
           >
             {houseArt ? (
               <img className="mh-art" src={houseArt} alt="" draggable={false} />
@@ -1012,8 +1024,8 @@ export function FarmPrototype() {
         </div>
 
         <div className="p1-seeds">
-          <button type="button" className="seed-chip cottage-chip" onClick={openCottage}>
-            进小屋换装
+          <button type="button" className="seed-chip cottage-chip" onClick={openWardrobe}>
+            换装
           </button>
           <button type="button" className="seed-chip" onClick={takePhoto}>
             拍照

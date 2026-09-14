@@ -436,3 +436,30 @@ test('P26 girl head master PNG replaces CSS face on portrait theme', () => {
   assert.equal(head[0], 0x89);
   assert.equal(head[1], 0x50);
 });
+
+test('P27 v1 complete visual is default farm and wardrobe skin', () => {
+  const pack = readUtf8('src/p1/themes/packs/v1Complete.ts');
+  const index = readUtf8('src/p1/themes/index.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const girl = readUtf8('src/p1/GirlFigure.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/28-p27-v1-complete-visual.md');
+  assert.match(index, /DEFAULT_THEME_ID: ThemeId = v1CompleteTheme\.id/);
+  assert.match(pack, /id: 'v1_complete'/);
+  assert.match(pack, /v1-complete\/farm\/farm-bg/);
+  assert.match(pack, /v1-complete\/girl\/girl-raincoat-full/);
+  assert.match(girl, /girlFullArtUrl/);
+  assert.match(girl, /has-full-art/);
+  assert.match(girl, /catArtUrl/);
+  assert.match(farm, /skin-v1-complete/);
+  assert.match(farm, /has-farm-bg/);
+  assert.match(farm, /openWardrobe/);
+  assert.match(css, /skin-v1-complete/);
+  assert.match(css, /gf-full-art/);
+  assert.match(doc, /两屏/);
+  const bg = readFileSync(path.join(process.cwd(), 'public/skins/v1-complete/farm/farm-bg.jpg'));
+  assert.equal(bg[0], 0xff);
+  assert.equal(bg[1], 0xd8);
+  const full = readFileSync(path.join(process.cwd(), 'public/skins/v1-complete/girl/girl-raincoat-full.png'));
+  assert.equal(full[0], 0x89);
+});

@@ -5,7 +5,7 @@ import {
   HATS,
   type Look,
 } from './pieces';
-import {bootsArtUrl, dressArtUrl, girlHeadArtUrl, hatArtUrl} from './themes';
+import {bootsArtUrl, catArtUrl, dressArtUrl, girlFullArtUrl, girlHeadArtUrl, hatArtUrl} from './themes';
 import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface GirlFigureProps {
@@ -16,8 +16,8 @@ interface GirlFigureProps {
 }
 
 /**
- * Girl master: CSS face/hair by default; ThemePack may supply a PNG head.
- * Wardrobe stickers (hat/dress/boots) layer on the same shared anchors.
+ * Girl master: prefers ThemePack full-body sticker for default raincoat look,
+ * otherwise CSS/PNG layered head + wardrobe stickers.
  */
 export function GirlFigure({
   look,
@@ -30,6 +30,12 @@ export function GirlFigure({
   const hatArt = look.hat === 'bare' ? undefined : hatArtUrl(theme, look.hat);
   const bootsArt = bootsArtUrl(theme, look.boots);
   const headArt = girlHeadArtUrl(theme);
+  const fullArt = girlFullArtUrl(theme);
+  const useFullBody =
+    Boolean(fullArt) &&
+    look.dress === 'raincoat' &&
+    look.hat === 'rain_hood' &&
+    look.boots === 'yellow';
 
   const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
   const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat]?.name ?? '';
@@ -53,6 +59,19 @@ export function GirlFigure({
   ]
     .filter(Boolean)
     .join('·');
+
+  if (useFullBody && fullArt) {
+    return (
+      <div
+        className={['girl-figure', 'master-v1', 'has-full-art', `size-${size}`, `pose-${pose}`]
+          .filter(Boolean)
+          .join(' ')}
+        aria-label={aria}
+      >
+        <img className="gf-full-art" src={fullArt} alt="" draggable={false} />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -130,14 +149,24 @@ export function BlackCat({
   onAssist?: () => void;
   pose?: 'idle' | 'follow' | 'look-up' | 'cheer' | 'shelter';
 }) {
-  const body = (
+  const {theme} = useThemeRuntime();
+  const art = catArtUrl(theme);
+  const body = art ? (
+    <img className="cat-art" src={art} alt="" draggable={false} />
+  ) : (
     <>
       <div className="cat-body" />
       <div className="cat-head" />
       <div className="cat-crescent" />
     </>
   );
-  const cls = ['black-cat', `size-${size}`, `pose-${pose}`, onAssist ? 'is-helper' : '']
+  const cls = [
+    'black-cat',
+    `size-${size}`,
+    `pose-${pose}`,
+    art ? 'has-cat-art' : '',
+    onAssist ? 'is-helper' : '',
+  ]
     .filter(Boolean)
     .join(' ');
   if (!onAssist) {

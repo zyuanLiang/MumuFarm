@@ -17,18 +17,24 @@ import {
   houseArtUrl,
   cottageArtUrl,
   girlHeadArtUrl,
+  girlFullArtUrl,
+  farmBgArtUrl,
+  catArtUrl,
 } from './index.ts';
 
 describe('p14 theme / skin packs', () => {
-  it('defaults to sample art theme with cream + lilac in order', () => {
-    assert.equal(DEFAULT_THEME_ID, 'sample_art');
+  it('defaults to v1 complete theme with other packs in order', () => {
+    assert.equal(DEFAULT_THEME_ID, 'v1_complete');
     assert.equal(DEFAULT_CROP_SKIN_ID, 'sample_crops');
+    assert.ok(THEME_ORDER.includes('v1_complete'));
     assert.ok(THEME_ORDER.includes('cottage_cream'));
     assert.ok(THEME_ORDER.includes('sample_art'));
     assert.ok(THEME_ORDER.includes('rainy_lilac'));
-    assert.deepEqual(themesUnlockedBy(0), ['cottage_cream', 'sample_art']);
+    assert.ok(themesUnlockedBy(0).includes('v1_complete'));
+    assert.ok(themesUnlockedBy(0).includes('cottage_cream'));
+    assert.ok(themesUnlockedBy(0).includes('sample_art'));
     assert.ok(themesUnlockedBy(3).includes('rainy_lilac'));
-    assert.equal(getTheme('missing').id, 'sample_art');
+    assert.equal(getTheme('missing').id, 'v1_complete');
   });
 
   it('maps tokens to CSS variables for hot-swap', () => {
@@ -124,5 +130,15 @@ describe('p14 theme / skin packs', () => {
     assert.ok(girlHeadArtUrl(png)?.includes('png-portrait/girl/girl-head.png'));
     assert.equal(girlHeadArtUrl(getTheme('sample_art')), undefined);
     assert.equal(girlHeadArtUrl(getTheme('cottage_cream')), undefined);
+  });
+
+  it('p27 v1 complete theme ships farm and wardrobe plates', () => {
+    const pack = getTheme('v1_complete');
+    assert.equal(pack.id, 'v1_complete');
+    assert.ok(farmBgArtUrl(pack)?.includes('v1-complete/farm/farm-bg'));
+    assert.ok(girlFullArtUrl(pack)?.includes('v1-complete/girl/girl-raincoat-full'));
+    assert.ok(catArtUrl(pack)?.includes('v1-complete/girl/black-cat'));
+    assert.ok(houseArtUrl(pack)?.includes('v1-complete/farm/mushroom-house'));
+    assert.ok(pack.assets?.wardrobeBg?.includes('v1-complete/wardrobe/wardrobe-room'));
   });
 });
