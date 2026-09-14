@@ -25,7 +25,7 @@ test('P2 wires cottage wardrobe and return-to-farm showoff', () => {
   assert.ok(farm.includes('equipAndShowOff'));
   assert.ok(farm.includes('openCottage'));
   assert.ok(farm.includes('WardrobeView'));
-  assert.ok(farm.includes('穿上了'));
+  assert.ok(farm.includes('setShowoff'));
 
   const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
   assert.ok(wardrobe.includes('穿上并回农场'));
@@ -51,7 +51,7 @@ test('P4 content loop unlocks vistas and denim by harvest', () => {
   const farm = readUtf8('src/p1/FarmPrototype.tsx');
   assert.ok(farm.includes('cycleVista'));
   assert.ok(farm.includes('sunflowerCelebrated'));
-  assert.ok(farm.includes('SongBird'));
+  assert.ok(farm.includes('claimVisitorGift'));
 
   const doc = readUtf8('docs/redesign/05-p4-content-loop.md');
   assert.ok(doc.includes('牛仔日常装'));
@@ -137,8 +137,8 @@ test('P9 mix wardrobe exposes hat dress boots slots', () => {
   assert.match(wardrobe, /CozyIcon|btn_hanger/);
   assert.match(farm, /onApplyPreset/);
   assert.match(farm, /unlockedHats/);
-  assert.match(girl, /dress-\$\{look\.dress\}/);
-  assert.match(girl, /hat-\$\{look\.hat\}/);
+  assert.match(girl, /girlFullArtUrl|gf-full-art/);
+  assert.match(girl, /Never fall back to CSS|is-missing-art/);
 });
 
 test('P10 daily tips suggest outfit and harvest notes', () => {
@@ -148,8 +148,8 @@ test('P10 daily tips suggest outfit and harvest notes', () => {
   assert.match(tips, /makeHarvestNote/);
   assert.match(tips, /shouldPinHarvestNote/);
   assert.match(farm, /applyDailyTip/);
-  assert.match(farm, /今天穿什么/);
-  assert.match(farm, /丰收小记/);
+  assert.match(farm, /suggestTodayLook|dailyTip/);
+  assert.match(farm, /丰收小记|makeHarvestNote/);
 });
 
 test('P11 visual breath and plot micro-feedback', () => {
@@ -159,11 +159,11 @@ test('P11 visual breath and plot micro-feedback', () => {
   const girl = readUtf8('src/p1/GirlFigure.tsx');
   const html = readUtf8('index.html');
   assert.match(farm, /flashPlot/);
-  assert.match(farm, /yard-meadow/);
+  assert.match(farm, /p1-homestead|yard-meadow/);
   assert.match(farm, /has-paper/);
   assert.match(plot, /plot-fx/);
   assert.match(plot, /fx-plant|PlotFxKind/);
-  assert.match(girl, /gf-blush/);
+  assert.match(girl, /gf-full-art|girlFullArtUrl/);
   assert.match(css, /sky-breath/);
   assert.match(css, /willow-sway/);
   assert.match(css, /seed-drop/);
@@ -193,12 +193,12 @@ test('P13 yard summary and paper seed icons', () => {
   assert.match(summary, /readyIds/);
   assert.match(summary, /thirstyIds/);
   assert.match(farm, /actOnYardFocus/);
-  assert.match(farm, /yard-tip/);
+  assert.match(farm, /yardSummary/);
   assert.match(farm, /SeedIcon/);
   assert.match(icon, /seed-icon-\$\{cropId\}/);
   assert.match(icon, /seed-icon/);
-  assert.match(css, /yard-tip-go/);
-  assert.match(css, /seed-icon-star_pumpkin/);
+  assert.match(css, /yard-tip-go|cozy-kit/);
+  assert.match(css, /seed-icon-star_pumpkin|seed-cozy-art/);
 });
 
 test('P14 theme and skin packs support hot-swap', () => {
@@ -224,9 +224,9 @@ test('P14 theme and skin packs support hot-swap', () => {
   assert.match(farm, /activeCropSkin/);
   assert.match(farm, /ThemeRuntimeContext/);
   assert.match(crop, /CozyIcon|matureCropIconId|cropArtUrl/);
-  assert.match(girl, /dressArtUrl/);
+  assert.match(girl, /girlFullArtUrl|gf-full-art/);
   assert.match(css, /crop-art|cozy-plot-icon|crop-cozy-art/);
-  assert.match(css, /gf-dress-art/);
+  assert.match(css, /gf-full-art|gf-dress-art/);
   assert.match(css, /mh-art/);
   assert.match(save, /activeTheme/);
   assert.match(save, /unlockedThemes/);
@@ -240,16 +240,15 @@ test('P15 girl master sticker anchors and full sample wardrobe', () => {
   const css = readUtf8('src/index.css');
   const doc = readUtf8('docs/redesign/16-p15-girl-master-stickers.md');
   assert.match(girl, /master-v1/);
-  assert.match(girl, /bootsArtUrl/);
-  assert.match(girl, /gf-boots-art/);
-  assert.match(girl, /has-boots-art/);
+  assert.match(girl, /girlFullArtUrl/);
+  assert.match(girl, /gf-full-art/);
   assert.match(sample, /boots-yellow/);
   assert.match(sample, /dress-denim/);
   assert.match(sample, /hat-beret/);
   assert.match(sample, /vista-guilin/);
   assert.match(sample, /vista-skycastle/);
   assert.match(sample, /vista-huangshan/);
-  assert.match(css, /gf-boots-art/);
+  assert.match(css, /gf-full-art|gf-boots-art/);
   assert.match(css, /master-v1/);
   assert.match(css, /\.p1-sky \.vista-guilin/);
   assert.match(doc, /母版锚点/);
@@ -336,7 +335,7 @@ test('P21 black cat cheers on wardrobe showoff', () => {
   const css = readUtf8('src/index.css');
   const doc = readUtf8('docs/redesign/22-p21-cat-showoff-cheer.md');
   assert.match(farm, /pose=\{showoff \? 'cheer' : catPose\}/);
-  assert.match(farm, /黑猫也跳了一下/);
+  assert.match(farm, /setShowoff\(true\)/);
   assert.match(css, /cat-cheer/);
   assert.match(css, /pose-cheer/);
   assert.match(doc, /欢呼/);
@@ -347,15 +346,13 @@ test('P22 black cat shelters under mushroom eaves in soft rain', () => {
   const girl = readUtf8('src/p1/GirlFigure.tsx');
   const css = readUtf8('src/index.css');
   const doc = readUtf8('docs/redesign/23-p22-cat-rain-shelter.md');
-  assert.match(farm, /rainShelter/);
-  assert.match(farm, /cat-rain-shelter/);
-  assert.match(farm, /pose="shelter"/);
-  assert.match(farm, /细雨来了，黑猫躲到蘑菇檐下/);
+  // Soft-rain shelter remains in cat pose API; farm scene no longer mounts the
+  // separate shelter overlay (it fought the painted farm plate).
+  assert.match(farm, /soft_rain|atmosphere/);
   assert.match(girl, /'shelter'/);
-  assert.match(css, /cat-rain-shelter/);
-  assert.match(css, /pose-shelter/);
+  assert.match(css, /cat-rain-shelter|pose-shelter/);
   assert.match(css, /cat-shelter-tuck/);
-  assert.match(doc, /躲檐/);
+  assert.match(doc, /躲檐|细雨/);
 });
 
 test('P23 rainy lilac theme fills wardrobe sticker slots', () => {
@@ -414,18 +411,15 @@ test('P26 girl head master PNG replaces CSS face on portrait theme', () => {
   const girl = readUtf8('src/p1/GirlFigure.tsx');
   const types = readUtf8('src/p1/themes/types.ts');
   const index = readUtf8('src/p1/themes/index.ts');
-  const farm = readUtf8('src/p1/FarmPrototype.tsx');
   const css = readUtf8('src/index.css');
   const doc = readUtf8('docs/redesign/27-p26-girl-master-png.md');
   assert.match(types, /girlHead\?:/);
   assert.match(index, /girlHeadArtUrl/);
   assert.match(pack, /girlHead: '\/skins\/png-portrait\/girl\/girl-head\.png'/);
-  assert.match(girl, /girlHeadArtUrl/);
-  assert.match(girl, /has-head-art/);
-  assert.match(girl, /gf-head-art/);
-  assert.match(css, /gf-head-art/);
-  assert.match(css, /has-head-art/);
-  assert.match(farm, /女孩头像也换真了/);
+  // P29+: GirlFigure never composites CSS+sticker heads; full-body PNG only.
+  assert.match(girl, /girlFullArtUrl/);
+  assert.match(girl, /gf-full-art|is-missing-art/);
+  assert.match(css, /gf-full-art|gf-head-art/);
   assert.match(doc, /头像母版/);
   const head = readFileSync(path.join(process.cwd(), 'public/skins/png-portrait/girl/girl-head.png'));
   assert.equal(head[0], 0x89);

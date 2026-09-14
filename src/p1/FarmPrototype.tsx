@@ -12,7 +12,7 @@ import {
   type AtmosphereId,
   type VisitorKind,
 } from './dayFeel';
-import {BlackCat, GirlFigure, SongBird, StrayCat} from './GirlFigure';
+import {BlackCat, GirlFigure} from './GirlFigure';
 import {OUTFITS, outfitsUnlockedBy, type OutfitId} from './outfits';
 import {
   BOOTS,
@@ -688,7 +688,6 @@ export function FarmPrototype() {
   }, [unlockedThemes, activeTheme, farm]);
 
   const atm = ATMOSPHERES[atmosphere];
-  const rainShelter = atmosphere === 'soft_rain' && !showoff;
   const outfitLabel = lookLabel(look);
   const theme = getTheme(activeTheme);
   const cropSkin = getSkin(activeCropSkin);
@@ -905,7 +904,7 @@ export function FarmPrototype() {
 
       <main className="p1-stage">
         <section className="p1-homestead" aria-label="蘑菇屋小院">
-          <div className="yard-meadow" aria-hidden />
+          {/* farm-bg paints house/meadow only — girl+cat must still overlay as real PNGs */}
           <button
             type="button"
             className={`mushroom-house is-button${farmBg ? ' is-hit-only' : houseArt ? ' has-art' : ''}`}
@@ -924,30 +923,6 @@ export function FarmPrototype() {
               </>
             )}
           </button>
-
-          {visitor && (
-            <div className="visitor-slot">
-              <div
-                role="button"
-                tabIndex={0}
-                className="visitor-hit"
-                onClick={claimVisitorGift}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') claimVisitorGift();
-                }}
-              >
-                {visitor === 'cat' ? <StrayCat /> : <SongBird />}
-                <span className="visitor-hint">点我</span>
-              </div>
-            </div>
-          )}
-
-          {rainShelter && (
-            <div className="cat-rain-shelter" aria-label="黑猫躲檐">
-              <BlackCat size="farm" onAssist={catAssist} pose="shelter" />
-            </div>
-          )}
-
           <div className="p1-actors">
             <GirlFigure
               look={look}
@@ -955,48 +930,13 @@ export function FarmPrototype() {
               size="farm"
               pose={showoff ? 'showoff' : 'idle'}
             />
-            {!rainShelter && (
-              <BlackCat
-                size="farm"
-                onAssist={catAssist}
-                pose={showoff ? 'cheer' : catPose}
-              />
-            )}
+            <BlackCat
+              size="farm"
+              onAssist={catAssist}
+              pose={showoff ? 'cheer' : catPose}
+            />
           </div>
         </section>
-
-        <p className="day-bubble" role="status">
-          {bubble}
-        </p>
-
-        {dailyTip && !tipDismissed && !looksEqual(dailyTip.look, look) && !showoff && (
-          <div className="daily-tip" role="status">
-            <div className="daily-tip-copy">
-              <strong>今天穿什么</strong>
-              <span>{dailyTip.label}</span>
-              <em>{dailyTip.reason}</em>
-            </div>
-            <div className="daily-tip-actions">
-              <button type="button" className="daily-tip-wear" onClick={applyDailyTip}>
-                穿上试试
-              </button>
-              <button
-                type="button"
-                className="daily-tip-skip"
-                aria-label="先不换"
-                onClick={() => setTipDismissed(true)}
-              >
-                先不换
-              </button>
-            </div>
-          </div>
-        )}
-
-        {showoff && (
-          <p className="showoff-banner" role="status">
-            换好啦，黑猫也跳了一下～
-          </p>
-        )}
 
         <section
           className="p1-plots"
@@ -1021,36 +961,6 @@ export function FarmPrototype() {
             />
           ))}
         </section>
-        
-
-        <p className="p1-feedback" role="status">
-          {showoff
-            ? `穿上了${outfitLabel}${accessory === 'cat_ears' ? '·猫耳' : ''}${accessory === 'scarf' ? '·围巾' : ''}${accessory === 'flower_crown' ? '·花冠' : ''}${accessory === 'mushroom_pin' ? '·蘑菇胸针' : ''}`
-            : farm.lastAction}
-        </p>
-
-        {!yardTipDismissed &&
-          yardSummary.message &&
-          (yardSummary.readyIds.length > 0 || yardSummary.thirstyIds.length > 0) && (
-            <div className="yard-tip" role="status">
-              <span className="yard-tip-copy">{yardSummary.message}</span>
-              <button type="button" className="yard-tip-go" onClick={actOnYardFocus}>
-                {yardSummary.readyIds.length > 0
-                  ? '去收'
-                  : yardSummary.thirstyIds.length > 0
-                    ? '去浇'
-                    : '看看'}
-              </button>
-              <button
-                type="button"
-                className="yard-tip-skip"
-                aria-label="知道了"
-                onClick={() => setYardTipDismissed(true)}
-              >
-                ×
-              </button>
-            </div>
-          )}
 
         <div className="p1-seeds" role="listbox" aria-label="选择种子">
           {SEED_ORDER.map((seed) => (

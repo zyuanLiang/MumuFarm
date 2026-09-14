@@ -5,7 +5,7 @@ import {
   HATS,
   type Look,
 } from './pieces';
-import {bootsArtUrl, catArtUrl, dressArtUrl, girlFullArtUrl, girlHeadArtUrl, hatArtUrl} from './themes';
+import {catArtUrl, girlFullArtUrl} from './themes';
 import {useThemeRuntime} from './themes/ThemeRuntimeContext';
 
 interface GirlFigureProps {
@@ -16,8 +16,8 @@ interface GirlFigureProps {
 }
 
 /**
- * Girl master: prefers ThemePack full-body sticker for default raincoat look,
- * otherwise CSS/PNG layered head + wardrobe stickers.
+ * Only render a real full-body PNG. Never fall back to CSS silhouette collage —
+ * that path produced the broken "monster" wardrobe preview.
  */
 export function GirlFigure({
   look,
@@ -26,16 +26,7 @@ export function GirlFigure({
   pose = 'idle',
 }: GirlFigureProps) {
   const {theme} = useThemeRuntime();
-  const dressArt = dressArtUrl(theme, look.dress);
-  const hatArt = look.hat === 'bare' ? undefined : hatArtUrl(theme, look.hat);
-  const bootsArt = bootsArtUrl(theme, look.boots);
-  const headArt = girlHeadArtUrl(theme);
   const fullArt = girlFullArtUrl(theme);
-  const useFullBody =
-    Boolean(fullArt) &&
-    look.dress === 'raincoat' &&
-    look.hat === 'rain_hood' &&
-    look.boots === 'yellow';
 
   const dressLabel = DRESSES[look.dress]?.name ?? '衣服';
   const hatLabel = look.hat === 'bare' ? '' : HATS[look.hat]?.name ?? '';
@@ -60,82 +51,22 @@ export function GirlFigure({
     .filter(Boolean)
     .join('·');
 
-  if (useFullBody && fullArt) {
+  if (!fullArt) {
     return (
-      <div
-        className={['girl-figure', 'master-v1', 'has-full-art', `size-${size}`, `pose-${pose}`]
-          .filter(Boolean)
-          .join(' ')}
-        aria-label={aria}
-      >
-        <img className="gf-full-art" src={fullArt} alt="" draggable={false} />
+      <div className={`girl-figure size-${size} is-missing-art`} aria-label={aria}>
+        <span className="gf-missing">立绘准备中</span>
       </div>
     );
   }
 
   return (
     <div
-      className={[
-        'girl-figure',
-        'master-v1',
-        `size-${size}`,
-        `dress-${look.dress}`,
-        `hat-${look.hat}`,
-        `boots-${look.boots}`,
-        `accessory-${accessory}`,
-        `pose-${pose}`,
-        dressArt ? 'has-dress-art' : '',
-        hatArt ? 'has-hat-art' : '',
-        bootsArt ? 'has-boots-art' : '',
-        headArt ? 'has-head-art' : '',
-      ]
+      className={['girl-figure', 'master-v1', 'has-full-art', `size-${size}`, `pose-${pose}`]
         .filter(Boolean)
         .join(' ')}
       aria-label={aria}
     >
-      {hatArt ? (
-        <img className="gf-hat-art" src={hatArt} alt="" draggable={false} aria-hidden />
-      ) : (
-        <div className="gf-hat" aria-hidden />
-      )}
-      <div className="gf-crown" aria-hidden>
-        <span className="petal a" />
-        <span className="petal b" />
-        <span className="petal c" />
-      </div>
-      <div className="gf-ears" aria-hidden>
-        <span className="ear left" />
-        <span className="ear right" />
-      </div>
-      <div className="gf-scarf" aria-hidden />
-      <div className="gf-mushroom-pin" aria-hidden />
-      {headArt ? (
-        <img className="gf-head-art" src={headArt} alt="" draggable={false} aria-hidden />
-      ) : (
-        <>
-          <div className="gf-hair" aria-hidden />
-          <div className="gf-head" aria-hidden>
-            <span className="gf-blush left" />
-            <span className="gf-blush right" />
-            <span className="gf-eye left" />
-            <span className="gf-eye right" />
-            <span className="gf-smile" />
-          </div>
-        </>
-      )}
-      {dressArt ? (
-        <img className="gf-dress-art" src={dressArt} alt="" draggable={false} aria-hidden />
-      ) : (
-        <>
-          <div className="gf-body" aria-hidden />
-          <div className="gf-apron" aria-hidden />
-        </>
-      )}
-      {bootsArt ? (
-        <img className="gf-boots-art" src={bootsArt} alt="" draggable={false} aria-hidden />
-      ) : (
-        <div className="gf-boots" aria-hidden />
-      )}
+      <img className="gf-full-art" src={fullArt} alt="" draggable={false} />
     </div>
   );
 }
@@ -154,11 +85,7 @@ export function BlackCat({
   const body = art ? (
     <img className="cat-art" src={art} alt="" draggable={false} />
   ) : (
-    <>
-      <div className="cat-body" />
-      <div className="cat-head" />
-      <div className="cat-crescent" />
-    </>
+    <span className="cat-missing" aria-hidden />
   );
   const cls = [
     'black-cat',
@@ -190,20 +117,9 @@ export function BlackCat({
 }
 
 export function StrayCat() {
-  return (
-    <span className="stray-cat" aria-hidden>
-      <span className="stray-body" />
-      <span className="stray-head" />
-      <span className="stray-tail" />
-    </span>
-  );
+  return null;
 }
 
 export function SongBird() {
-  return (
-    <span className="song-bird" aria-hidden>
-      <span className="bird-body" />
-      <span className="bird-wing" />
-    </span>
-  );
+  return null;
 }
