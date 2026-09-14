@@ -5,7 +5,6 @@ import {
   BOOTS,
   DRESSES,
   HATS,
-  describeLookBlurb,
   lookLabel,
   looksEqual,
   type BootsId,
@@ -14,6 +13,8 @@ import {
   type Look,
 } from './pieces';
 import {playSfx} from './sfx';
+import {CozyIcon} from './cozy/CozyIcon';
+import {bootsIconId, dressIconId, hatIconId} from './cozy/mappings';
 
 interface WardrobeViewProps {
   equipped: Look;
@@ -60,20 +61,24 @@ export function WardrobeView({
   const hasAnyAccessory = hasEars || hasScarf || hasCrown || hasPin;
 
   return (
-    <div className="p2-wardrobe">
+    <div className="p2-wardrobe cozy-kit">
       <header className="p1-topbar">
         <button
           type="button"
-          className="p1-chip wardrobe-back"
+          className="p1-chip wardrobe-back cozy-back"
           onClick={() => {
             playSfx('tap');
             onBack();
           }}
           aria-label="回小院"
         >
-          ← 回小院
+          <CozyIcon id="back" className="cozy-chip-icon" alt="" />
+          回小院
         </button>
-        <div className="p1-chip wardrobe-title">换装</div>
+        <div className="p1-chip wardrobe-title">
+          <CozyIcon id="wardrobe" className="cozy-chip-icon" alt="" />
+          换装
+        </div>
       </header>
 
       <div className="wardrobe-stage">
@@ -81,18 +86,12 @@ export function WardrobeView({
         <BlackCat size="wardrobe" />
       </div>
 
-      <p className="p1-feedback">
+      <p className="p1-feedback cozy-look-line">
         {lookLabel(preview)}
-        {previewAccessory === 'cat_ears' ? ' + 猫耳' : ''}
-        {previewAccessory === 'scarf' ? ' + 围巾' : ''}
-        {previewAccessory === 'flower_crown' ? ' + 花冠' : ''}
-        {previewAccessory === 'mushroom_pin' ? ' + 蘑菇胸针' : ''}
-        {' · '}
-        {describeLookBlurb(preview)}
-        {same ? '（穿着中）' : ''}
+        {same ? ' · 穿着中' : ''}
       </p>
 
-      <p className="wardrobe-slot-label">套装（一键穿上，再混搭）</p>
+      <p className="wardrobe-slot-label">套装</p>
       <div className="outfit-row" role="listbox" aria-label="套装">
         {unlockedPresets.map((id) => (
           <button
@@ -106,7 +105,11 @@ export function WardrobeView({
               onApplyPreset(id);
             }}
           >
-            <span className={`outfit-thumb thumb-${id}`} />
+            {dressIconId(id) ? (
+              <CozyIcon id={dressIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
+            ) : (
+              <span className={`outfit-thumb thumb-${id}`} />
+            )}
             <span>{OUTFITS[id].name}</span>
           </button>
         ))}
@@ -126,7 +129,11 @@ export function WardrobeView({
               onPreviewHat(id);
             }}
           >
-            <span className={`outfit-thumb thumb-hat-${id}`} />
+            {hatIconId(id) ? (
+              <CozyIcon id={hatIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
+            ) : (
+              <span className={`outfit-thumb thumb-hat-${id}`} />
+            )}
             <span>{HATS[id].name}</span>
           </button>
         ))}
@@ -146,7 +153,11 @@ export function WardrobeView({
               onPreviewDress(id);
             }}
           >
-            <span className={`outfit-thumb thumb-${id}`} />
+            {dressIconId(id) ? (
+              <CozyIcon id={dressIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
+            ) : (
+              <span className={`outfit-thumb thumb-${id}`} />
+            )}
             <span>{DRESSES[id].name}</span>
           </button>
         ))}
@@ -166,7 +177,11 @@ export function WardrobeView({
               onPreviewBoots(id);
             }}
           >
-            <span className={`outfit-thumb thumb-boots-${id}`} />
+            {bootsIconId(id) ? (
+              <CozyIcon id={bootsIconId(id)!} className="outfit-thumb cozy-thumb" alt="" />
+            ) : (
+              <span className={`outfit-thumb thumb-boots-${id}`} />
+            )}
             <span>{BOOTS[id].name}</span>
           </button>
         ))}
@@ -228,9 +243,15 @@ export function WardrobeView({
         </>
       )}
 
-      <footer className="p1-dock">
-        <button type="button" className="p1-primary" onClick={onEquip} disabled={same}>
-          {same ? '已穿上' : '穿上并回农场'}
+      <footer className="p1-dock cozy-dock wardrobe-dock">
+        <button
+          type="button"
+          className={`p1-primary cozy-primary${same ? ' is-equipped' : ''}`}
+          onClick={onEquip}
+          disabled={same}
+          aria-label={same ? '已穿上' : '穿上并回农场'}
+        >
+          <CozyIcon id="btn_hanger" className="cozy-primary-art" alt="" />
         </button>
       </footer>
     </div>

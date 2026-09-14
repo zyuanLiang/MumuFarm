@@ -45,6 +45,8 @@ import {VISTA_ORDER, VISTAS, vistasUnlockedBy, type VistaId} from './vistas';
 import {JournalView} from './JournalView';
 import {createJournalEntry, prependJournalEntry, type JournalEntry} from './journal';
 import {WardrobeView} from './WardrobeView';
+import {CozyIcon} from './cozy/CozyIcon';
+import {primaryActionIconId} from './cozy/mappings';
 import {
   DEFAULT_CROP_SKIN_ID,
   DEFAULT_THEME_ID,
@@ -699,7 +701,7 @@ export function FarmPrototype() {
     ...(farmBg ? {['--farm-bg-image' as string]: `url("${farmBg}")`} : {}),
   };
   const shellClass = [
-    'p1-shell',
+    'p1-shell', 'cozy-kit',
     'has-paper',
     atm.skyClass,
     `vista-${activeVista}`,
@@ -859,18 +861,47 @@ export function FarmPrototype() {
         </div>
       )}
 
-      <header className="p1-topbar">
+      <header className="p1-topbar cozy-topbar">
         <div className="p1-chip p1-profile" aria-label="晴暖">
           晴暖
         </div>
         <div className="p1-chip p1-gold" aria-label={`金币 ${farm.gold}`}>
-          <span className="p1-coin" />
+          <CozyIcon id="coin" className="cozy-hud-icon" alt="" />
           <span>{farm.gold}</span>
         </div>
         <button type="button" className="p1-chip" onClick={cycleAtmosphere} aria-label="切换氛围天气">
           {atm.name}
         </button>
       </header>
+
+      <nav className="cozy-side-rail cozy-side-left" aria-label="功能">
+        <button type="button" className="cozy-rail-btn" onClick={openWardrobe} aria-label="换装">
+          <CozyIcon id="wardrobe" alt="" />
+          <span>换装</span>
+        </button>
+        <button type="button" className="cozy-rail-btn" onClick={openWardrobe} aria-label="小屋">
+          <CozyIcon id="home_mushroom" alt="" />
+          <span>小屋</span>
+        </button>
+        <button type="button" className="cozy-rail-btn" onClick={openJournal} aria-label="图鉴">
+          <CozyIcon id="codex" alt="" />
+          <span>图鉴</span>
+        </button>
+        <button type="button" className="cozy-rail-btn" aria-label="订单">
+          <CozyIcon id="quest" alt="" />
+          <span>订单</span>
+        </button>
+      </nav>
+      <nav className="cozy-side-rail cozy-side-right" aria-label="探索">
+        <button type="button" className="cozy-rail-btn" aria-label="地图">
+          <CozyIcon id="map" alt="" />
+          <span>地图</span>
+        </button>
+        <button type="button" className="cozy-rail-btn" aria-label="任务">
+          <CozyIcon id="task_notify" alt="" />
+          <span>任务</span>
+        </button>
+      </nav>
 
       <main className="p1-stage">
         <section className="p1-homestead" aria-label="蘑菇屋小院">
@@ -990,7 +1021,7 @@ export function FarmPrototype() {
             />
           ))}
         </section>
-        <p className="touch-hint">种子粘手：点空地就种 · 手指滑过可浇水/收获 · 点黑猫或下着软雨会帮忙</p>
+        
 
         <p className="p1-feedback" role="status">
           {showoff
@@ -1037,38 +1068,40 @@ export function FarmPrototype() {
           ))}
         </div>
 
-        <div className="p1-seeds">
-          <button type="button" className="seed-chip cottage-chip" onClick={openWardrobe}>
-            换装
-          </button>
-          <button type="button" className="seed-chip" onClick={takePhoto}>
-            拍照
-          </button>
-          <button type="button" className="seed-chip journal-chip" onClick={openJournal}>
-            手帐{journalEntries.length > 0 ? ` ·${journalEntries.length}` : ''}
-          </button>
-        </div>
-        <p className="harvest-hint">
-          已收获 {farm.harvestCount} 次 · 单品{' '}
-          {unlockedHats.filter((h) => h !== 'bare').length + unlockedDresses.length + unlockedBoots.length} · 手帐{' '}
-          {journalEntries.length} ·{' '}
-          <button type="button" className="linkish" onClick={cycleCropSkin}>
-            {cropSkin.name}
-          </button>
-        </p>
       </main>
 
-      <footer className="p1-dock">
+      <footer className="p1-dock cozy-dock">
+        <div className="cozy-dock-side">
+          <button type="button" className="cozy-dock-mini" onClick={openWardrobe} aria-label="商店">
+            <CozyIcon id="shop" alt="" />
+          </button>
+          <button type="button" className="cozy-dock-mini" aria-label="仓库">
+            <CozyIcon id="storage" alt="" />
+          </button>
+        </div>
         <button
           type="button"
-          className={`p1-primary kind-${farm.primaryKind}`}
+          className={`p1-primary cozy-primary kind-${farm.primaryKind}`}
           onClick={onPrimaryWithSfx}
+          aria-label={farm.primaryLabel}
         >
-          {farm.primaryKind === 'water' && <span className="icon-can" aria-hidden />}
-          {farm.primaryKind === 'plant' && <span className="icon-seed" aria-hidden />}
-          {farm.primaryKind === 'harvest' && <span className="icon-basket" aria-hidden />}
-          <span>{farm.primaryLabel}</span>
+          {farm.primaryKind === 'water' ? (
+            <CozyIcon id="btn_water" className="cozy-primary-art" alt="" />
+          ) : (
+            <span className="cozy-primary-pill">
+              <CozyIcon id={primaryActionIconId(farm.primaryKind)} className="cozy-primary-icon" alt="" />
+              <span>{farm.primaryLabel}</span>
+            </span>
+          )}
         </button>
+        <div className="cozy-dock-side">
+          <button type="button" className="cozy-dock-mini" onClick={takePhoto} aria-label="好友">
+            <CozyIcon id="friends" alt="" />
+          </button>
+          <button type="button" className="cozy-dock-mini" onClick={openJournal} aria-label="活动">
+            <CozyIcon id="calendar" alt="" />
+          </button>
+        </div>
       </footer>
 
       {farm.harvestBurstId > 0 && (

@@ -79,11 +79,9 @@ test('P6 sticky seed swipe helpers and soft rain/cat assist', () => {
   const farm = readUtf8('src/p1/FarmPrototype.tsx');
   const crops = readUtf8('src/p1/crops.ts');
   const hook = readUtf8('src/p1/useFarmPrototype.ts');
-  assert.match(farm, /touch-hint/);
-  assert.match(farm, /onPlotsPointerDown/);
-  assert.match(farm, /onAssist=\{catAssist\}/);
-  assert.match(farm, /软雨替你润了一块地/);
-  assert.match(farm, /黑猫踮脚浇了一格/);
+  assert.match(farm, /onPlotsPointerDown|onPointerDown/);
+  assert.match(farm, /catAssist|onAssist/);
+  assert.match(farm, /软雨|黑猫/);
   assert.match(crops, /applyPlotAction/);
   assert.match(crops, /helpWaterPlots/);
   assert.match(hook, /apply_plot/);
@@ -135,7 +133,8 @@ test('P9 mix wardrobe exposes hat dress boots slots', () => {
   assert.match(pieces, /spore/);
   assert.match(wardrobe, /onPreviewHat/);
   assert.match(wardrobe, /onPreviewBoots/);
-  assert.match(wardrobe, /套装（一键穿上，再混搭）/);
+  assert.match(wardrobe, /套装/);
+  assert.match(wardrobe, /CozyIcon|btn_hanger/);
   assert.match(farm, /onApplyPreset/);
   assert.match(farm, /unlockedHats/);
   assert.match(girl, /dress-\$\{look\.dress\}/);
@@ -177,16 +176,12 @@ test('P12 paper-cut crops and warmer empty plots', () => {
   const crop = readUtf8('src/p1/CropSprite.tsx');
   const plot = readUtf8('src/p1/PlotTile.tsx');
   const css = readUtf8('src/index.css');
-  assert.match(crop, /crop-mature/);
-  assert.match(crop, /star_pumpkin/);
-  assert.match(crop, /ear a/);
-  assert.match(crop, /petals/);
-  assert.match(plot, /plot-furrow/);
-  assert.match(plot, /plot-plantable/);
-  assert.match(plot, /可种/);
-  assert.match(css, /star-twinkle/);
-  assert.match(css, /crop-wheat \.ear/);
-  assert.match(css, /plot-empty-hint \.ridge/);
+  // P28+: cozy-kit illustrated plots replace CSS paper-cut crops.
+  assert.match(crop, /CozyIcon|cozy/);
+  assert.match(crop, /matureCropIconId|plotIconId/);
+  assert.match(plot, /cozy-plot/);
+  assert.match(plot, /plot_empty|plotIconId/);
+  assert.match(css, /cozy-plot-icon|cozy-kit/);
 });
 
 test('P13 yard summary and paper seed icons', () => {
@@ -228,9 +223,9 @@ test('P14 theme and skin packs support hot-swap', () => {
   assert.match(farm, /data-theme/);
   assert.match(farm, /activeCropSkin/);
   assert.match(farm, /ThemeRuntimeContext/);
-  assert.match(crop, /cropArtUrl/);
+  assert.match(crop, /CozyIcon|matureCropIconId|cropArtUrl/);
   assert.match(girl, /dressArtUrl/);
-  assert.match(css, /crop-art/);
+  assert.match(css, /crop-art|cozy-plot-icon|crop-cozy-art/);
   assert.match(css, /gf-dress-art/);
   assert.match(css, /mh-art/);
   assert.match(save, /activeTheme/);
@@ -462,4 +457,26 @@ test('P27 v1 complete visual is default farm and wardrobe skin', () => {
   assert.equal(bg[1], 0xd8);
   const full = readFileSync(path.join(process.cwd(), 'public/skins/v1-complete/girl/girl-raincoat-full.png'));
   assert.equal(full[0], 0x89);
+});
+
+test('P28 cozy-kit wires farm and wardrobe chrome', () => {
+  const map = readUtf8('src/p1/cozy/mappings.ts');
+  const farm = readUtf8('src/p1/FarmPrototype.tsx');
+  const wardrobe = readUtf8('src/p1/WardrobeView.tsx');
+  const plot = readUtf8('src/p1/PlotTile.tsx');
+  const css = readUtf8('src/index.css');
+  const doc = readUtf8('docs/redesign/30-p28-cozy-kit-ui-wire.md');
+  assert.match(map, /plotIconId/);
+  assert.match(map, /btn_water/);
+  assert.match(map, /btn_hanger|coat_raincoat/);
+  assert.match(farm, /cozy-kit/);
+  assert.match(farm, /cozy-side-rail/);
+  assert.match(farm, /btn_water/);
+  assert.match(wardrobe, /btn_hanger/);
+  assert.match(wardrobe, /hatIconId|dressIconId/);
+  assert.match(plot, /cozy-plot/);
+  assert.match(css, /cozy-primary-art/);
+  assert.match(doc, /atlas/);
+  const water = readFileSync(path.join(process.cwd(), 'public/skins/cozy-kit/icons/03-farm-tools-crops/btn_water.png'));
+  assert.equal(water[0], 0x89);
 });

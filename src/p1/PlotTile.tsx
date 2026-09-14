@@ -1,4 +1,5 @@
-import {CropSprite} from './CropSprite';
+import {CozyIcon} from './cozy/CozyIcon';
+import {plotIconId} from './cozy/mappings';
 import {CROPS} from './crops';
 import type {CropId, GrowthStage} from './types';
 
@@ -34,12 +35,17 @@ export function PlotTile({
         ? `${CROPS[cropId].name} ${Math.round(progress * 100)}%`
         : '地块';
 
+  const iconId = plotIconId(stage, watered, cropId);
+  const status =
+    stage === 'empty' ? '空地' : stage === 'mature' ? '可收获' : `${Math.round(progress * 100)}%`;
+
   return (
     <button
       type="button"
       data-plot-id={id}
       className={[
         'plot-tile',
+        'cozy-plot',
         watered ? 'is-watered' : 'is-dry',
         selected ? 'is-selected' : '',
         stage === 'empty' ? 'is-empty' : '',
@@ -52,17 +58,8 @@ export function PlotTile({
       aria-pressed={selected}
       onClick={() => onSelect(id)}
     >
-      <div className="plot-soil">
-        <span className="plot-furrow" aria-hidden />
-        {cropId && stage !== 'empty' ? (
-          <CropSprite cropId={cropId} stage={stage} />
-        ) : (
-          <span className="plot-empty-hint" aria-hidden>
-            <i className="ridge a" />
-            <i className="ridge b" />
-            <i className="ridge c" />
-          </span>
-        )}
+      <div className="plot-soil cozy-plot-art">
+        <CozyIcon id={iconId} className="cozy-plot-icon" alt="" />
         {fx && (
           <span key={fxKey} className={`plot-fx plot-fx-${fx}`} aria-hidden>
             {fx === 'water' && (
@@ -83,12 +80,7 @@ export function PlotTile({
           </span>
         )}
       </div>
-      {stage === 'mature' && <span className="plot-ready-dot" />}
-      {stage === 'empty' && selected && (
-        <span className="plot-plantable" aria-hidden>
-          可种
-        </span>
-      )}
+      <span className={`cozy-plot-tag${stage === 'mature' ? ' is-ready' : ''}`}>{status}</span>
     </button>
   );
 }

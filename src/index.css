@@ -2951,3 +2951,220 @@ button {
 .p1-shell.skin-v1-complete .daily-tip {
   background: rgba(255, 248, 236, 0.94);
 }
+
+/* ===== Cozy-kit 1:1 mockup chrome (real icon atlas) ===== */
+.p1-shell.cozy-kit {
+  --cozy-cream: #fff6e8;
+  --cozy-ink: #5a4030;
+}
+
+.cozy-hud-icon,
+.cozy-chip-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cozy-side-rail {
+  position: absolute;
+  top: 58%;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+.cozy-side-left { left: 8px; transform: translateY(-50%); }
+.cozy-side-right { right: 8px; transform: translateY(-50%); }
+
+.cozy-rail-btn {
+  pointer-events: auto;
+  width: 58px;
+  border: none;
+  background: rgba(255, 248, 236, 0.92);
+  border-radius: 16px;
+  box-shadow: 0 3px 0 rgba(180, 130, 70, 0.2);
+  padding: 6px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: var(--cozy-ink, #5a4030);
+  font-size: 11px;
+  font-weight: 700;
+}
+.cozy-rail-btn img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.plot-tile.cozy-plot {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  overflow: visible;
+}
+.cozy-plot-art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: transparent !important;
+}
+.cozy-plot-icon,
+.crop-cozy-art,
+.seed-cozy-art {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 0 rgba(90, 60, 30, 0.12));
+  pointer-events: none;
+}
+.cozy-plot-tag {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.92);
+  font-size: 11px;
+  font-weight: 700;
+  color: #6a4a32;
+}
+.cozy-plot-tag.is-ready {
+  background: #dff5c8;
+  color: #3f6b2a;
+}
+.plot-tile.cozy-plot.is-selected .cozy-plot-art {
+  outline: 3px solid rgba(245, 170, 70, 0.9);
+  outline-offset: 2px;
+  border-radius: 18px;
+}
+
+.p1-shell.cozy-kit .p1-plots {
+  background: rgba(255, 248, 236, 0.55);
+  border-radius: 22px;
+  padding: 10px;
+  gap: 8px;
+  box-shadow: 0 10px 24px rgba(90, 60, 30, 0.12);
+}
+
+.seed-icon.has-cozy {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+}
+.seed-cozy-art {
+  width: 100%;
+  height: 100%;
+}
+
+.cozy-dock {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.cozy-primary {
+  min-height: 64px;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+  overflow: visible;
+  justify-self: center;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.cozy-primary.is-equipped {
+  opacity: 0.55;
+}
+.cozy-primary-art {
+  width: min(100%, 280px);
+  height: 64px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 0 rgba(200, 130, 40, 0.28));
+}
+.cozy-primary-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: min(100%, 220px);
+  min-height: 56px;
+  padding: 8px 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe08a, #f5b94a);
+  box-shadow: 0 4px 0 rgba(200, 130, 40, 0.35);
+  color: #5a4030;
+  font-weight: 800;
+  font-size: 18px;
+}
+.cozy-primary-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+.cozy-dock-side {
+  display: flex;
+  gap: 8px;
+}
+.cozy-dock-mini {
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 16px;
+  background: rgba(255, 248, 236, 0.95);
+  box-shadow: 0 3px 0 rgba(180, 130, 70, 0.18);
+  display: grid;
+  place-items: center;
+}
+.cozy-dock-mini img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.p2-wardrobe.cozy-kit .cozy-look-line {
+  text-align: center;
+  opacity: 0.85;
+  font-size: 13px;
+}
+.p2-wardrobe.cozy-kit .outfit-thumb.cozy-thumb,
+.outfit-thumb.cozy-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  background: transparent;
+  border-radius: 12px;
+}
+.p2-wardrobe.cozy-kit .cozy-primary-art {
+  width: min(100%, 260px);
+  height: 58px;
+}
+.p2-wardrobe.cozy-kit .wardrobe-dock {
+  grid-template-columns: 1fr;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 380px) {
+  .cozy-rail-btn { width: 50px; font-size: 10px; }
+  .cozy-rail-btn img { width: 28px; height: 28px; }
+  .cozy-dock-mini { width: 44px; height: 44px; }
+}
