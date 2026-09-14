@@ -2725,18 +2725,35 @@ button {
 }
 
 /* ===== P27 v1-complete north-star skin ===== */
-/* Full-bleed farm vista on the shell (not just the sky strip). */
-.p1-shell.has-farm-bg {
-  background-image: var(--farm-bg-image);
+/* Dedicated layer beats atm-* shell gradients. */
+.farm-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #e8f0d8;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
-  background-color: #e8f0d8;
+}
+.p1-shell.has-farm-bg,
+.p1-shell.has-farm-bg.atm-clear,
+.p1-shell.has-farm-bg.atm-soft-rain,
+.p1-shell.has-farm-bg.atm-dusk {
+  background-color: #e8f0d8 !important;
+  background-image: none !important;
 }
 .p1-shell.has-farm-bg .p1-sky {
   background: transparent !important;
   inset: 0;
   opacity: 1;
+  z-index: 1;
+}
+.p1-shell.has-farm-bg .p1-topbar,
+.p1-shell.has-farm-bg .p1-stage,
+.p1-shell.has-farm-bg .p1-dock {
+  position: relative;
+  z-index: 2;
 }
 .p1-shell.has-farm-bg.atm-soft-rain .p1-sky,
 .p1-shell.has-farm-bg.atm-dusk .p1-sky,
@@ -2755,10 +2772,24 @@ button {
   opacity: 0.28;
 }
 
+.wardrobe-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
 .p1-shell.has-wardrobe-bg .p2-wardrobe {
-  background:
-    linear-gradient(180deg, rgba(255, 248, 236, 0.18) 0%, rgba(255, 248, 236, 0.55) 55%, rgba(255, 248, 236, 0.88) 100%),
-    var(--wardrobe-bg-image) center top / cover no-repeat !important;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 236, 0.12) 0%,
+    rgba(255, 248, 236, 0.42) 48%,
+    rgba(255, 248, 236, 0.9) 100%
+  ) !important;
 }
 .p1-shell.has-wardrobe-bg .wardrobe-stage {
   background: transparent;

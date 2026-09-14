@@ -760,6 +760,13 @@ export function FarmPrototype() {
             : {}),
         }}
       >
+        {wardrobeBgArtUrl(theme) ? (
+          <div
+            className="wardrobe-bg-layer"
+            aria-hidden
+            style={{backgroundImage: `url("${wardrobeBgArtUrl(theme)}")`}}
+          />
+        ) : null}
         <WardrobeView
           equipped={look}
           preview={preview}
@@ -803,6 +810,13 @@ export function FarmPrototype() {
   return (
     <ThemeRuntimeContext.Provider value={runtimeValue}>
     <div {...shellProps}>
+      {farmBg ? (
+        <div
+          className="farm-bg-layer"
+          aria-hidden
+          style={{backgroundImage: `url("${farmBg}")`}}
+        />
+      ) : null}
       <div className="p1-sky is-breathing" aria-hidden>
         <div className="p1-westlake">
           <div className="wl-pagoda" />
